@@ -1,9 +1,38 @@
-const express = require ('express');
+const express = require('express');
+// import 'body-parser';
+// import 'path';
+// import 'mysql';
+// import {commandLineHandler} from './mode.js';
+// const port = '3000';
+
 const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql');
-const { append } = require('express/lib/response');
+const mode = require('./mode.js');
 const port = '3000';
+
+// MODE SELECT ---------------------------------------------------------------
+selectMode();
+
+// COMMAND LINE ARGUEMENTS ---------------------------------------------------
+// let args = process.argv[2];
+// if(process.argv.length > 2) {
+//     switch (val) {
+//         case '-demo':
+//             //runDemoMode();
+//         break;
+//         case '-dedicated':
+//             //runDedicatedMode();
+//             break;
+//         case '':
+
+        
+//         default:
+//             console.log('No mode specified. Running default...');
+//             //runDedicatedMode();
+//     }
+// }
+
 
 // SERVER STARTUP ------------------------------------------------------------
 //create express server
@@ -42,6 +71,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"));
 });
 
+//get full list of orders
 app.get('/order-list', (req, res) => {
     let sql = 'SELECT * from orders';
     res.send(
@@ -51,3 +81,5 @@ app.get('/order-list', (req, res) => {
         })
     );
 });
+
+//add tapeworm
