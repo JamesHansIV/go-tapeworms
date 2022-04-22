@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use((req,res,next) => {
     res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers","*");
     next();
 });
 
@@ -34,9 +34,16 @@ const db = mysql.createConnection({
 db.connect((err) => {
     if(err) console.log('Error: ', err.message);
     else console.log('Connected to database...');
+
 })
 
-// SQL QUERIES ----------------------------------------------------------------
+// db.query('select * from orders', (err, result) => {
+//     if(err) throw err;
+//     console.log(result);
+//     console.log(result[0].name);
+// });
+
+// END Points ----------------------------------------------------------------
 //home
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"));
@@ -44,10 +51,17 @@ app.get('/', (req, res) => {
 
 app.get('/order-list', (req, res) => {
     let sql = 'SELECT * from orders';
-    res.send(
-        db.query(sql, (err, result) => {
-            if(err) throw err;
-            console.log('Getting list of orders');
-        })
-    );
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        console.log(result[0].name);
+        res.send(JSON.stringify(result));
+    });
+    
+    // res.send(
+    //     db.query(sql, (err, result) => {
+    //         if(err) throw err;
+    //         console.log('Getting list of orders');
+    //     })
+    // );
 });
