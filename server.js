@@ -64,13 +64,7 @@ db.connect((err) => {
     if(err) console.log('Error: ', err.message);
     else console.log('Connected to database...');
 
-})
-
-// db.query('select * from orders', (err, result) => {
-//     if(err) throw err;
-//     console.log(result);
-//     console.log(result[0].name);
-// });
+});
 
 // END Points ----------------------------------------------------------------
 //home
