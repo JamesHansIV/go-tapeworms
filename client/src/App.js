@@ -1,4 +1,4 @@
-import React, {useState, setState, Component} from 'react';
+import React, {useState} from 'react';
 import fetchList from './requests.js';
 import Worm from './worm.js';
 import WormGrid from './worm-grid.js';
@@ -7,8 +7,7 @@ import './App.css';
 
 function App() {
   //states
-  const [data, setData] = useState(null);
-  const [activeWorms, setActiveWorms] = useState([{}]);
+  const [activeWorms, setActiveWorms] = useState([]);
 
   
   //on page load

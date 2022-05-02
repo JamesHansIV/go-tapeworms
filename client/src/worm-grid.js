@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 class WormGrid extends React.Component {
     state = {
@@ -25,17 +26,22 @@ class WormGrid extends React.Component {
         )
     }
 
+    
+
     render() {
         return (
-            <div>
+            <div className='worm-grid'>
                 {
                     this.state.worms.map((worm) => (
-                        <li key={worm.id}>
+                        <div>
+                            <p>{"./src/img/" + worm.img_src}</p>
                             <div>
-                                <p>{worm.name}</p>
-                               {/*<img src={'/img/'+ worm.img_src}></img> */}
+                                {worm.name}<br/>
+                                <img url={"./src/img/" + worm.img_src}/>
+
                             </div>
-                        </li>
+                            {/*<img src={'/img/'+ worm.img_src}></img> */}
+                        </div>
                     ))
                 }
             </div>
