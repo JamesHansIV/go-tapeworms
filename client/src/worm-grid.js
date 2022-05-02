@@ -33,6 +33,7 @@ class WormGrid extends React.Component {
                         <li key={worm.id}>
                             <div>
                                 <p>{worm.name}</p>
+                               {/*<img src={'/img/'+ worm.img_src}></img> */}
                             </div>
                         </li>
                     ))
