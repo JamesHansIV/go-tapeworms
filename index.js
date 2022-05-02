@@ -2,7 +2,6 @@ const domain = 'localhost:3000';
 
 // EVENT LISTENERS
 // button
-console.log(document.getElementById('list-btn').innerHTML);
 document.getElementById('list-btn').addEventListener('click', () => {
     let orders = fetchList();
     for(let i = 0; i < orders.length; i++) {

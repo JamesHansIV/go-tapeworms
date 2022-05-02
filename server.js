@@ -79,6 +79,7 @@ app.get('/order-list', (req, res) => {
         if(err) throw err;
         console.log(result);
         console.log(result[0].name);
+        console.log(result[1].name);
         res.send(JSON.stringify(result));
     }); 
 });
