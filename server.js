@@ -77,10 +77,13 @@ app.get('/order-list', (req, res) => {
     let sql = 'SELECT * from orders';
     db.query(sql, (err, result) => {
         if(err) throw err;
-        console.log(result);
-        console.log(result[0].name);
-        console.log(result[1].name);
-        res.send(JSON.stringify(result));
+
+        let data = JSON.parse(JSON.stringify(result)); //converts rowdatapacket to string then parses the string to json
+        console.log(data);
+        //console.log(result);
+        //console.log(result[0].name);
+        //console.log(result[1].name);
+        res.json(data);
     }); 
 });
 

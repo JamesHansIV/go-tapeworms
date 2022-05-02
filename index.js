@@ -12,8 +12,7 @@ document.getElementById('list-btn').addEventListener('click', () => {
 });
 
 fetchList = async () => {
-    const response = await fetch('/order-list');
-    console.log('fetchlist: ',response);
-    console.log(JSON.parse(JSON.stringify(response)));
-    return response;
+    await fetch('/order-list')
+        .then(response=>response.json())
+        .then(data=>console.log(data));
 }
