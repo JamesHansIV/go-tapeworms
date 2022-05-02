@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql');
 const mode = require('./mode.js');
-const port = '3000';
+const port = '3001';
 
 // MODE SELECT ---------------------------------------------------------------
 selectMode();
@@ -70,6 +70,11 @@ db.connect((err) => {
 //home
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"));
+});
+
+//test
+app.get('/test', (req, res) => {
+    res.json({ message: "Howdy! This is a test endpoint!" });
 });
 
 //get full list of orders

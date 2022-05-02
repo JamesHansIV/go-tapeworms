@@ -1,4 +1,4 @@
-const domain = 'localhost:3000';
+//const domain = 'localhost:3000';
 
 // EVENT LISTENERS
 // button
