@@ -1,25 +1,36 @@
-import React from 'react';
-
-import logo from './logo.svg';
+import React, {useState, setState, Component} from 'react';
+import fetchList from './requests.js';
+import Worm from './worm.js';
+import WormGrid from './worm-grid.js';
 import './App.css';
+
 
 function App() {
   //states
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState(null);
+  const [activeWorms, setActiveWorms] = useState([{}]);
 
+  
+  //on page load
   React.useEffect(() => {
-    fetch("/test")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
+    //get all worms from db and add them to the array of active worm
+
+    //setActiveWorms((activeWorms) => activeWorms.concat(JSON.stringify(fetchList())));
+    console.log(JSON.stringify(fetchList()));
+    //fetchList();
   }, []);
 
+  console.log('worms 0',activeWorms[0]);
+
   return (
-    <div className="App">
+    <div className="Go-Tapeworms-client">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h2>GO TAPEWORMS</h2>
         <p>
-          {!data ? "loading data..." : data}
+          {!activeWorms ? "getting worm data..." : "worms: " + activeWorms[0]}
         </p>
+        <Worm></Worm>
+        <WormGrid></WormGrid>
       </header>
     </div>
   );
