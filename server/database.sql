@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS orders (
     num_bothridia int DEFAULT NULL,
     num_suckers int DEFAULT NULL,
     parasite_of varchar(40) NOT NULL, -- what this tapeworm is a parasite of
-    apical_organ_color varchar(30) DEFAULT NULL -- color of apical organ
+    apical_organ_color varchar(30) DEFAULT NULL, -- color of apical organ
+    img_src varchar(75)
 );
 
 -- create apical organ table
@@ -20,9 +21,9 @@ CREATE TABLE IF NOT EXISTS orders (
 -- create scolex table
 
 -- create demo tapeworms
-insert ignore into orders (name,min_length,max_length,min_testes,max_testes,num_bothria,num_bothridia,num_suckers,parasite_of,apical_organ_color)
-values  ('Diphyllidea',NULL,2,5,10,2,NULL,NULL,'stingrays',NULL),
-        ('Seussapex',5,NULL,9,20,NULL,NULL,4,'stingrays','orange'),
-        ('New Genus',NULL,2,6,6,0,0,4,'eagle rays','purple'),
-        ('Onchoproteocephalidea',10,NULL,50,65,0,4,0,'sharks',NULL)
+insert ignore into orders (name,min_length,max_length,min_testes,max_testes,num_bothria,num_bothridia,num_suckers,parasite_of,apical_organ_color,img_src)
+values  ('Diphyllidea',NULL,2,5,10,2,NULL,NULL,'stingrays',NULL,'Diphyllidea.bmp'),
+        ('Seussapex',5,NULL,9,20,NULL,NULL,4,'stingrays','orange','Seussapex.bmp'),
+        ('New Genus',NULL,2,6,6,0,0,4,'eagle rays','purple','New Genus.bmp'),
+        ('Onchoproteocephalidea',10,NULL,50,65,0,4,0,'sharks',NULL,'Onchoproteocephalidea.bmp')
 on DUPLICATE KEY UPDATE name = Values(name);
