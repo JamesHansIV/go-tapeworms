@@ -4,7 +4,7 @@ import '../App.css';
 
 
 
-function FilterBox(props) {
+function FilterBox() {
     const [minLength, setMinLength] = useState(0);
     const [maxLength, setMaxLength] = useState(25);
     const [minTestes, setMinTestes] = useState(0);
