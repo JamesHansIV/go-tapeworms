@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import fetchList from './requests.js';
 import Worm from './worm.js';
-import WormGrid from './worm-grid.js';
+import WormGrid from './components/worm-grid.js';
 import './App.css';
 
 
