@@ -28,8 +28,9 @@ function App() {
         {/* <p>
           {!activeWorms ? "getting worm data..." : "worms: " + activeWorms[0]}
         </p> */}
-        <WormGrid></WormGrid>
+        
       </header>
+      <WormGrid id='grid'></WormGrid>
       <FilterBox/>
     </div>
   );
