@@ -25,6 +25,9 @@
 
 .worm-grid {
   background-color: rgb(1, 56, 38);
+  color: white;
+  font-size: large;
+  padding: 20px;
   display:grid;
   grid-template-columns: repeat(4,minmax(200px,1fr));
   grid-gap: 10px;
