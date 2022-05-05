@@ -9,14 +9,15 @@ function FilterBox() {
     const [maxLength, setMaxLength] = useState(25);
     const [minTestes, setMinTestes] = useState(0);
     const [maxTestes, setMaxTestes] = useState(65);
-    const [scolexFt, setScolexFt] = useState('');
-    const [parasiteOf, setParasite] = useState('');
+    const [scolexFt, setScolexFt] = useState('bothria');
+    const [parasiteOf, setParasite] = useState('unknown');
     const [hasApOrg, setHasApOrg] = useState(null);
 
     const handleApplyFilter = () => {
-        //clear filters
-        sessionStorage.clear();
+        storeFilters();
+    }
 
+    const storeFilters = () => {
         //convert filters to json
         const filters = {
             minLength: minLength,
@@ -45,7 +46,7 @@ function FilterBox() {
             </label><br/><br/>
 
             &#8195;Scolex Features<br/>
-            &#8195;&#8195;<input id='bothria-radio' type='radio' name='scolex-feature' value='bothria' onChange={e=>setScolexFt(e.target.value)}/><label htmlFor='bothria-radio'>Bothria</label>
+            &#8195;&#8195;<input id='bothria-radio' type='radio' name='scolex-feature' value='bothria' checked={true} onChange={e=>setScolexFt(e.target.value)}/><label htmlFor='bothria-radio'>Bothria</label>
             &#8195;&#8195;<input id='bothridia-radio' type='radio' name='scolex-feature' value='bothridia' onChange={e=>setScolexFt(e.target.value)}/><label htmlFor='bothridia-radio'>Bothridia</label>
             &#8195;&#8195;<input id='suckers-radio' type='radio' name='scolex-feature' value='suckers' onChange={e=>setScolexFt(e.target.value)}/><label htmlFor='suckers-radio'>Suckers</label>
             &#8195;&#8195;<input id='scolex-unkown-radio' type='radio' name='scolex-feature' value='unkown' onChange={e=>setScolexFt(e.target.value)}/><label htmlFor='scolex-unkown-radio'>Unkown</label>
@@ -65,7 +66,10 @@ function FilterBox() {
 
             &#8195;<input id='apply-btn' type='button' value='Apply Filter' onClick={handleApplyFilter}/>
             &#8195;<input id='reset-btn' type='button' value='Reset Filter'/>
+
+            <script {...storeFilters()}/>
         </div>
+        
     )
 
 }

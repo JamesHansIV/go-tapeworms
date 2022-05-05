@@ -7,7 +7,6 @@ import './App.css';
 
 function App() {
   //states
-  const [activeWorms, setActiveWorms] = useState([]);
 
   
   //on page load
@@ -15,11 +14,9 @@ function App() {
     //get all worms from db and add them to the array of active worm
 
     //setActiveWorms((activeWorms) => activeWorms.concat(JSON.stringify(fetchList())));
-    console.log(JSON.stringify(fetchList()));
     //fetchList();
   }, []);
 
-  console.log('worms 0',activeWorms[0]);
 
   return (
     <div className="Go-Tapeworms-client">
