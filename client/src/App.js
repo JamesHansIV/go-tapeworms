@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import fetchList from './requests.js';
-import Worm from './worm.js';
 import WormGrid from './components/worm-grid.js';
+import FilterBox from './components/filter-box.js';
 import './App.css';
 
 
@@ -25,12 +25,12 @@ function App() {
     <div className="Go-Tapeworms-client">
       <header className="App-header">
         <h2>GO TAPEWORMS</h2>
-        <p>
+        {/* <p>
           {!activeWorms ? "getting worm data..." : "worms: " + activeWorms[0]}
-        </p>
-        <Worm></Worm>
+        </p> */}
         <WormGrid></WormGrid>
       </header>
+      <FilterBox/>
     </div>
   );
 }
