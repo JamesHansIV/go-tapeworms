@@ -30,10 +30,10 @@ class WormGrid extends React.Component {
 
     render() {
         return (
-            <div className='worm-grid'>
+            <div className='worm-grid' >
                 {
                     this.state.worms.map((worm) => (
-                        <div>
+                        <div key={worm.id}>
                             <p>{"./src/img/" + worm.img_src}</p>
                             <div>
                                 {worm.name}<br/>
