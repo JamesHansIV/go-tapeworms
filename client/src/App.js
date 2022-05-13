@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import fetchList from './requests.js';
+import React from 'react';
+//import fetchList from './requests.js';
 import WormGrid from './components/worm-grid.js';
 import FilterBox from './components/filter-box.js';
 import './App.css';
