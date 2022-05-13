@@ -1,55 +1,75 @@
 import React, {useState, useEffect} from 'react';
-import {filterLength} from '../filters.js';
+import * as filtering from '../filters.js';
 import '../App.css';
 
 function WormGrid() {
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    //const [isLoaded, setIsLoaded] = useState(false);
+    const [firstRender, setFirstRender] = useState(true);
     const [worms, setWorms] = useState([]);
-    const [active, setActive] = useState([]);
+    const [filteredWorms, setFilteredWorms] = useState([]);
+    const applyFilterBtn = document.getElementById('apply-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    //const [active, setActive] = useState([]);
 
-    useEffect(() => {
-        fetchWorms();
-        
-    }, [])
 
     const fetchWorms = async () => {
         await fetch('/order-list')
             .then(response=>response.json())
             .then(data=> {
                     console.log('worms set');
-                    setIsLoaded(true);
+                   // setIsLoaded(true);
                     setWorms(data);
-                    setActive(data);
-                    console.log('fetch',worms);
+                    setFilteredWorms(data);
                 }, (err) => {
                     console.log("worm loading error: ",err);
-                    setIsLoaded(true);
-                    setError(err)
+                    //setIsLoaded(true);
                 }
             )
     }
 
+    //USE EFFECT
+    useEffect(() => {
+        //fetchWorms();
+        if(firstRender) {
+            console.log("first render");
+            fetchWorms(); //get list of all worms & set filtered worms
+            setFirstRender(false); //set first render false
+        } else {
+            console.log("2nd+ render");
+            console.log("worms",worms);
+            console.log("filteredList",filteredWorms);
+            applyFilterBtn.addEventListener('click',applyFilters);
+            resetBtn.addEventListener('click',resetFilters);
+        }
+
+    }, [filteredWorms])
+
+    
+
     const setSessionStorage = () => {
         sessionStorage.setItem('worms',JSON.stringify(worms));
-       // applyFilters();
+        applyFilters();
+    }
+
+    const resetFilters = () => {
+        setFilteredWorms(worms);
     }
 
     const applyFilters = () => {
         console.log("filters called");
-        let results = [];
+        let results = filteredWorms;
 
         let filters = JSON.parse(sessionStorage.getItem('filters'));
-        console.log(filters.scolexFt);
-        switch(filters.scolexFt) {
-            case 'bothria':
-                results = worms.filter(worm => worm.num_bothria != null);
-                console.log('results',results);
-                setActive(results);
-                break;      
-        }
-
+        console.log("apical filter",filters.minLength,filters.maxLength);
         
+        //filter worms
+        results = filtering.filterScolex(results, filters.scolexFt);        //scolex
+        results = filtering.filterParasiteOf(results,filters.parasiteOf);   //parasite of
+        results = filtering.filterApicalOrgan(results,filters.hasApOrg);
+        results = filtering.filterLength(results,filters.minLength,filters.maxLength);
+        results = filtering.filterTestes(results,filters.minTestes,filters.maxTestes);
+        console.log('results',results);
+        setFilteredWorms(results);
     }
     
 
@@ -57,20 +77,21 @@ function WormGrid() {
         <div className='worm-grid'>
             
             {
-                worms.filter(test => test.num_bothria != null).map((worm) => (
+                // worms.filter(test => test.num_bothria != null).map((worm)
+                filteredWorms.map((worm) => (
                     <div key={worm.id}>
                         <p>{"./src/img/" + worm.img_src}</p>
                         <div>
                             {worm.name}<br/>
-                            <img url={"./src/img/" + worm.img_src}/>
+                            {/* <img url={"./src/img/" + worm.img_src}/> */}
 
                         </div>
                         {/*<img src={'/img/'+ worm.img_src}></img> */}
                     </div>
                 ))
             }
-            <p>Worms {worms.length}     Active {active.length}</p>
-            <script {...setSessionStorage()}/>
+            <p>Total Worms {worms.length} in Database<br/>Displaying {filteredWorms.length} worms</p>
+            {/* <script {...setSessionStorage()}/> */}
         </div>
         
     );
