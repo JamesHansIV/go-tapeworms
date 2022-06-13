@@ -17,7 +17,7 @@ function WormGrid() {
             .then(response=>response.json())
             .then(data=> {
                     console.log('worms set');
-                   // setIsLoaded(true);
+                    // setIsLoaded(true);
                     setWorms(data);
                     setFilteredWorms(data);
                 }, (err) => {
@@ -55,21 +55,22 @@ function WormGrid() {
         setFilteredWorms(worms);
     }
 
-    const applyFilters = () => {
+    const applyFilters = async () => {
         console.log("filters called");
-        let results = filteredWorms;
 
-        let filters = JSON.parse(sessionStorage.getItem('filters'));
-        console.log("apical filter",filters.minLength,filters.maxLength);
-        
-        //filter worms
-        results = filtering.filterScolex(results, filters.scolexFt);        //scolex
-        results = filtering.filterParasiteOf(results,filters.parasiteOf);   //parasite of
-        results = filtering.filterApicalOrgan(results,filters.hasApOrg);
-        results = filtering.filterLength(results,filters.minLength,filters.maxLength);
-        results = filtering.filterTestes(results,filters.minTestes,filters.maxTestes);
-        console.log('results',results);
-        setFilteredWorms(results);
+        //get filters from session storage
+        let filters = sessionStorage.getItem('filters');
+
+        //fetch list of filtered worms from mysql database
+        await fetch('/filter-list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: filters
+        })
+        .then(response=>response.json())
+        .then(data=>setFilteredWorms(data))
     }
     
 
