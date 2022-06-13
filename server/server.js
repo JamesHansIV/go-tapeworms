@@ -41,8 +41,9 @@ app.use(express.static(path.join(__dirname,"/")));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use((req,res,next) => {
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Headers","*");
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Headers','*');
+    res.header('Access-Control-Allow-Methods','POST');
     next();
 });
 
@@ -88,3 +89,28 @@ app.get('/order-list', (req, res) => {
     }); 
 });
 
+//filters list of worms returns json of filtered list
+app.post('/filter-list',(req,res)=> {
+    console.log('req body,' , req.body);
+
+    //create sql query
+    //set query conditions 
+    let conditions = `
+        (min_length >= ${req.body.minLength} OR min_length IS NULL) AND
+        (max_length <= ${req.body.maxLength} OR max_length IS NULL) AND
+        (min_testes >= ${req.body.minTestes} AND max_testes <= ${req.body.maxTestes}) AND
+        (parasite_of = '${req.body.parasiteOf}' OR '${req.body.parasiteOf}' = 'unknown');`;
+    
+
+    let sql = 'SELECT * FROM orders WHERE ' + conditions;
+    console.log('query',sql)    
+    
+    //run query
+    db.query(sql,(err,result) => {
+        if(err) throw err;
+        let data = JSON.parse(JSON.stringify(result));
+        console.log('query result\n\t',data)
+        res.json(data)
+
+    });
+});
