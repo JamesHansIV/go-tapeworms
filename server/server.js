@@ -37,6 +37,7 @@ selectMode();
 // SERVER STARTUP ------------------------------------------------------------
 //create express server
 const app = express();
+app.use('/img',express.static('img'));
 app.use(express.static(path.join(__dirname,"/")));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -109,7 +110,7 @@ app.post('/filter-list',(req,res)=> {
     db.query(sql,(err,result) => {
         if(err) throw err;
         let data = JSON.parse(JSON.stringify(result));
-        console.log('query result\n\t',data)
+        //console.log('query result\n\t',data)
         res.json(data)
 
     });
