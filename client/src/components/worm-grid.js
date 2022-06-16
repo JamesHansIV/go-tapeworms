@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import * as filtering from '../filters.js';
 import '../App.css';
 
 function WormGrid() {
@@ -55,6 +54,8 @@ function WormGrid() {
         setFilteredWorms(worms);
     }
 
+
+    //
     const applyFilters = async () => {
         console.log("filters called");
 
@@ -71,6 +72,8 @@ function WormGrid() {
         })
         .then(response=>response.json())
         .then(data=>setFilteredWorms(data))
+
+        //import path from './server'
     }
     
 
@@ -81,10 +84,11 @@ function WormGrid() {
                 // worms.filter(test => test.num_bothria != null).map((worm)
                 filteredWorms.map((worm) => (
                     <div key={worm.id}>
-                        <p>{"./src/img/" + worm.img_src}</p>
+                        <p>{"http://localhost:3001/img/" + worm.img_src}</p>
+                        
                         <div>
                             {worm.name}<br/>
-                            {/* <img url={"./src/img/" + worm.img_src}/> */}
+                            <img src={'http://localhost:3001/img/'+worm.img_src} width={80} height={100}></img>
 
                         </div>
                         {/*<img src={'/img/'+ worm.img_src}></img> */}
