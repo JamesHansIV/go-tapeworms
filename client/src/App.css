@@ -22,6 +22,22 @@
   color: #61dafb;
 }
 
+/* .grid-card-div {
+  background-color:darkcyan;
+} */
+
+.grid-card-img {
+  display:block;
+  width:80%;
+  height:100%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.grid-card-h3 {
+  text-align: center;
+}
+
 
 .worm-grid {
   background-color: rgb(1, 56, 38);

@@ -86,9 +86,9 @@ function WormGrid() {
                     <div key={worm.id}>
                         {/* 1<p>{"http://localhost:3001/img/" + worm.img_src}</p> */}
                         
-                        <div>
-                            {worm.name}<br/>
-                            <img src={'http://localhost:3001/img/'+worm.img_src} width={80} height={100}></img>
+                        <div className='grid-card-div'>
+                            <h3 className={'grid-card-h3'}>{worm.name}</h3>
+                            <img src={'http://localhost:3001/img/'+worm.img_src} className={'grid-card-img'}></img>
 
                         </div>
                         {/*<img src={'/img/'+ worm.img_src}></img> */}
