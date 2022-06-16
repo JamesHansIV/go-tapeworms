@@ -84,7 +84,7 @@ function WormGrid() {
                 // worms.filter(test => test.num_bothria != null).map((worm)
                 filteredWorms.map((worm) => (
                     <div key={worm.id}>
-                        <p>{"http://localhost:3001/img/" + worm.img_src}</p>
+                        {/* 1<p>{"http://localhost:3001/img/" + worm.img_src}</p> */}
                         
                         <div>
                             {worm.name}<br/>
