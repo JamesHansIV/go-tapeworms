@@ -56,8 +56,22 @@ function FilterBox() {
     }, [minLength,maxLength,minTestes,maxTestes,scolexFt,parasiteOf,hasApOrg]);
 
     return (
-        <div>
-            <label>&#8195;Length 
+        <div className='filter-box'>
+            <div className='filter-container'>
+                <h3>FILTERS</h3>
+            </div>
+            <br/>
+            <div className='filter-container'>
+                <h3>Scolex</h3>
+                <h4>Apical Organ</h4>
+            </div>
+
+            <div className='filter-container'>
+                <h3>Body</h3>
+
+            </div>
+
+            {/* <label>&#8195;Length 
                 <input id='length-min' type='numeric' value={minLength} onChange={(e) => setMinLength(e.target.value)}/>
                 <input id='length-max' type='numeric' value={maxLength} onChange={(e) => setMaxLength(e.target.value)}/>
             </label><br/><br/>
@@ -88,7 +102,7 @@ function FilterBox() {
             <br/><br/>
 
             &#8195;<input id='apply-btn' type='button' value='Apply Filter' onClick={handleApplyFilter}/>
-            &#8195;<input id='reset-btn' type='button' value='Reset Filter' onClick={resetFilters}/>
+            &#8195;<input id='reset-btn' type='button' value='Reset Filter' onClick={resetFilters}/> */}
 
             {/* <script {...storeFilters()}/> */}
         </div>
