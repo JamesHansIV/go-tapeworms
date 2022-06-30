@@ -91,7 +91,7 @@ app.get('/order-list', (req, res) => {
 });
 
 //filters list of worms returns json of filtered list
-app.post('/filter-list',(req,res)=> {
+app.post('/filter-genera',(req,res)=> {
     console.log('req body,' , req.body);
 
     //create sql query

@@ -63,7 +63,7 @@ function WormGrid() {
         let filters = sessionStorage.getItem('filters');
 
         //fetch list of filtered worms from mysql database
-        await fetch('/filter-list', {
+        await fetch('/filter-genera', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
