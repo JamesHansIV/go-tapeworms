@@ -16,6 +16,7 @@ import About from './pages/about';
 import './App.css';
 
 
+
 function App() {
   //states
   const [count, setCount] = useState(0);
@@ -50,10 +51,13 @@ function App() {
             <Route path='/about' component={<About/>} />
             
         </Routes> */}
-          
-    
-      <WormGrid id='grid'></WormGrid>
-      <FilterBox/>
+      
+
+      <div id='app-body' className='site-body'>
+        <FilterBox/>
+        <WormGrid id='grid'></WormGrid>
+      </div>
+      
       <button onClick={handleClick}>Counter: {count}</button>
     </div>
   );
