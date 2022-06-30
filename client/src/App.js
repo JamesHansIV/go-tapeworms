@@ -1,7 +1,18 @@
 import React,{useState} from 'react';
-//import fetchList from './requests.js';
-import WormGrid from './components/worm-grid.js';
-import FilterBox from './components/filter-box.js';
+import {BrowserRouter as Router,Routes,Route, BrowserRouter} from 'react-router-dom';
+
+//Components
+import WormGrid from './components/worm-grid';
+import FilterBox from './components/filter-box';
+import NavBar from './components/nav-bar';
+
+//Pages
+import Home from './pages/home';
+import About from './pages/about';
+// import About from './pages/about'
+// import Key from './pages/key'
+// import FurtherLearning from './pages/further-learning'
+
 import './App.css';
 
 
@@ -30,6 +41,17 @@ function App() {
         </p> */}
         
       </header>
+    
+
+      
+        <NavBar/>
+        {/* <Routes>
+            <Route exact path='/' component={<Home/>} />
+            <Route path='/about' component={<About/>} />
+            
+        </Routes> */}
+          
+    
       <WormGrid id='grid'></WormGrid>
       <FilterBox/>
       <button onClick={handleClick}>Counter: {count}</button>
