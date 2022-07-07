@@ -108,6 +108,9 @@
   text-align: center;
   display: block;
   background-color: rgb(136,157,111);
+  outline-color: rgb(120,132,106);
+  outline-style: solid;
+  outline-width: 1px;
 }
 
 .filter-container h3 {
@@ -115,13 +118,23 @@
   margin-bottom: 2px;
 }
 
-.filter-container h4 {
+.filter-container label {
+  display: inline-block;
   text-align: left;
+  font-size: 1em;
+  font-weight: bold;
   margin-top: 0px;
   margin-bottom: 0px;
-  margin-left: 13%;
+  margin-left: 0px;
+  margin-right: 35%;
   padding-top: 0px;
   padding-bottom: 6px;
+}
+
+.filter-container input {
+  float:right;
+  width:50px;
+  margin-right: 10%;
 }
 
 .filter-container p {

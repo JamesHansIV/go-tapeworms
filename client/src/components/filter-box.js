@@ -14,6 +14,8 @@ function FilterBox() {
     const [parasiteOf, setParasite] = useState('unknown');
     const [hasApOrg, setHasApOrg] = useState('null');
 
+    const [bodyLength, setBodyLength] = useState('100 mm');
+
     const handleApplyFilter = () => {
         let filters = JSON.parse(sessionStorage.getItem('filters'));
         console.log("pushed", filters);
@@ -68,8 +70,17 @@ function FilterBox() {
 
             <div className='filter-container'>
                 <h3>Body</h3>
+                <label>Length</label><input id='body-length' type='numeric' value={bodyLength} />
 
             </div>
+
+            {/* Add image representations for filter selection. ex: Do you have this host or that host
+                Show image of sharks and stingrays and user clicks one.
+                Think about how to apply this to other features */}
+
+            {/* Cloud of features for selection?*/}
+
+            {/* Filter of filters. Select  */}
 
             {/* <label>&#8195;Length 
                 <input id='length-min' type='numeric' value={minLength} onChange={(e) => setMinLength(e.target.value)}/>

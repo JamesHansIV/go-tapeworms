@@ -37,8 +37,8 @@ function WormGrid() {
             console.log("2nd+ render");
             console.log("worms",worms);
             console.log("filteredList",filteredWorms);
-            applyFilterBtn.addEventListener('click',applyFilters);
-            resetBtn.addEventListener('click',resetFilters);
+            //applyFilterBtn.addEventListener('click',applyFilters);
+            //resetBtn.addEventListener('click',resetFilters);
         }
 
     }, [filteredWorms])
