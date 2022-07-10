@@ -2,16 +2,14 @@ import React,{useState} from 'react';
 import {BrowserRouter as Router,Routes,Route, BrowserRouter} from 'react-router-dom';
 
 //Components
-import WormGrid from './components/worm-grid';
-import FilterBox from './components/filter-box';
 import NavBar from './components/nav-bar';
 
 //Pages
 import Home from './pages/home';
 import About from './pages/about';
-// import About from './pages/about'
-// import Key from './pages/key'
+import Key from './pages/key'
 // import FurtherLearning from './pages/further-learning'
+import PageNotFound from './pages/page-not-found';
 
 import './App.css';
 
@@ -36,29 +34,29 @@ function App() {
   return (
     <div className="Go-Tapeworms-client">
       <header className="App-header">
-        <h2>GO TAPEWORMS</h2>
-        {/* <p>
-          {!activeWorms ? "getting worm data..." : "worms: " + activeWorms[0]}
-        </p> */}
-        
+        <h2>GO TAPEWORMS</h2>        
       </header>
     
-
-      
-        <NavBar/>
-        {/* <Routes>
-            <Route exact path='/' component={<Home/>} />
-            <Route path='/about' component={<About/>} />
-            
-        </Routes> */}
-      
-
-      <div id='app-body' className='site-body'>
-        <FilterBox/>
-        <WormGrid id='grid'></WormGrid>
+      <div className='site-body'>
+        <Router>
+          <NavBar/>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/about" element={<About/>}/>
+            <Route path="/key" element={<Key/>}/>
+            {/* <Route path="/further_learning" element={FurtherLearning}/> */}
+            <Route path="*" element={<PageNotFound/>}/>
+          </Routes>
+        </Router>
       </div>
       
-      <button onClick={handleClick}>Counter: {count}</button>
+           
+
+      {/* <div id='app-body' className='site-body'>
+        <FilterBox/>
+        <WormGrid id='grid'/>
+      </div> */}
     </div>
   );
 }
