@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 import '../App.css';
@@ -12,20 +12,16 @@ function NavBar() {
         <div className='navbar'>
             <ul>
                 <li>
-                    <a>Home</a>
-                    {/* <Link to='/home'>Home</Link> */}
+                    <NavLink to='/home'>Home</NavLink>
                 </li>
                 <li>
-                    <a>About</a>
-                    {/* <Link to='/about'>About</Link> */}
+                    <NavLink to='/about'>About</NavLink>
                 </li>
                 <li>
-                    <a>Key</a>
-                    {/* <Link to='/key'>Key</Link> */}
+                    <NavLink to='/key'>Key</NavLink>
                 </li>
                 <li>
-                    <a>Further Learning</a>
-                    {/* <Link to='/further-learning'>Further Learning</Link> */}
+                    <NavLink to='/further-learning'>Further Learning</NavLink>
                 </li>
             </ul>
         </div>
