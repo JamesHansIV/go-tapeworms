@@ -79,6 +79,7 @@
 .site-body {
   background-color: rgb(1, 56, 38);
   padding-top: 1.5%;
+  height: 100vh;
 }
 
 .filter-box {
