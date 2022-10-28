@@ -9,14 +9,19 @@ const pw = process.argv[3];
 
 const { MongoClient } = require("mongodb");
 const url = `mongodb+srv://${user}:${pw}@cluster1.of1bayg.mongodb.net/test`
-const client = new MongoClient(url);
 
-module.exports = connectToServer = async (client) => {
+
+connectToServer = async (url) => {
+    const client = new MongoClient(url);
     await client.connect((err,db) => {
         if(err || !db ) throw err;
         connection = db.db('worms');
-        console.log('Connected to MongoDB')
+        console.log('Connected to MongoDB Cluster')
+
+        return client;
     });
 };
 
-connectToServer();
+// connectToServer(url);
+
+module.exports = { connectToServer };
