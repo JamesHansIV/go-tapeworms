@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const PORT = 5000;
+const PORT = 30001;
 
 const app = express();
 
@@ -131,9 +131,13 @@ app.get('/collection', (req, res) => {
 
     // queryRes = queryDatabase({tentacles:false});
 
-    console.log(queryDatabase({tentacles:false}))
+    // console.log(queryDatabase({tentacles:false}))
 
-    res.json(queryDatabase({tentacles: false}));
+    res.json(queryDatabase(
+        {
+            tentacles: true
+        }
+    ));
     
     // dbo.collection
 });
