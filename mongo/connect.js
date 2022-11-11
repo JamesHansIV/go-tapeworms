@@ -8,20 +8,37 @@ const user = process.argv[2];
 const pw = process.argv[3];
 
 const { MongoClient } = require("mongodb");
-const url = `mongodb+srv://${user}:${pw}@cluster1.of1bayg.mongodb.net/test`
+const url = `mongodb+srv://${user}:${pw}@cluster1.of1bayg.mongodb.net/test`;
 
+let dbConnection;
 
-connectToServer = async (url) => {
-    const client = new MongoClient(url);
-    await client.connect((err,db) => {
-        if(err || !db ) throw err;
-        connection = db.db('worms');
-        console.log('Connected to MongoDB Cluster')
+console.log(`USER: ${user}\nPASSWORD: ${pw}`);
 
-        return client;
-    });
+const client = new MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+module.exports = {
+    connectToServer: async function () {
+        try {
+            await client.connect();
+            dbConnection = await client.db("worms");
+            console.log("Connected to MongoDB: 'worms'...");
+        } catch {
+            console.log("Connection Failed! Closing Connection...");
+            await client.close();
+            console.log("Closed connection to MongoDB...");
+        }
+    },
+
+    disconnectFromServer: async function() {
+        client.close();
+        console.log("Closed connection to MongoDB...");
+    },
+
+    getDb: function() {
+        return dbConnection;
+    }
+
 };
-
-// connectToServer(url);
-
-module.exports = { connectToServer };
