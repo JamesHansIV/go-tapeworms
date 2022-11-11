@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const PORT = 30001;
+const PORT = 5000;
 
 const app = express();
 
@@ -102,54 +102,54 @@ app.listen(PORT, () => {
 
 
 // ENDPOINTS
-app.get('/', (req, res) => {
-    res.send('hello');
+// app.get('/', (req, res) => {
+//     res.send('hello');
 
-    // dbList = await dbClient.db().admin().list
+//     // dbList = await dbClient.db().admin().list
 
-    console.log(res)
+//     console.log(res)
     
-});
+// });
 
 // get collection
-app.get('/collection', (req, res) => {
+// app.get('/collection', (req, res) => {
 
-    // client.connect(url, (err, db) => {
-    //     if (err) throw err;
-    //     let dbo = db.db('worms');
-    //     let query = { acetabula_shape : "sucker-like" };    
-    //     db.collection("lecanicephalidea").find(query).toArray((err, result) => {
-    //         if (err) throw err;
-    //         console.log(result);
-    //         // db.close
-    //     });
+//     // client.connect(url, (err, db) => {
+//     //     if (err) throw err;
+//     //     let dbo = db.db('worms');
+//     //     let query = { acetabula_shape : "sucker-like" };    
+//     //     db.collection("lecanicephalidea").find(query).toArray((err, result) => {
+//     //         if (err) throw err;
+//     //         console.log(result);
+//     //         // db.close
+//     //     });
 
-    //     // res.json()
-    // })
+//     //     // res.json()
+//     // })
 
-    // console.log(queryDatabase({tentacles: false}));
+//     // console.log(queryDatabase({tentacles: false}));
 
-    // queryRes = queryDatabase({tentacles:false});
+//     // queryRes = queryDatabase({tentacles:false});
 
-    // console.log(queryDatabase({tentacles:false}))
+//     // console.log(queryDatabase({tentacles:false}))
 
-    res.json(queryDatabase(
-        {
-            tentacles: true
-        }
-    ));
+//     res.json(queryDatabase(
+//         {
+//             tentacles: true
+//         }
+//     ));
     
-    // dbo.collection
-});
+//     // dbo.collection
+// });
 
 // test
-app.get('/test', (req, res) => {
-    res.json({message: "this message"});
-});
+// app.get('/test', (req, res) => {
+//     res.json({message: "this message"});
+// });
 
 // view all
-app.get('/view-all', (req, res) => {
+// app.get('/view-all', (req, res) => {
 
-});
+// });
 
 
