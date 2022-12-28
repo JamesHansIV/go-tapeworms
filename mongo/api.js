@@ -1,30 +1,26 @@
 const express = require("express");
-const connect = require("./connect");
+const sanitize = require("mongo-sanitize");
 
 const routes = express.Router();
 const dbo = require("./connect");
 
-
-routes.route("/test").get(async function() {
+// get data by order
+routes.route("/worms/:order").get(async function(req, res) {
     const connection = dbo.getDb();
+    const params = req.params;
 
-    connection.connectToServer();
-});
-
-routes.route("/worms/lecanicephalidea").get(async function(req, res) {
-    const connection = dbo.getDb();
-
-    connection.collection("lecanicephalidea")
+    connection.collection(params.order)
         .find({})
         .toArray(function (err, result) {
             if (err) {
-                res.status(400).send("Error fetching lecanicephalidea!");
+                res.status(400).send(`Error fetching ${params.order}!`);
             } else {
                 res.json(result);
             }
         });
 });
 
+// get data by order and genus
 routes.route("/worms/:order/:genus").get(async function(req, res) {
     const connection = dbo.getDb();
     const params = req.params;
@@ -41,46 +37,82 @@ routes.route("/worms/:order/:genus").get(async function(req, res) {
         });
 })
 
-routes.route("/worms/").get(async function(req, res) {
+routes.route("/worms/filter").get(async function(req, res) {
     const connection = dbo.getDb();
 
+    let query = {}
+    query["$and"] = [];
+
+    let { order = "lecanicephalidea", 
+        apical_organ, 
+        tentacles,
+        proglottids_laciniations,
+        n_col_testes,
+        acetabula_shape,
+        host,
+        apolysis,
+        proglottids_margins,
+        laterally_expanded_immature_proglottids } = req.query;
     
     console.log(req.query);
 
-    let { genus = "lecanicephalidea", _species, _apolysis, _apical_organ } = req.query;
+    // build query
+    if (apical_organ != null)
+        query["$and"].push({"apical_organ" : (apical_organ === 'true')});
     
-    console.log(_apolysis);
+    if (tentacles != null)
+        query["$and"].push({"tentacles" : (tentacles === 'true')});
 
-    // connection
-    //     .collection(genus)
-    //     .find({
-    //         name: _species,
-    //         apolysis: _apolysis 
-    //     })
+    if (proglottids_laciniations != null)
+        query["$and"].push({"proglottids_laciniations" : (proglottids_laciniations === 'true')});
 
-    // const connection = dbo.getDb();
-    // const params = req.params;
+    if (n_col_testes != null) {
+        query["$and"].push({"n_col_testes.min" : { "$lte" : parseInt(n_col_testes) } });
+        query["$and"].push(
+            { "$or": [
+                {"n_col_testes.max" : { "$gte" : parseInt(n_col_testes) } },
+                {"n_col_testes.max" : null }
+            ]}
+        );
+    }
 
-    // console.log(req.params);
+    if (acetabula_shape != null)
+        query["$and"].push({"acetabula_shape" : acetabula_shape })
 
-    // // query db
-    // connection
-    //     .collection(params.genus)
-    //     .find({name: params.species})
-    //     .toArray(function (err, result) {
-    //         if (err) res.status(400).send(`Error fetching ${params.species} from ${params.genus}`);
-    //         else res.json(result);
-    //     });
-})
+    // query hosts
+    if (host != null)
+        query["$and"].push({ "host" : host });
 
-routes.route("/close").get(async function() {
-    dbo.disconnectFromServer();
+    // query apolysis
+    if (apolysis != null)
+        query["$and"].push({ "apolysis" : apolysis });
+
+    // query proglottids_margins
+    if (proglottids_margins != null)
+        query["$and"].push({ "proglottids_margins" : proglottids_margins });
+
+    // query laterally_expanded_immature_proglottids
+    if (laterally_expanded_immature_proglottids != null)
+        query["$and"].push({ "laterally_expanded_immature_proglottids" : (laterally_expanded_immature_proglottids === "true") });
+
+
+    console.log(query);
+
+    
+
+    // TO DO
+    // sanitize inputs
+
+
+    // run query
+    connection
+        .collection(order)
+        .find(query)
+        .toArray ( function (err, result) {
+            if (err) throw err;
+            else res.json(result);
+        });
 });
-
-// routes.route("/lower").get( async function(req, res) {
-//     const connection = dbo.getDb();
-//     connection.collection("lecanicephalidea").updateMany({},[{$set:{name: {$toLower: "$name"}}}])
-// })
 
 routes.route("/update/").get( async function(req, res) {
     const connection = dbo.getDb();
@@ -93,13 +125,6 @@ routes.route("/update/").get( async function(req, res) {
     if (_val && typeof(_val)==String) {_val = _val.toLowerCase();}
 
     console.log(_genus, _apolysis, _val)
-
-    // connection.collection("lecanicephalidea").updateOne(
-    //     { name: { $eq: _genus } },
-    //     // { $push: { apolysis: _apolysis } },
-    //     // { $push: { $proglottids_margins: _proglottids_margins }}
-    //     { $push: { proglottids_margins: _val, }}
-    // );
 
     connection.collection("lecanicephalidea").updateMany({},{ $rename: {"Laterally_expanded_immature_proglottids": "laterally_expanded_immature_proglottids"}});
 
