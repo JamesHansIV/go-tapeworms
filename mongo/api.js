@@ -1,7 +1,7 @@
 const express = require("express");
 const sanitize = require("mongo-sanitize");
 
-const routes = express.Router();
+const routes = express.Router({mergeParams: true});
 const dbo = require("./connect");
 
 // get data by order
@@ -37,14 +37,16 @@ routes.route("/worms/:order/:genus").get(async function(req, res) {
         });
 })
 
-routes.route("/worms/filter").get(async function(req, res) {
+
+routes.route("/worms/").get(async function(req, res) {
     const connection = dbo.getDb();
 
     let query = {}
     query["$and"] = [];
 
-    let { order = "lecanicephalidea", 
-        apical_organ, 
+    let order = "lecanicephalidea";
+
+    let { apical_organ, 
         tentacles,
         proglottids_laciniations,
         n_col_testes,
@@ -57,16 +59,23 @@ routes.route("/worms/filter").get(async function(req, res) {
     console.log(req.query);
 
     // build query
-    if (apical_organ != null)
+    if (apical_organ != null){
+        sanitize(apical_organ);
         query["$and"].push({"apical_organ" : (apical_organ === 'true')});
+    }
     
-    if (tentacles != null)
+    if (tentacles != null) {
+        sanitize(tentacles);
         query["$and"].push({"tentacles" : (tentacles === 'true')});
+    }
 
-    if (proglottids_laciniations != null)
+    if (proglottids_laciniations != null) {
+        sanitize(proglottids_laciniations);
         query["$and"].push({"proglottids_laciniations" : (proglottids_laciniations === 'true')});
+    }
 
     if (n_col_testes != null) {
+        sanitize(n_col_testes);
         query["$and"].push({"n_col_testes.min" : { "$lte" : parseInt(n_col_testes) } });
         query["$and"].push(
             { "$or": [
@@ -76,33 +85,36 @@ routes.route("/worms/filter").get(async function(req, res) {
         );
     }
 
-    if (acetabula_shape != null)
+    if (acetabula_shape != null) {
+        sanitize(acetabula_shape);
         query["$and"].push({"acetabula_shape" : acetabula_shape })
+    }
 
     // query hosts
-    if (host != null)
+    if (host != null) {
+        sanitize(host);
         query["$and"].push({ "host" : host });
+    }
 
     // query apolysis
-    if (apolysis != null)
+    if (apolysis != null) {
+        sanitize(apolysis);
         query["$and"].push({ "apolysis" : apolysis });
+    }
 
     // query proglottids_margins
-    if (proglottids_margins != null)
+    if (proglottids_margins != null) {
+        sanitize(proglottids_margins);
         query["$and"].push({ "proglottids_margins" : proglottids_margins });
+    }   
 
     // query laterally_expanded_immature_proglottids
-    if (laterally_expanded_immature_proglottids != null)
+    if (laterally_expanded_immature_proglottids != null) {
+        sanitize(laterally_expanded_immature_proglottids);
         query["$and"].push({ "laterally_expanded_immature_proglottids" : (laterally_expanded_immature_proglottids === "true") });
-
+    }
 
     console.log(query);
-
-    
-
-    // TO DO
-    // sanitize inputs
-
 
     // run query
     connection
