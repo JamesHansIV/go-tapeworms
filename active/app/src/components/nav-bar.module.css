@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.listContainer {
+    list-style: none;
+    border-top: 1px solid white;
+    margin-top:110px;
+    padding: 0px;
+}
+
+.list {
+    font-family: "Gill Sans", san-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    text-align: center;    
+    display: inline-block;
+    padding: 15px;
+    padding-top: 5px;
+}
+
+.link {
+    font-weight: 400;
+    list-style: none;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+}
+
+.link:hover {
+    font-weight: 600;
+}
+
+.activeLink {
+    font-weight: 600;
+    list-style: none;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+}
