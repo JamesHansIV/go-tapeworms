@@ -4,6 +4,17 @@ const sanitize = require("mongo-sanitize");
 const routes = express.Router({mergeParams: true});
 const dbo = require("./connect");
 
+
+// redireect /
+routes.route("/").get(async function (req, res) {
+    res.redirect("/worms");
+});
+
+// redirect home
+routes.route("/home").get(async function (req, res) {
+    res.redirect("/worms");
+});
+
 // get data by order
 routes.route("/worms/:order").get(async function(req, res) {
     const connection = dbo.getDb();
@@ -119,7 +130,7 @@ routes.route("/worms/").get(async function(req, res) {
     // run query
     connection
         .collection(order)
-        .find(query)
+        .find(query.$and.length == 0 ? {} : query)
         .toArray ( function (err, result) {
             if (err) throw err;
             else res.json(result);
