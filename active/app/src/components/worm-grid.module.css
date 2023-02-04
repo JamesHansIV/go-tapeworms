@@ -1,12 +1,45 @@
 
 .container {
-    background-color: rgb(221, 203, 237);
-    /* height: 1000px; */
     max-width: 600px;
+    padding: 0 2em 2em 2em;
+}
+
+/* .results {
+    display: inline-block;
+} */
+
+/* .results {
+    /* text-align: left; */
+    
+/* } */
+
+.results {
+    font-family: "Gill Sans", san-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: left;
+    line-height: 0.1em;  
+    color: var(--line);
+    width: 100%;
+
+}
+
+.results h4 {
+    border-bottom: 1px solid var(--line);
+}
+
+.results h4 span {
+    background-color: white;
+    padding: 0px 10px;
+}
+
+.grid {
 
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     row-gap: 30px;
+    column-gap: 20px;
     /* gap: px; */
     padding: 15px;
     /* margin: 10px; */
