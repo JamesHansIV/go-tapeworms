@@ -1,0 +1,40 @@
+.wrapper {
+    padding: 0;
+    margin: 1em 0em 1.5em 2em;
+}
+
+.selectionContainer {
+    border: 1px solid lightgray;
+    border-radius: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.5em 0.1em;
+}
+
+.pillButton, .pillButtonSelected {
+    padding: .25em 1em;
+    border-radius: 1em;
+    margin: 0 0.25em 0 0.25em;
+    /* box-shadow: 1px 1px lightgray; */
+    user-select: none; /* prevents highlighting*/
+    transition: color 0.4s linear, background-color 0.4s linear;
+}
+
+.pillButton {
+    background-color: var(--unselected);
+    color: black;
+    /* box-shadow: 1px 1px lightgray; */
+}
+
+.pillButton:hover, .pillButtonSelected:hover {
+    cursor: pointer;
+    background-color: #7ebac4;
+    /* background-color: #86cad5; */
+
+}
+
+.pillButtonSelected {
+    background-color: var(--selected);
+    color: white;
+    /* box-shadow: 1px 1px darkgray; */
+}
