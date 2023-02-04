@@ -1,0 +1,11 @@
+:root {
+    --skeleton: rgb(208, 208, 213);
+    --line : #BF6B04;
+    --selected : #689ca5;
+    --unselected : #E2F0F3;
+    --background: lightgrey;
+    --banner:#69ACBB;
+    --primary: #fff;
+    --black: #1b1f23;
+    --name-tag: #F2B705;
+}
