@@ -8,7 +8,9 @@ const user = process.argv[2];
 const pw = process.argv[3];
 
 const { MongoClient } = require("mongodb");
-const url = `mongodb+srv://${user}:${pw}@cluster1.of1bayg.mongodb.net/test`;
+require('dotenv').config();
+
+const url = `mongodb+srv://${user}:${pw}@${process.env.CLUSTER_ID}.mongodb.net`;
 
 let dbConnection;
 
