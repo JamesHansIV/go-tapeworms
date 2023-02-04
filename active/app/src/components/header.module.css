@@ -1,5 +1,5 @@
 .container {
-  background-color: #69ACBB;
+  background-color: var(--banner);
   max-height: 150px;
   height: 30vh;
   min-height: 150px;
