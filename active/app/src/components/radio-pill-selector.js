@@ -6,6 +6,8 @@ function RadioPillSelector(props) {
     const [inputs, setInputs] = useState([]);
     const [sel, setSel] = useState();
 
+    let greatestWidth = 0;
+
     useEffect(()=> {
         setInputs(props.inputDict);
         setSel(props.value);
@@ -17,12 +19,20 @@ function RadioPillSelector(props) {
             <span className={styles.selectionContainer}>
                 {
                     Object.entries(inputs).map( ([key, val]) => {
+
+                        let classes = `${styles.pillButton}`;
+                        if (sel === val) classes += ` ${styles.selected}`;
+                        if (props.orientation === 'vertical') classes += ` ${styles.vertical}`;
+
                         return (
-                            <span className={ sel === val ? styles.pillButtonSelected : styles.pillButton }
+                            <span className={ classes }
+
                                 onClick={ ()=> { 
                                     sel === val ? props.setValue(null) : props.setValue(val);
                                 }} 
-                                key={`selector_${val}`}> {key} </span>
+                                key={`selector_${val}`}> {key} 
+                            </span>
+                            
                         );
                     })
                 }
