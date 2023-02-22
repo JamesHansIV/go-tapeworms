@@ -9,15 +9,17 @@
     overflow: hidden;
     white-space: nowrap;
     padding: 0.5em 0.1em;
+    display: inline-block;
 }
 
-.pillButton, .pillButtonSelected {
+.pillButton {
     padding: .25em 1em;
     border-radius: 1em;
     margin: 0 0.25em 0 0.25em;
     /* box-shadow: 1px 1px lightgray; */
     user-select: none; /* prevents highlighting*/
     transition: color 0.4s linear, background-color 0.4s linear;
+    text-align: center;
 }
 
 .pillButton {
@@ -26,15 +28,21 @@
     /* box-shadow: 1px 1px lightgray; */
 }
 
-.pillButton:hover, .pillButtonSelected:hover {
+.pillButton:hover {
     cursor: pointer;
     background-color: #7ebac4;
     /* background-color: #86cad5; */
 
 }
 
-.pillButtonSelected {
+.selected {
     background-color: var(--selected);
     color: white;
     /* box-shadow: 1px 1px darkgray; */
+}
+
+.vertical {
+    width: max-width;
+    display: block;
+    margin-bottom: 2px;
 }
