@@ -1,0 +1,21 @@
+.container {
+    padding: 0;
+}
+
+.titleContainer{
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: row;
+    max-width: 70%;
+}
+
+.title {
+    flex:auto;
+}
+
+.button {
+    width: 4em;
+    height: 2em;
+    align-self: center;
+}
+
