@@ -1,7 +1,11 @@
 .container {
+    position: static;
     border-right:  1px solid var(--line);
-    width:fit-content;
+    width: fit-content;
+    max-width: 28vw;
+    min-width: 28vw;
     padding: 0 2em 0em 2em;
+    z-index: 9;
 }
 /* 
 .row {
