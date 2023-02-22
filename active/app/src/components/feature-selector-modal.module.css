@@ -1,0 +1,55 @@
+.container {
+    padding: 0;
+    border: 1px solid lightgray;
+    border-radius: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.5em 0.1em;
+
+    align-items: center;
+    text-align: center;
+
+    display: inline-flex;
+    flex-direction: row;
+
+    background-color: white;
+    
+    z-index: 10;
+}
+
+.panel {
+    max-width: 20em;
+    min-width: 10em;
+    min-height: 20em;
+    flex: 1;
+    margin: 0.5em;
+    border-radius: 3em;
+    position: relative;
+    transition: color 0.4s linear, background-color 0.4s linear;
+}
+
+.panel:hover {
+    /* background-color: var(--banner); */
+    background-color: #7ebac4;
+    color: white;
+    cursor: pointer;
+}
+
+.panel::after {
+    content: " ";
+    background: var(--line);
+    position: absolute;
+    bottom: 10%;
+    right: -0.5em;
+    height: 80%;
+    width: 1px;
+}
+
+.panel:last-child::after {
+    display: none;
+}
+
+.selected {
+    background-color: var(--selected);
+    color: white;
+}
