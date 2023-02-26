@@ -48,6 +48,7 @@ function DetailedFeatureSelection (props) {
                             value={props.value}
                             setValue={props.setValue}
                             active={true}
+                            setActive={setModalActive}
                         />                    
                     }
                 </div>
