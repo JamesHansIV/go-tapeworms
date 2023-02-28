@@ -1,0 +1,64 @@
+*{
+    --size: 20px;
+    --lockBodyHeight: 4px;
+    --lockBodyWidth: 7px;
+    --shackleRadius: 4px;
+    --borderColor: lightgrey;
+    --backGroundColor: white;
+    --activeColor: #689ca5;
+}
+
+.lockButton {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--backGroundColor);
+    border: solid var(--borderColor) 2px;
+    position: relative;
+}
+
+.lockButton:hover {
+    transition: linear 0.3s;
+    border-color: var(--activeColor);
+    background-color: var(--activeColor);
+    cursor: pointer;
+}
+
+.body {
+    position: absolute;
+    height: var(--lockBodyHeight);
+    width: var(--lockBodyWidth);
+    border: 2px lightgrey solid;
+    border-radius: 2px;
+    transform: translate(-50%, -25%);
+    overflow: hidden;
+}
+
+.lockButton:hover .body {
+    transition: linear 0.3s;
+    border-color: white;
+}
+
+.shackleLocked, .shackleUnlocked {
+    position: absolute;
+    height: var(--shackleRadius);
+    width: var(--shackleRadius);
+    border: 2px solid;
+    border-color: lightgrey transparent transparent lightgrey;
+    border-radius: 50%;
+}
+
+.shackleLocked {
+    transform: translate(-50%, -85%) rotate(45deg);
+}
+
+.shackleUnlocked {
+    transform: translate(-50%, -85%) rotate(90deg);
+}
+
+.lockButton:hover .shackleLocked,
+.lockButton:hover .shackleUnlocked {
+    transition: linear 0.3s;
+    border-color: white transparent transparent white;
+}
+
