@@ -1,19 +1,17 @@
-*{
+.lockButton {
     --size: 20px;
     --lockBodyHeight: 4px;
     --lockBodyWidth: 7px;
     --shackleRadius: 4px;
-    --borderColor: lightgrey;
     --backGroundColor: white;
     --activeColor: #689ca5;
-}
 
-.lockButton {
+
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
     background-color: var(--backGroundColor);
-    border: solid var(--borderColor) 2px;
+    border: solid var(--iconBorderColor) 2px;
     position: relative;
 }
 
@@ -28,7 +26,7 @@
     position: absolute;
     height: var(--lockBodyHeight);
     width: var(--lockBodyWidth);
-    border: 2px lightgrey solid;
+    border: 2px var(--iconColor) solid;
     border-radius: 2px;
     transform: translate(-50%, -25%);
     overflow: hidden;
@@ -44,7 +42,7 @@
     height: var(--shackleRadius);
     width: var(--shackleRadius);
     border: 2px solid;
-    border-color: lightgrey transparent transparent lightgrey;
+    border-color: var(--iconColor) transparent transparent var(--iconColor);
     border-radius: 50%;
 }
 

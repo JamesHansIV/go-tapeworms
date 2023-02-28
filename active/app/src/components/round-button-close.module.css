@@ -1,18 +1,15 @@
-*{
+.roundButton {
     --size: 20px;
     --legLength: 10px;
     --legWidth: 2px;
-    --borderColor: lightgrey;
     --backGroundColor: white;
     --activeColor: #689ca5;
-}
 
-.roundButton {
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
     background-color: var(--backGroundColor);
-    border: solid var(--borderColor) 2px;
+    border: solid var(--iconBorderColor) 2px;
     position: relative;
     vertical-align: center;
 }
@@ -28,7 +25,7 @@
     position: absolute;
     height: var(--legLength);
     width: var(--legWidth);
-    background-color: var(--borderColor);
+    background-color: var(--iconColor);
     top: 50%;
     left: 50%;
 }
