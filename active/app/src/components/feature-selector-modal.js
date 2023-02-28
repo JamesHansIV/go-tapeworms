@@ -3,52 +3,85 @@ import React, {useEffect, useState, useRef} from 'react';
 // import styles from './feature-selector-modal.module.css';
 import styles from './feature-selector-modal.module.css';
 import icons from './icons.module.css';
+import RoundButton from './round-button-close';
+import LockButton from './lock-button';
 
 function FeatureSelectorModal (props) {
     // filter states
     const [inputs, setInputs] = useState([]);
     const [sel, setSel] = useState();
 
-    // movement vars, states, ref
+    // movement refs
     const hasMoved = useRef(false);
     const mouseDown = useRef(false);
+    const isDragging = useRef(false);
+    const draggable = useRef(true);
     const offset = useRef({left: 0, top: 0})
     const box = useRef(null);
 
+    // movement states
     const [pos, setPos] = useState({left: 0, top: 0});
-    const [local, setLocal] = useState({left: 0, top: 0});
-    // let mouseDown = false;
+    const [topZ, setTopZ] = useState();
 
-
+    // close-on-click lock
+    const [locked, setLocked] = useState(false);
 
     useEffect(()=> {
         // setActive(props.active);
         setInputs(props.inputDict);
         setSel(props.value);
+        setTopZ(props.topZ);
     }, [props.value]);
 
+    // onclick handlers
     const close = () => props.setActive(false);
+    // const close =()=>{console.log("CLOSE")};
+    // const toggleLock = () => setLocked(!locked);
+    const toggleLock = () =>{setLocked(!locked);console.log("LOCK",locked)}
+
+    // drag enable/disable
+    const disableDrag = () => draggable.current = false;
+    const enableDrag = () => draggable.current = true;
 
     // drag functions
     const dragStart = (e) => {
-        console.log("Drag Start");
+        // prevent drag if not allowed
+        if (!draggable.current) 
+            return;
+
         mouseDown.current = true;
         hasMoved.current = true;
 
-        offset.current.left = e.clientX - e.target.getBoundingClientRect().left;
-        offset.current.top = e.clientY - e.target.getBoundingClientRect().top;
+        // calculate offset
+        offset.current.left = e.clientX - box.current.getBoundingClientRect().left;
+        offset.current.top = e.clientY - box.current.getBoundingClientRect().top;
+
+        // update position
+        setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
+        
+        // update layer of modal
+        props.setTopZ(props.topZ + 1);
+        setTopZ(props.topZ);
     }
 
     const drag = (e) => {
-        if (!mouseDown.current)
+        // prevent text highlighting
+        window.getSelection().removeAllRanges();
+
+        // stop drag if mouse up or not allowed and not currently dragging
+        if ((!mouseDown.current || !draggable) && !isDragging.current)
             return;
 
+        // update pos
         setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
+
+        // record that dragging is ongoing
+        isDragging.current = true;
     }
 
     const dragEnd = () => {
-        console.log("Drag end", pos);
         mouseDown.current = false;
+        isDragging.current = false;
     }
 
     // if (active)
@@ -56,38 +89,41 @@ function FeatureSelectorModal (props) {
         <div className={styles.movableWrapper}
             onMouseDown={ e => dragStart(e) }
             onMouseMove={ e => drag(e) }
-            onMouseUp={dragEnd}
+            onMouseUp={ dragEnd }
             ref={box}
+            style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute', zIndex: topZ} : {}}
         >
             <span className={styles.container}
-                style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute'} : {}}>
-                    <span className={icons.closeWrapper}>
-                        <span className={icons.closeCircle} onClick={close} />
+                >
+                    <span className={styles.icons}>
+                        <LockButton onClick={toggleLock} locked={locked}/>
+                        <RoundButton onClick={close}/>    
                     </span>
+                    
                 
-
                     {
                         // map panels
                         Object.entries(inputs).map( ([index, val]) => {
                             let classes = `${styles.panel}`;
                             if (sel === val) classes += ` ${styles.selected}`;
-
-                            let borderline = '';
                             
                             return (
                                 <div className={ classes } key={index}
+                                    onMouseEnter={ disableDrag }
+                                    onMouseLeave={ enableDrag }
                                     onClick={()=> {
+                                        if(isDragging.current == true) {
+                                            isDragging.current = false; 
+                                            return;
+                                        }
                                         sel === val ? props.setValue(null) : props.setValue(val);
-                                        close();
+                                        if (!locked) close();
                                     }}
                                 >
                                     <h4>{val}</h4>
-                                    {/* <img src={`${process.env.PUBLIC_URL}/images/test.jpg`}/> */}
                                     <div className={ styles.borderline } />
                                 </div>
                             );
-                        
-                        
                         })
                     }
             </span>
