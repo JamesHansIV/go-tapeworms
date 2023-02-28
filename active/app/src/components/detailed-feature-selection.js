@@ -9,10 +9,8 @@ function DetailedFeatureSelection (props) {
     const [selectionExpanded, setSelectionExpanded] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 
-    // useEffect()
-
     const toggleExpansion = () => setSelectionExpanded(!selectionExpanded);
-    const toggleModal = () => setModalActive(!modalActive);
+    const toggleModal = () => { setModalActive(!modalActive) };
 
 
     return (
@@ -49,6 +47,8 @@ function DetailedFeatureSelection (props) {
                             setValue={props.setValue}
                             active={true}
                             setActive={setModalActive}
+                            topZ = {props.topModalZ}
+                            setTopZ={props.setTopModalZ}
                         />                    
                     }
                 </div>
