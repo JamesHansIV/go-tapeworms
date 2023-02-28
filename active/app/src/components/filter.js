@@ -20,6 +20,7 @@ function Filter (props) {
     const [host, setHost] = useState(null);
     const [apolysis, setApolysis] = useState(null);
 
+    const [topModalZ, setTopModalZ] = useState(0);
 
     // build query on load
     useEffect(() => {
@@ -128,24 +129,30 @@ function Filter (props) {
                                 'Hyperapolytic' : 'hyperapolytic' }}
                     value={apolysis}
                     setValue={setApolysis}
+                    topModalZ={topModalZ}
+                    setTopModalZ={setTopModalZ}
                 />
 
-<DetailedFeatureSelection
+                <DetailedFeatureSelection
                     title="Apolysis"
                     inputDict={{ 'Apolytic' : 'apolytic',
                                 'Euapolytic' : 'euapolytic',
                                 'Hyperapolytic' : 'hyperapolytic' }}
                     value={apolysis}
                     setValue={setApolysis}
+                    topModalZ={topModalZ}
+                    setTopModalZ={setTopModalZ}
                 />
 
-<DetailedFeatureSelection
+                <DetailedFeatureSelection
                     title="Apolysis"
                     inputDict={{ 'Apolytic' : 'apolytic',
                                 'Euapolytic' : 'euapolytic',
                                 'Hyperapolytic' : 'hyperapolytic' }}
                     value={apolysis}
                     setValue={setApolysis}
+                    topModalZ={topModalZ}
+                    setTopModalZ={setTopModalZ}
                 />
             </div>
         </div>
