@@ -1,0 +1,48 @@
+*{
+    --size: 20px;
+    --legLength: 10px;
+    --legWidth: 2px;
+    --borderColor: lightgrey;
+    --backGroundColor: white;
+    --activeColor: #689ca5;
+}
+
+.roundButton {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--backGroundColor);
+    border: solid var(--borderColor) 2px;
+    position: relative;
+    vertical-align: center;
+}
+
+.roundButton:hover {
+    transition: linear 0.3s;
+    border-color: var(--activeColor);
+    background-color: var(--activeColor);
+    cursor: pointer;
+}
+
+.crossLeft, .crossRight {
+    position: absolute;
+    height: var(--legLength);
+    width: var(--legWidth);
+    background-color: var(--borderColor);
+    top: 50%;
+    left: 50%;
+}
+
+.crossLeft {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.crossRight {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.roundButton:hover .crossRight, 
+.roundButton:hover .crossLeft {
+    transition: linear 0.3s;
+    background-color: white;
+}
