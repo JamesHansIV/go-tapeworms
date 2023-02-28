@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react';
 
 // import styles from './feature-selector-modal.module.css';
 import styles from './feature-selector-modal.module.css';
-import icons from './icons.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
