@@ -94,6 +94,7 @@ function FeatureSelectorModal (props) {
         >
             <span className={styles.container}
                 >
+                    <h4 className={styles.windowTitle}>{props.title}</h4>
                     <span className={styles.icons}>
                         <LockButton onClick={toggleLock} locked={locked}/>
                         <RoundButton onClick={close}/>    

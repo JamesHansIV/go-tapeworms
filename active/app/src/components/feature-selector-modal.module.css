@@ -45,12 +45,13 @@
 
 .panel::after {
     content: " ";
-    background: var(--line);
     position: absolute;
     bottom: 10%;
+    top: 10%;
     right: -0.5em;
-    height: 80%;
+    height: 90%;
     width: 1px;
+    background-image: linear-gradient(var(--line) 70%, transparent);
 }
 
 .panel:last-child::after {
@@ -68,4 +69,26 @@
     top: 0;
     right: 0.5em;
     gap: 0.1em;
+}
+
+.windowTitle {
+    position: absolute;
+    top: -0.25em;
+    /* left: 4em; */
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 0 0.25em 0;
+    /* border-bottom: 1px var(--line) solid; */
+}
+
+.windowTitle::after {
+    content: " ";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 1px;
+    width: 70%;
+    background-image: linear-gradient(to right, transparent, var(--line) 30%, var(--line) 70%, transparent);
 }

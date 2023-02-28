@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import styles from './detailed-feature-selection.module.css';
 import FeatureSelectorModal from './feature-selector-modal';
@@ -18,8 +18,6 @@ function DetailedFeatureSelection (props) {
             <div className={styles.titleContainer}>
                 <h5 className={styles.title}>
                     {props.title}
-                    
-                    {/* <p>?</p> */}
                 </h5>
                 <button className={styles.button} onClick={toggleExpansion}>
                     {selectionExpanded ? "Hide" : "Show"}
@@ -42,6 +40,7 @@ function DetailedFeatureSelection (props) {
                     { modalActive &&
                         <FeatureSelectorModal
                             src={['test','test','test']}
+                            title={props.title}
                             inputDict={props.inputDict}
                             value={props.value}
                             setValue={props.setValue}
