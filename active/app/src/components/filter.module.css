@@ -23,7 +23,8 @@
 
 .container {
     /* posititioning */
-    position: static;
+    position: sticky;
+    top: 1em;
     width: fit-content;
     max-width: 28vw;
     min-width: 28vw;
@@ -55,4 +56,12 @@
     border-radius: 1em;
     overflow: hidden;
     padding: 0.5em 0.75em;
+}
+
+.icons {
+    position: sticky;
+    display: flex;
+    justify-content: flex-end;
+    top: 1em;
+    margin-right: 1em;
 }

@@ -1,0 +1,39 @@
+.wrapper {
+    position: absolute;
+    /* top: 1em; */
+}
+
+.scrollToTopButton {
+    --size: 20px;
+    --legLength: 7px;
+    --legWidth: 2px;
+    --backGroundColor: white;
+    --activeColor: #689ca5;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background-color: var(--backGroundColor);
+    border: solid var(--iconBorderColor) 2px;
+}
+
+.arrow {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin:0;
+    line-height: 0;
+    font-weight: bold;
+    color: var(--iconColor);
+}
+
+.scrollToTopButton:hover {
+    transition: linear 0.3s;
+    border-color: var(--activeColor);
+    background-color: var(--activeColor);
+    cursor: pointer;
+}
+
+.scrollToTopButton:hover .arrow {
+    transition: linear 0.3s;
+    color: white;
+}

@@ -1,13 +1,17 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, useRef } from 'react';
 
 import styles from './filter.module.css';
 import RadioPillSelector from './radio-pill-selector';
 import DetailedFeatureSelection from './detailed-feature-selection';
+import ScrollToTopButton from './scroll-to-top-button';
 
 function Filter (props) {
+    // refs
+    const scrollTargetRef = useRef();
 
     // ui states
     const [getMeCloseVisible, setGetMeCloseVisible] = useState(true);
+    const [topModalZ, setTopModalZ] = useState(10);
 
     // filter states
     const [apicalOrgan, setApicalOrgan] = useState(null);
@@ -19,13 +23,12 @@ function Filter (props) {
     const [host, setHost] = useState(null);
     const [apolysis, setApolysis] = useState(null);
 
-    const [topModalZ, setTopModalZ] = useState(10);
-
     // build query on load
     useEffect(() => {
         buildQuery();
     });
 
+    // build query
     const buildQuery = () => {
         // build query
         let query = {
@@ -47,14 +50,22 @@ function Filter (props) {
         props.setFilters(params.toString());
     }
 
+    // onclick handlers
+    const scrollToTop = () => scrollTargetRef.current.scrollIntoView({behavior: 'smooth',block:'start'});
+    const toggleGetMeCloseVisible = () => setGetMeCloseVisible(!getMeCloseVisible);
+
     return (
         <div className={styles.container}>
             <div className={styles.scrollableWrapper}>
-                <span>
+                {/* scroll to top button */}
+                <span className={styles.icons}>
+                    <ScrollToTopButton onClick={scrollToTop}/>
+                </span>
+
+                {/* Get me close title */}
+                <span ref={scrollTargetRef}>
                     <h2 className={styles.subtitle}>Get Me Close</h2>
-                    <button onClick={()=> {
-                        setGetMeCloseVisible(!getMeCloseVisible);
-                    }}>{getMeCloseVisible ? "Hide" : "Show"}</button>
+                    <button onClick={toggleGetMeCloseVisible}> {getMeCloseVisible ? "Hide" : "Show"} </button>
                 </span>
 
                 <div className={styles.getMeCloseContainer}
