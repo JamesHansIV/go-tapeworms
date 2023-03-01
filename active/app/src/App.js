@@ -27,6 +27,12 @@ function App() {
         <Filter setFilters={setParams}/>
         <WormGrid query={params}/>
       </div>
+
+      {/* footer placeholder */}
+      <div style={{
+        backgroundColor: "white",
+        height: 100
+      }}/>
     </div>
   );
 }
