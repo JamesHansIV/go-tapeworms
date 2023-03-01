@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
+import {createPortal} from 'react-dom';
 
 import styles from './detailed-feature-selection.module.css';
 import FeatureSelectorModal from './feature-selector-modal';
@@ -9,8 +10,18 @@ function DetailedFeatureSelection (props) {
     const [selectionExpanded, setSelectionExpanded] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 
+    const infoButtonRef = useRef();
+
+    const [initX, setInitX] = useState();
+    const [initY, setInitY] = useState();
+
     const toggleExpansion = () => setSelectionExpanded(!selectionExpanded);
-    const toggleModal = () => { setModalActive(!modalActive) };
+    const toggleModal = (e) => { 
+        setModalActive(!modalActive);
+
+        setInitX(e.pageX - (e.clientX - infoButtonRef.current.getBoundingClientRect().left) - 200);
+        setInitY(e.pageY - (e.clientY - infoButtonRef.current.getBoundingClientRect().top) + 30);
+    };
 
 
     return (
@@ -22,7 +33,7 @@ function DetailedFeatureSelection (props) {
                 <button className={styles.button} onClick={toggleExpansion}>
                     {selectionExpanded ? "Hide" : "Show"}
                 </button>
-                <button className={styles.button} onClick={toggleModal}>
+                <button className={styles.button} onClick={toggleModal} ref={infoButtonRef}>
                     Info
                 </button>
             </div>
@@ -38,17 +49,21 @@ function DetailedFeatureSelection (props) {
                         />
                     }
                     { modalActive &&
-                        <FeatureSelectorModal
-                            src={['test','test','test']}
-                            title={props.title}
-                            inputDict={props.inputDict}
-                            value={props.value}
-                            setValue={props.setValue}
-                            active={true}
-                            setActive={setModalActive}
-                            topZ = {props.topModalZ}
-                            setTopZ={props.setTopModalZ}
-                        />                    
+                        createPortal(
+                            <FeatureSelectorModal
+                                src={['test','test','test']}
+                                title={props.title}
+                                inputDict={props.inputDict}
+                                value={props.value}
+                                setValue={props.setValue}
+                                active={true}
+                                setActive={setModalActive}
+                                topZ = {props.topModalZ}
+                                setTopZ={props.setTopModalZ}
+                                initPos={{x: initX, y: initY}}
+                            />,
+                            document.body                    
+                        )
                     }
                 </div>
 

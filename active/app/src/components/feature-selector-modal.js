@@ -30,6 +30,8 @@ function FeatureSelectorModal (props) {
         setInputs(props.inputDict);
         setSel(props.value);
         setTopZ(props.topZ);
+        setPos({left: props.initPos.x, top: props.initPos.y})
+        console.log(props.initPos)
     }, [props.value]);
 
     // onclick handlers
@@ -43,6 +45,15 @@ function FeatureSelectorModal (props) {
     const enableDrag = () => draggable.current = true;
 
     // drag functions
+    const calcPos = (e) => {
+        // calculate offset
+        offset.current.left = e.clientX - box.current.getBoundingClientRect().left;
+        offset.current.top = e.clientY - box.current.getBoundingClientRect().top;
+
+        // return position
+        return {x: e.pageX - offset.current.left, y: e.pageY - offset.current.top}
+    }
+
     const dragStart = (e) => {
         // prevent drag if not allowed
         if (!draggable.current) 
@@ -90,7 +101,8 @@ function FeatureSelectorModal (props) {
             onMouseMove={ e => drag(e) }
             onMouseUp={ dragEnd }
             ref={box}
-            style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute', zIndex: topZ} : {}}
+            // style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute', zIndex: topZ} : { }}
+            style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
         >
             <span className={styles.container}
                 >
