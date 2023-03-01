@@ -1,8 +1,7 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState } from 'react';
 
 import styles from './filter.module.css';
 import RadioPillSelector from './radio-pill-selector';
-import FeatureSelectorModal from './feature-selector-modal';
 import DetailedFeatureSelection from './detailed-feature-selection';
 
 function Filter (props) {
@@ -20,7 +19,7 @@ function Filter (props) {
     const [host, setHost] = useState(null);
     const [apolysis, setApolysis] = useState(null);
 
-    const [topModalZ, setTopModalZ] = useState(0);
+    const [topModalZ, setTopModalZ] = useState(10);
 
     // build query on load
     useEffect(() => {
@@ -50,110 +49,141 @@ function Filter (props) {
 
     return (
         <div className={styles.container}>
-            <span>
-                <h2 className={styles.subtitle}>Get Me Close</h2>
-                <button onClick={()=> {
-                    setGetMeCloseVisible(!getMeCloseVisible);
-                }}>{getMeCloseVisible ? "Hide" : "Show"}</button>
-            </span>
+            <div className={styles.scrollableWrapper}>
+                <span>
+                    <h2 className={styles.subtitle}>Get Me Close</h2>
+                    <button onClick={()=> {
+                        setGetMeCloseVisible(!getMeCloseVisible);
+                    }}>{getMeCloseVisible ? "Hide" : "Show"}</button>
+                </span>
 
-            <div className={styles.getMeCloseContainer}
-                style={{display: getMeCloseVisible ? 'block' : 'none'}}>
-                <h4 className={styles.instructionText}>SELECT ANY & ALL THAT APPLY</h4>
+                <div className={styles.getMeCloseContainer}
+                    style={{display: getMeCloseVisible ? 'block' : 'none'}}>
+                    <h4 className={styles.instructionText}>SELECT ANY & ALL THAT APPLY</h4>
 
-                {/* USE THIS FORMAT */}
-                {/* inputDict={{ label : value }} 
-                    value={state}
-                    setValue={setState} */}
+                    {/* USE THIS FORMAT */}
+                    {/* inputDict={{ label : value }} 
+                        value={state}
+                        setValue={setState} */}
 
-                <h5>Scolx Features</h5>
-                <RadioPillSelector inputDict={{  'apical organ' : true,
-                                            'no apical organ': false}}
-                                    value={apicalOrgan}
-                                    setValue={setApicalOrgan}
-                />
+                    <h5>Scolx Features</h5>
+                    <RadioPillSelector inputDict={{  'apical organ' : true,
+                                                'no apical organ': false}}
+                                        value={apicalOrgan}
+                                        setValue={setApicalOrgan}
+                    />
 
-                <RadioPillSelector inputDict={{ 'bothria' : 'bothridiate',
-                                                'bothridia' : 'bothriate',
-                                                'suckers' : 'sucker-like',
-                                                'other' : 'other'}} // other means none of the previous three. 
-                                    value={acetabulaShape}
-                                    setValue={setAcetabulaShape}
-                />
+                    <RadioPillSelector inputDict={{ 'bothria' : 'bothridiate',
+                                                    'bothridia' : 'bothriate',
+                                                    'suckers' : 'sucker-like',
+                                                    'other' : 'other'}} // other means none of the previous three. 
+                                        value={acetabulaShape}
+                                        setValue={setAcetabulaShape}
+                    />
 
-                <RadioPillSelector inputDict={{ 'tentacles' : true,
-                                                'no tentacles': false}}
-                                    value={tentacles}
-                                    setValue={setTentacles}
-                />
+                    <RadioPillSelector inputDict={{ 'tentacles' : true,
+                                                    'no tentacles': false}}
+                                        value={tentacles}
+                                        setValue={setTentacles}
+                    />
 
+                    
+                    <RadioPillSelector inputDict={{ 'uterus to GP' : true,
+                                                    'uterus beyond GP': false}}
+                                        value={0}
+                                        setValue={0}
+                                        // orientation={'vertical'}
+                    />
+
+
+                    {/* START DUMMY */}
+                    <h5>Proglottid features</h5>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
+                                                    'acraspedote' : 'acraspedote'}}
+                                        value={proglottidsMargins}
+                                        setValue={setProglottidsMargins}
+                    /><h5>Proglottid features</h5>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
+                                                    'acraspedote' : 'acraspedote'}}
+                                        value={proglottidsMargins}
+                                        setValue={setProglottidsMargins}
+                    /><h5>Proglottid features</h5>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
+                                                    'acraspedote' : 'acraspedote'}}
+                                        value={proglottidsMargins}
+                                        setValue={setProglottidsMargins}
+                    /><h5>Proglottid features</h5>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
+                                                    'acraspedote' : 'acraspedote'}}
+                                        value={proglottidsMargins}
+                                        setValue={setProglottidsMargins}
+                    /><h5>Proglottid features</h5>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
+                                                    'acraspedote' : 'acraspedote'}}
+                                        value={proglottidsMargins}
+                                        setValue={setProglottidsMargins}
+                    />
+
+
+                    {/* END DUMMY */}
+
+                    
+                    <h5>Proglottid features</h5>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
+                                                    'acraspedote' : 'acraspedote'}}
+                                        value={proglottidsMargins}
+                                        setValue={setProglottidsMargins}
+                    />
+
+
+                    <h5>Host Information</h5>
+                    <RadioPillSelector inputDict={{ 'batoid' : 'batoid',
+                                                    'shark' : 'shark'}}
+                                        value={host}
+                                        setValue={setHost}
+                    />
+
+                </div>
                 
-                <RadioPillSelector inputDict={{ 'uterus to GP' : true,
-                                                'uterus beyond GP': false}}
-                                    value={0}
-                                    setValue={0}
-                                    // orientation={'vertical'}
-                />
+                <br/>
+                <h2 className={styles.subtitle}>More Features</h2>
+                <div className={styles.moreFeaturesContainer}>
 
+                    <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
+                    
+                    <DetailedFeatureSelection
+                        title="Apolysis"
+                        inputDict={{ 'Apolytic' : 'apolytic',
+                                    'Euapolytic' : 'euapolytic',
+                                    'Hyperapolytic' : 'hyperapolytic' }}
+                        value={apolysis}
+                        setValue={setApolysis}
+                        topModalZ={topModalZ}
+                        setTopModalZ={setTopModalZ}
+                    />
 
+                    <DetailedFeatureSelection
+                        title="Apolysis"
+                        inputDict={{ 'Apolytic' : 'apolytic',
+                                    'Euapolytic' : 'euapolytic',
+                                    'Hyperapolytic' : 'hyperapolytic' }}
+                        value={apolysis}
+                        setValue={setApolysis}
+                        topModalZ={topModalZ}
+                        setTopModalZ={setTopModalZ}
+                    />
 
-
-                
-                <h5>Proglottid features</h5>
-                <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                'acraspedote' : 'acraspedote'}}
-                                    value={proglottidsMargins}
-                                    setValue={setProglottidsMargins}
-                />
-
-
-                <h5>Host Information</h5>
-                <RadioPillSelector inputDict={{ 'batoid' : 'batoid',
-                                                'shark' : 'shark'}}
-                                    value={host}
-                                    setValue={setHost}
-                />
-
-            </div>
-            
-            <br/>
-            <h2 className={styles.subtitle}>More Features</h2>
-            <div className={styles.moreFeaturesContainer}>
-
-                <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
-                
-                <DetailedFeatureSelection
-                    title="Apolysis"
-                    inputDict={{ 'Apolytic' : 'apolytic',
-                                'Euapolytic' : 'euapolytic',
-                                'Hyperapolytic' : 'hyperapolytic' }}
-                    value={apolysis}
-                    setValue={setApolysis}
-                    topModalZ={topModalZ}
-                    setTopModalZ={setTopModalZ}
-                />
-
-                <DetailedFeatureSelection
-                    title="Apolysis"
-                    inputDict={{ 'Apolytic' : 'apolytic',
-                                'Euapolytic' : 'euapolytic',
-                                'Hyperapolytic' : 'hyperapolytic' }}
-                    value={apolysis}
-                    setValue={setApolysis}
-                    topModalZ={topModalZ}
-                    setTopModalZ={setTopModalZ}
-                />
-
-                <DetailedFeatureSelection
-                    title="Apolysis"
-                    inputDict={{ 'Apolytic' : 'apolytic',
-                                'Euapolytic' : 'euapolytic',
-                                'Hyperapolytic' : 'hyperapolytic' }}
-                    value={apolysis}
-                    setValue={setApolysis}
-                    topModalZ={topModalZ}
-                    setTopModalZ={setTopModalZ}
-                />
+                    <DetailedFeatureSelection
+                        title="Apolysis"
+                        inputDict={{ 'Apolytic' : 'apolytic',
+                                    'Euapolytic' : 'euapolytic',
+                                    'Hyperapolytic' : 'hyperapolytic' }}
+                        value={apolysis}
+                        setValue={setApolysis}
+                        topModalZ={topModalZ}
+                        setTopModalZ={setTopModalZ}
+                    />
+                </div>
             </div>
         </div>
     );
