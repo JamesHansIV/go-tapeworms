@@ -33,6 +33,10 @@ function App() {
         backgroundColor: "white",
         height: 100
       }}/>
+      <div style={{
+        backgroundColor: '#69ACBB',
+        height: 100
+      }}/>
     </div>
   );
 }
