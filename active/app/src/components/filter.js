@@ -14,14 +14,28 @@ function Filter (props) {
     const [topModalZ, setTopModalZ] = useState(10);
 
     // filter states
-    const [apicalOrgan, setApicalOrgan] = useState(null);
-    const [acetabulaShape, setAcetabulaShape] = useState(null);
-    const [tentacles, setTentacles] = useState(null);
+    // scolex feature states
+    const [scolexPresent, setScolexPresent] = useState(null);
+    const [scolexAttachmentStructure, setScolexAttachmentStructure] = useState(null);
+    const [apicalOrganPresent, setApicalOrganPresent] = useState(null);
+    const [tentaclesPresent, setTentaclesPresent] = useState(null);
+    const [hooksPresent, setHooksPresent] = useState(null);
 
+    // proglottif feature states
     const [proglottidsMargins, setProglottidsMargins] = useState(null);
+    const [laciniationsPresent, setLaciniationsPresent] = useState(null);
+    const [genitalPorePosition, setGenitalPorePosition] = useState(null);
+    const [hasSingleColumnOfTestes, setHasSingleColumnOfTestes] = useState(null);
+    const [postPoralTestesPresent, setPostPoralTestesPresent] = useState(null);
+    const [anteriorExtentOfUterus, setAnteriorExtentOfUterus] = useState(null);
+    const [vitellineFollicleArrangement, setVitellineFollicleArrangement] = useState(null);
 
-    const [host, setHost] = useState(null);
+    // strobilar feature states
     const [apolysis, setApolysis] = useState(null);
+    const [wideAnteriorStrobia, setWideAnteriorStrobira] = useState(null);
+
+    // host information states
+    const [hostGroup, setHostGroup] = useState(null);
 
     // build query on load
     useEffect(() => {
@@ -32,19 +46,32 @@ function Filter (props) {
     const buildQuery = () => {
         // build query
         let query = {
-            'apical_organ' : apicalOrgan,
-            'acetabula_shape' : acetabulaShape,
-            'tentacles' : tentacles,
+            'scolex' : scolexPresent,
+            'apical_organ' : apicalOrganPresent,
+            'tentacles' : tentaclesPresent,
+            'hooks' : hooksPresent,
+            'scolex_attachment_structures' : scolexAttachmentStructure,
             'proglottids_margins' : proglottidsMargins,
-            'host' : host,
-            'apolysis' : apolysis
+            'laciniations' : laciniationsPresent,
+            'pore_position' : genitalPorePosition,
+            'single_column_of_testes' : hasSingleColumnOfTestes,
+            'post_poral testes' : postPoralTestesPresent,
+            'anterior_extent_of_uterus' : anteriorExtentOfUterus,
+            'vitelline_follicle_arrangement' : vitellineFollicleArrangement,
+            'apolysis' : apolysis,
+            'wide_anterior_strobia' : wideAnteriorStrobia,
+            'host_group' : hostGroup
         };
+        console.log('query', query);
 
         // remove null params
         for (let p in query) {
             if (query[p] === null)
                 delete query[p];
         }
+
+        console.log("pruned", query);
+
 
         let params = new URLSearchParams(query);
         props.setFilters(params.toString());
@@ -77,81 +104,85 @@ function Filter (props) {
                         value={state}
                         setValue={setState} */}
 
-                    <h5>Scolx Features</h5>
-                    <RadioPillSelector inputDict={{  'apical organ' : true,
-                                                'no apical organ': false}}
-                                        value={apicalOrgan}
-                                        setValue={setApicalOrgan}
+                    <h5>Scolex Features</h5>
+                    <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
+                        value={scolexPresent}
+                        setValue={setScolexPresent}
                     />
 
-                    <RadioPillSelector inputDict={{ 'bothria' : 'bothridiate',
-                                                    'bothridia' : 'bothriate',
-                                                    'suckers' : 'sucker-like',
-                                                    'other' : 'other'}} // other means none of the previous three. 
-                                        value={acetabulaShape}
-                                        setValue={setAcetabulaShape}
+                    <RadioPillSelector inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
+                        value={scolexAttachmentStructure}
+                        setValue={setScolexAttachmentStructure}
                     />
 
-                    <RadioPillSelector inputDict={{ 'tentacles' : true,
-                                                    'no tentacles': false}}
-                                        value={tentacles}
-                                        setValue={setTentacles}
+                    <RadioPillSelector inputDict={{  'apical organ' : true, 'no apical organ': false}}
+                        value={apicalOrganPresent}
+                        setValue={setApicalOrganPresent}
                     />
 
-                    
-                    <RadioPillSelector inputDict={{ 'uterus to GP' : true,
-                                                    'uterus beyond GP': false}}
-                                        value={0}
-                                        setValue={0}
-                                        // orientation={'vertical'}
+                    <RadioPillSelector inputDict={{ 'tentacles' : true, 'no tentacles': false}}
+                        value={tentaclesPresent}
+                        setValue={setTentaclesPresent}
                     />
 
+                    <RadioPillSelector inputDict={{'hooks' : true, 'no hooks' : false}}
+                        value={hooksPresent}
+                        setValue={setHooksPresent}
+                    />
 
-                    {/* START DUMMY */}
                     <h5>Proglottid features</h5>
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                    'acraspedote' : 'acraspedote'}}
-                                        value={proglottidsMargins}
-                                        setValue={setProglottidsMargins}
-                    /><h5>Proglottid features</h5>
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                    'acraspedote' : 'acraspedote'}}
-                                        value={proglottidsMargins}
-                                        setValue={setProglottidsMargins}
-                    /><h5>Proglottid features</h5>
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                    'acraspedote' : 'acraspedote'}}
-                                        value={proglottidsMargins}
-                                        setValue={setProglottidsMargins}
-                    /><h5>Proglottid features</h5>
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                    'acraspedote' : 'acraspedote'}}
-                                        value={proglottidsMargins}
-                                        setValue={setProglottidsMargins}
-                    /><h5>Proglottid features</h5>
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                    'acraspedote' : 'acraspedote'}}
-                                        value={proglottidsMargins}
-                                        setValue={setProglottidsMargins}
+                    <h6>(GPP = Genital Pore Position)<br/>(VFA = Vitelline Follicle Arrangement)</h6>
+                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
+                        value={proglottidsMargins}
+                        setValue={setProglottidsMargins}
                     />
 
-
-                    {/* END DUMMY */}
-
-                    
-                    <h5>Proglottid features</h5>
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote',
-                                                    'acraspedote' : 'acraspedote'}}
-                                        value={proglottidsMargins}
-                                        setValue={setProglottidsMargins}
+                    <RadioPillSelector inputDict={{'laciniations' : true, 'no laciniations' : false}}
+                        value={laciniationsPresent}
+                        setValue={setLaciniationsPresent}
                     />
 
+                    <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
+                        value={genitalPorePosition}
+                        setValue={setGenitalPorePosition}
+                    />
+
+                    <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
+                        value={hasSingleColumnOfTestes}
+                        setValue={setHasSingleColumnOfTestes}
+                    />
+
+                    <RadioPillSelector inputDict={{'post-poral testes' : true, 'no post-poral testes' : false}}
+                        value={postPoralTestesPresent}
+                        setValue={setPostPoralTestesPresent}
+                    />
+
+                    <RadioPillSelector inputDict={{ 'uterus extends to GP' : true, 'uterus extends beyond GP': false}}
+                        value={anteriorExtentOfUterus}
+                        setValue={setAnteriorExtentOfUterus}
+                    />
+
+                    <RadioPillSelector 
+                        inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
+                        value={vitellineFollicleArrangement}
+                        setValue={setVitellineFollicleArrangement}
+                    />
+
+                    <h5>Strobilar Features</h5>
+                    <RadioPillSelector inputDict={{'apolytic' : 'apolytic', 'euapolytic' : 'euapolytic', 'hyperapolytic' : 'hyperapolytic'}}
+                        value={apolysis}
+                        setValue={setApolysis}
+                    />
+
+                    <RadioPillSelector inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
+                        value={wideAnteriorStrobia}
+                        setValue={setWideAnteriorStrobira}
+                    />
 
                     <h5>Host Information</h5>
-                    <RadioPillSelector inputDict={{ 'batoid' : 'batoid',
-                                                    'shark' : 'shark'}}
-                                        value={host}
-                                        setValue={setHost}
+                    <RadioPillSelector inputDict={{ 'batoid' : 'batoids', 'shark' : 'sharks', 'ratfish' : 'ratfishes'}}
+                        value={hostGroup}
+                        setValue={setHostGroup}
                     />
 
                 </div>
