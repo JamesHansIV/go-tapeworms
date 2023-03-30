@@ -1,6 +1,5 @@
 const express = require("express");
 const sanitize = require("mongo-sanitize");
-
 const routes = express.Router({mergeParams: true});
 const dbo = require("./connect");
 
@@ -55,21 +54,35 @@ routes.route("/worms/").get(async function(req, res) {
     let query = {}
     query["$and"] = [];
 
-    let order = "lecanicephalidea";
+    // let order = "lecanicephalidea";
+    let collection = process.env.COLLECTION;
 
-    let { apical_organ, 
+    let { 
+        scolex,
+        apical_organ,
         tentacles,
-        proglottids_laciniations,
-        n_col_testes,
-        acetabula_shape,
-        host,
-        apolysis,
+        hooks,
+        scolex_attachment_structures,
         proglottids_margins,
-        laterally_expanded_immature_proglottids } = req.query;
+        laciniations,
+        pore_position,
+        single_column_of_testes,
+        post_poral_testes,
+        anterior_extent_of_uterus,
+        vitelline_follicle_arrangement,
+        apolysis,
+        wide_anterior_strobia,
+        host_group
+    } = req.query;
     
     console.log(req.query);
 
     // build query
+    if (scolex != null) {
+        sanitize(scolex);
+        query["$and"].push({"scolex" : (scolex === 'true')});
+    }
+
     if (apical_organ != null){
         sanitize(apical_organ);
         query["$and"].push({"apical_organ" : (apical_organ === 'true')});
@@ -80,56 +93,82 @@ routes.route("/worms/").get(async function(req, res) {
         query["$and"].push({"tentacles" : (tentacles === 'true')});
     }
 
-    if (proglottids_laciniations != null) {
-        sanitize(proglottids_laciniations);
-        query["$and"].push({"proglottids_laciniations" : (proglottids_laciniations === 'true')});
+    if (hooks != null) {
+        sanitize(hooks);
+        query["$and"].push({"hooks" : (hooks === 'true')});
     }
 
-    if (n_col_testes != null) {
-        sanitize(n_col_testes);
-        query["$and"].push({"n_col_testes.min" : { "$lte" : parseInt(n_col_testes) } });
-        query["$and"].push(
-            { "$or": [
-                {"n_col_testes.max" : { "$gte" : parseInt(n_col_testes) } },
-                {"n_col_testes.max" : null }
-            ]}
-        );
+    if (scolex_attachment_structures != null) {
+        sanitize(scolex_attachment_structures);
+        query["$and"].push({"scolex_attachment_structures" : scolex_attachment_structures});
     }
 
-    if (acetabula_shape != null) {
-        sanitize(acetabula_shape);
-        query["$and"].push({"acetabula_shape" : acetabula_shape })
+    if (proglottids_margins != null) {
+        sanitize(proglottids_margins);
+        query["$and"].push({"proglottids_margins" : proglottids_margins});
     }
 
-    // query hosts
-    if (host != null) {
-        sanitize(host);
-        query["$and"].push({ "host" : host });
+    if (laciniations != null) {
+        sanitize(laciniations);
+        query["$and"].push({"laciniations" : (laciniations === 'true')});
     }
 
-    // query apolysis
+    if (pore_position != null) {
+        sanitize(pore_position);
+        query["$and"].push({"pore_position" : pore_position});
+    }
+
+    if (single_column_of_testes != null) {
+        sanitize(single_column_of_testes);
+        query["$and"].push({"single_column_of_testes" : (single_column_of_testes === 'true')});
+    }
+
+    if (post_poral_testes != null) {
+        sanitize(post_poral_testes);
+        query["$and"].push({"post_poral_testes" : (post_poral_testes === 'true')});
+    }
+
+    if (anterior_extent_of_uterus != null) {
+        sanitize(anterior_extent_of_uterus);
+        query["$and"].push({"anterior_extent_of_uterus" : anterior_extent_of_uterus});
+    }
+
+    if (vitelline_follicle_arrangement != null) {
+        sanitize(vitelline_follicle_arrangement);
+        query["$and"].push({"vitelline_follicle_arrangement" : vitelline_follicle_arrangement});
+    }
+
     if (apolysis != null) {
         sanitize(apolysis);
         query["$and"].push({ "apolysis" : apolysis });
     }
 
-    // query proglottids_margins
-    if (proglottids_margins != null) {
-        sanitize(proglottids_margins);
-        query["$and"].push({ "proglottids_margins" : proglottids_margins });
-    }   
-
-    // query laterally_expanded_immature_proglottids
-    if (laterally_expanded_immature_proglottids != null) {
-        sanitize(laterally_expanded_immature_proglottids);
-        query["$and"].push({ "laterally_expanded_immature_proglottids" : (laterally_expanded_immature_proglottids === "true") });
+    if (wide_anterior_strobia != null) {
+        sanitize(wide_anterior_strobia);
+        query["$and"].push({"wide_anterior_strobia" : (wide_anterior_strobia === 'true')});
     }
 
-    console.log(query);
+    if (host_group != null) {
+        sanitize(host_group);
+        query["$and"].push({ "host_group" : host_group });
+    }
+
+    // if (n_col_testes != null) {
+    //     sanitize(n_col_testes);
+    //     query["$and"].push({"n_col_testes.min" : { "$lte" : parseInt(n_col_testes) } });
+    //     query["$and"].push(
+    //         { "$or": [
+    //             {"n_col_testes.max" : { "$gte" : parseInt(n_col_testes) } },
+    //             {"n_col_testes.max" : null }
+    //         ]}
+    //     );
+    // }
+
+    console.log("built query: ", query);
 
     // run query
     connection
-        .collection(order)
+        .collection(collection)
         .find(query.$and.length == 0 ? {} : query)
         .toArray ( function (err, result) {
             if (err) throw err;
