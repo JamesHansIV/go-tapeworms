@@ -19,14 +19,14 @@ function WormGrid(props) {
     const fetchAPI = async () => {
         const route = `http://localhost:8080/worms?${props.query}`;
         console.log("FETCH params", props.query);
-        await fetch(route)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                updateData(data);
-                setNumResults(data.length);
-                updateLoading(false);
-            });
+        let response = await fetch(route)
+            response = await response.json()
+            let data = response;
+            // console.log(data);
+            updateData(data);
+            setNumResults(data.length);
+            updateLoading(false);
+            
     };
 
     return (
@@ -57,9 +57,9 @@ function WormGrid(props) {
                 {
                     data.map( (x) => (
                         <GridCard 
-                            genus={()=>{ return x.name.charAt(0).toUpperCase() + x.name.slice(1); }}
-                            key = {`${x.name}_card`}
-                            img = {`./${x.name}_main.jpg`}
+                            genus={()=>{ return x.genus.charAt(0).toUpperCase() + x.genus.slice(1); }}
+                            key = {`${x.genus}_card`}
+                            img = {`./${x.genus}_main.jpg`}
                         />
                     ))
                 }
