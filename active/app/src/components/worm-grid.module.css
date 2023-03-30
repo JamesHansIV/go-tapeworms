@@ -1,7 +1,7 @@
 
 .container {
     max-width: 600px;
-    padding: 0 2em 2em 2em;
+    padding: 0 2em 2em 0.5em;
 }
 
 /* .results {
@@ -37,8 +37,8 @@
 .grid {
 
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    row-gap: 30px;
+    grid-template-columns: auto auto auto auto auto auto;
+    row-gap: 20px;
     column-gap: 20px;
     /* gap: px; */
     padding: 15px;
