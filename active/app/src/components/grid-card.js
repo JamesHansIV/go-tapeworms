@@ -24,7 +24,8 @@ function GridCard(props) {
                     />
                 </div>
 
-                <div className={styles.nameTag}>
+                <div className={styles.nameTag}
+                    style={{backgroundColor:props.color}}>
                     {genus}
                 </div>
             </div>

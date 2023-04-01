@@ -10,6 +10,27 @@ function WormGrid(props) {
     const [data, updateData] = useState([]);
     const [loading, updateLoading] = useState(true);
 
+    // color map
+    const colorMap = {
+        'Anthobothriidea' : '#5c1a1b',
+        'Balanobothriidea' : '#ef233c',
+        'Calliobothriidea' : '#a4243b',
+        'Cathetocephalidea' : '#d8973c',
+        'Caulobothriidea' : '#F8782E',
+        'CladeIII' : '#404e5c',
+        'CladeIV' : '#f0a7a0',
+        'Diphyllidea' : '#dd9ac2',
+        'Gastrolecithiidea' : '#af7595',
+        'Gyrocotylidea' : '#533b4d',
+        'Lecanicephalidea' : '#f3b803',
+        'Litobothriidea' : '#8db580',
+        'OnchoproteocephalideaII' : '#06bcc1',
+        'Phyllobothriidea' : '#404e5c',
+        'Rhinebothriidea' : '#4f6272',
+        'Serendipeidea' : '#7c91b0',
+        'Zyxibothriidea' : '#404e5c'
+    };
+
     // useeffect
     useEffect(() => {
         // fetch data from api
@@ -60,6 +81,7 @@ function WormGrid(props) {
                             genus={()=>{ return x.genus.charAt(0).toUpperCase() + x.genus.slice(1); }}
                             key = {`${x.genus}_card`}
                             img = {`./${x.genus}_main.jpg`}
+                            color = {colorMap[x.order]}
                         />
                     ))
                 }

@@ -62,7 +62,7 @@
     font-style: italic;
     font-weight: 800;
     color: white;
-    background-color: var(--name-tag);
+    /* background-color: var(--name-tag); */
     height: 25px;
     width: 100%;
     position: absolute;
