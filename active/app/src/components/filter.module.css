@@ -64,7 +64,7 @@
     display: flex;
     justify-content: flex-end;
     top: 1em;
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 
 h5 {
@@ -75,4 +75,43 @@ h6 {
     margin-top: 0em;
     margin-left: 1em;
     margin-bottom: 1em;
+}
+
+h2 {
+    margin-top: 0.5em;
+}
+
+.headingButtonContainter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* align-self: center; */
+    /* vertical-align: center; */
+}
+
+.clearFiltersButton {
+    --backGroundColor: white;
+    --activeColor: #689ca5;
+
+    background-color: var(--backGroundColor);
+    border: solid var(--iconBorderColor) 1px;
+    margin-top: 0em;
+    margin-right: 2.5em;
+    margin-bottom: 0.6em;
+    padding-right: 1em ;
+    padding-left: 1em;
+    border-radius: 1em;
+    /* color:rgba(0, 0, 0, 0.2); */
+    /* color: black; */
+    color: rgb(90, 80, 80);
+    height: 20px;
+    align-items: center;
+}
+
+.clearFiltersButton:hover {
+    transition: linear 0.3s;
+    border-color: var(--activeColor);
+    background-color: var(--activeColor);
+    color: white;
+    cursor: pointer;
 }

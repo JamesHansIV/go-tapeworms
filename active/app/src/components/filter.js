@@ -21,7 +21,7 @@ function Filter (props) {
     const [tentaclesPresent, setTentaclesPresent] = useState(null);
     const [hooksPresent, setHooksPresent] = useState(null);
 
-    // proglottif feature states
+    // proglottid feature states
     const [proglottidsMargins, setProglottidsMargins] = useState(null);
     const [laciniationsPresent, setLaciniationsPresent] = useState(null);
     const [genitalPorePosition, setGenitalPorePosition] = useState(null);
@@ -79,19 +79,45 @@ function Filter (props) {
 
     // onclick handlers
     const scrollToTop = () => scrollTargetRef.current.scrollIntoView({behavior: 'smooth',block:'start'});
-    const toggleGetMeCloseVisible = () => setGetMeCloseVisible(!getMeCloseVisible);
+    const toggleGetMeCloseVisible = () => setGetMeCloseVisible(!getMeCloseVisible);    
+    const clearFilters = () => {
+        // reset scolex feature states
+        setScolexPresent(null);
+        setScolexAttachmentStructure(null);
+        setApicalOrganPresent(null);
+        setTentaclesPresent(null);
+        setHooksPresent(null);
+
+        // reset proglottid feature states
+        setProglottidsMargins(null);
+        setLaciniationsPresent(null);
+        setGenitalPorePosition(null);
+        setHasSingleColumnOfTestes(null);
+        setPostPoralTestesPresent(null);
+        setAnteriorExtentOfUterus(null);
+        setVitellineFollicleArrangement(null);
+
+        // reset strobilar feature states
+        setApolysis(null);
+        setWideAnteriorStrobira(null);
+
+        // reset host information states
+        setHostGroup(null);
+    };
 
     return (
         <div className={styles.container}>
             <div className={styles.scrollableWrapper}>
-                {/* scroll to top button */}
                 <span className={styles.icons}>
                     <ScrollToTopButton onClick={scrollToTop}/>
                 </span>
 
                 {/* Get me close title */}
                 <span ref={scrollTargetRef}>
-                    <h2 className={styles.subtitle}>Get Me Close</h2>
+                    <span className={styles.headingButtonContainter}> 
+                        <h2>Get Me Close</h2>
+                        <button className={styles.clearFiltersButton} onClick={clearFilters}>Clear Filters</button>
+                    </span>
                     <button onClick={toggleGetMeCloseVisible}> {getMeCloseVisible ? "Hide" : "Show"} </button>
                 </span>
 

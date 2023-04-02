@@ -13,7 +13,7 @@
     height: var(--size);
     border-radius: 50%;
     background-color: var(--backGroundColor);
-    border: solid var(--iconBorderColor) 2px;
+    border: solid var(--iconBorderColor) 1px;
 }
 
 .arrow {
