@@ -63,7 +63,7 @@ routes.route("/worms/").get(async function(req, res) {
         tentacles,
         hooks,
         scolex_attachment_structures,
-        proglottids_margins,
+        proglottid_margins,
         laciniations,
         pore_position,
         single_column_of_testes,
@@ -103,9 +103,9 @@ routes.route("/worms/").get(async function(req, res) {
         query["$and"].push({"scolex_attachment_structures" : scolex_attachment_structures});
     }
 
-    if (proglottids_margins != null) {
-        sanitize(proglottids_margins);
-        query["$and"].push({"proglottids_margins" : proglottids_margins});
+    if (proglottid_margins != null) {
+        sanitize(proglottid_margins);
+        query["$and"].push({"proglottid_margins" : proglottid_margins});
     }
 
     if (laciniations != null) {

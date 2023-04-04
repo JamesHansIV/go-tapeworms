@@ -51,7 +51,7 @@ function Filter (props) {
             'tentacles' : tentaclesPresent,
             'hooks' : hooksPresent,
             'scolex_attachment_structures' : scolexAttachmentStructure,
-            'proglottids_margins' : proglottidsMargins,
+            'proglottid_margins' : proglottidsMargins,
             'laciniations' : laciniationsPresent,
             'pore_position' : genitalPorePosition,
             'single_column_of_testes' : hasSingleColumnOfTestes,
@@ -183,7 +183,7 @@ function Filter (props) {
                         setValue={setPostPoralTestesPresent}
                     />
 
-                    <RadioPillSelector inputDict={{ 'uterus extends to GP' : true, 'uterus extends beyond GP': false}}
+                    <RadioPillSelector inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
                         value={anteriorExtentOfUterus}
                         setValue={setAnteriorExtentOfUterus}
                     />
