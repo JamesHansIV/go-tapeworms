@@ -4,11 +4,13 @@ import GridCard from './grid-card';
 import styles from './worm-grid.module.css';
 
 function WormGrid(props) {
+    const gridRef = useRef();
+
     // states
     const [numResults, setNumResults] = useState('...');
-    const [order, setOrder] = useState("lecanicephalidea");
+    const [order, ] = useState("lecanicephalidea");
     const [data, updateData] = useState([]);
-    const [loading, updateLoading] = useState(true);
+    // const [loading, updateLoading] = useState(true);
 
     // color map
     const colorMap = {
@@ -33,42 +35,40 @@ function WormGrid(props) {
 
     // useeffect
     useEffect(() => {
-        // fetch data from api
+        gridRef.current.getBoundingClientRect();
+
+        const fetchAPI = async () => {
+            const route = `http://localhost:8080/worms?${props.query}`;
+            console.log("FETCH params", props.query);
+            let response = await fetch(route)
+                response = await response.json()
+                let data = response;
+                updateData(data);
+                setNumResults(data.length);
+        };
+
         fetchAPI();
     },[props.query]);
 
-    const fetchAPI = async () => {
-        const route = `http://localhost:8080/worms?${props.query}`;
-        console.log("FETCH params", props.query);
-        let response = await fetch(route)
-            response = await response.json()
-            let data = response;
-            // console.log(data);
-            updateData(data);
-            setNumResults(data.length);
-            updateLoading(false);
-            
-    };
-
     return (
-        loading == true ? (
-            <div className={styles.container}>
-            <div className={styles.results}>
-                <h4 className={styles.results}>
-                    <span>[{numResults}] genera of {order}ns</span>
-                </h4>
-            </div>
-            <div className={styles.grid}>
-                    {
-                        Array(25).fill(0).map( () => {
-                            <GridCard loading={true}/>
-                        })
-                    }
-                {/* <GridCard genus="Seussepex"/> */}
-            </div>
-        </div>
-        ) : (
-        <div className={styles.container}>
+        // loading == true ? (
+        //     <div className={styles.container}>
+        //     <div className={styles.results}>
+        //         <h4 className={styles.results}>
+        //             <span>[{numResults}] genera of {order}ns</span>
+        //         </h4>
+        //     </div>
+        //     <div className={styles.grid}>
+        //             {
+        //                 Array(25).fill(0).map( () => {
+        //                     <GridCard loading={true}/>
+        //                 })
+        //             }
+        //         {/* <GridCard genus="Seussepex"/> */}
+        //     </div>
+        // </div>
+        // ) : (
+        <div className={styles.container} ref={gridRef}>
             <div className={styles.results}>
                 <h4 className={styles.results}>
                     <span>[{numResults}] genera of {order}ns</span>
@@ -79,16 +79,16 @@ function WormGrid(props) {
                     data.map( (x) => (
                         <GridCard 
                             genus={()=>{ return x.genus.charAt(0).toUpperCase() + x.genus.slice(1); }}
+                            gridBox = {gridRef}
                             key = {`${x.genus}_card`}
                             img = {`./${x.genus}_main.jpg`}
                             color = {colorMap[x.order]}
                         />
                     ))
                 }
-                {/* <GridCard genus="Seussepex"/> */}
             </div>
         </div>
-        )
+        // )
     );
 }
 

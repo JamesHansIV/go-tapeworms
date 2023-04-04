@@ -1,7 +1,9 @@
 
 .container {
     /* max-width: 600px; */
-    padding: 0 2em 2em 0.5em;
+    padding: 0 0.5em 2em 0.5em;
+    /* background-color: aqua; */
+    width: auto;
 }
 
 /* .results {
@@ -37,9 +39,11 @@
 .grid {
 
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
-    row-gap: 20px;
-    column-gap: 20px;
+    /* grid-template-columns: auto auto auto auto auto auto; */
+    grid-template-columns: repeat(6,1fr);
+    /* grid-template: repeat(3, [row] minmax(120px, 1fr)) / repeat(4, [col] 1fr); */
+    row-gap: 1.6em;
+    column-gap: 1.6em;
     /* gap: px; */
     padding: 15px;
     /* margin: 10px; */
