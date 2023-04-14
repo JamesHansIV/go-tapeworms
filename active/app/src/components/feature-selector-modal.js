@@ -124,7 +124,7 @@ function FeatureSelectorModal (props) {
                                     onMouseEnter={ disableDrag }
                                     onMouseLeave={ enableDrag }
                                     onClick={()=> {
-                                        if(isDragging.current == true) {
+                                        if(isDragging.current === true) {
                                             isDragging.current = false; 
                                             return;
                                         }
