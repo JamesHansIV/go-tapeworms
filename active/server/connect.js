@@ -27,13 +27,12 @@ if (missingEnvVars.length > 1) {
 }
 
 const { MongoClient } = require("mongodb");
-require('dotenv').config();
 
 const url = `mongodb+srv://${user}:${pw}@${cluster_id}.mongodb.net`;
 
 let dbConnection;
 
-console.log(`USER: ${user}\nPASSWORD: ${pw}`);
+// console.log(`USER: ${user}\nPASSWORD: ${pw}`);
 
 const client = new MongoClient(url, {
     useNewUrlParser: true,
@@ -43,14 +42,17 @@ const client = new MongoClient(url, {
 module.exports = {
     connectToServer: async function () {
         try {
+            console.log(`Attempting to connect to ${url}...`);
             await client.connect();
             dbConnection = await client.db(database);
             console.log(`Connected to Cluster: ${process.env.CLUSTER_ID}`);
             console.log(`Connected to Database: ${database}`);
-        } catch {
-            console.log("Connection Failed! Closing Connection...");
+            return 0;
+        } catch (error) {
+            console.log(`\nMongoDB Connection Error! \nERROR MESSAGE: ${error.message}`);
             await client.close();
-            console.log("Closed connection to MongoDB...");
+            console.log(`MongoDB connection closed.\nShutting down server...`)
+            process.exit();
         }
     },
 
