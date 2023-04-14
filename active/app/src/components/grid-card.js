@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-
+import {FastAverageColor} from 'fast-average-color';
 import styles from './grid-card.module.css';
 
 function GridCard(props) {
@@ -19,7 +19,35 @@ function GridCard(props) {
     const [gridBox, ] = useState(props.gridBox.current.getBoundingClientRect());
     const [gridWidth, ] = useState(900);
 
-    useEffect(() => { resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight) });
+    useEffect(() => { 
+        resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+        // averageBackground();
+    });
+
+    const centerIfSmall = () => {
+        // const imgRatio = imgRef.current.naturalWidth / imgRef.current.naturalHeight;
+
+        console.log(genus, imgRef.current.height, portraitRef.current.style.height, parseInt(portraitRef.current.style.height));
+        if (imgRef.current.height < parseInt(portraitRef.current.style.height)) {
+            portraitRef.current.style.display = 'flex';
+            portraitRef.current.style.alignItems = 'center';
+        } else {
+            portraitRef.current.style.display = '';
+            portraitRef.current.style.alignItems = '';
+        }
+    };
+
+    const averageBackground = async () => {
+        const fac = new FastAverageColor();
+        try {
+            const color = await fac.getColorAsync(imgRef.current);
+            outerRef.current.style.backgroundColor = color.rgba;
+            outerRef.current.style.color = color.isDark ? '#fff' : '#000';
+            innerRef.current.style.backgroundColor = outerRef.current.style.backgroundColor;
+        } catch (error) {
+            // console.log(error.message);
+        }
+    };
 
     const resizeCard = (cardWidth, cardHeight, portraitHeight) => {
         innerRef.current.style.width = `${cardWidth}px`;
@@ -46,6 +74,8 @@ function GridCard(props) {
             innerRef.current.style.top = `0px`;
             innerRef.current.style.boxShadow = 'none';
         } 
+
+
     };
 
     const handleClick = () => {
@@ -74,7 +104,7 @@ function GridCard(props) {
                 <div className={styles.nameTagSkeleton}/>
             </div>
         ) : ( 
-            <div className={styles.outerContainer} onClick={handleClick} ref={outerRef}> 
+            <div className={styles.outerContainer} onClick={handleClick} ref={outerRef} > 
                 <div className={styles.innerContainer} ref={innerRef}>
                 
                 {/* Image (carousel?) */}
@@ -83,6 +113,7 @@ function GridCard(props) {
                             className={styles.image}
                             src={`${process.env.PUBLIC_URL}/images/${props.img}`} alt={`cannot find ${genus} source`}
                             ref={imgRef}
+                            onLoad={() => {centerIfSmall(); averageBackground();}}
                         />
                     </div>
 
