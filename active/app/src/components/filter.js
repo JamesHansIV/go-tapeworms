@@ -118,12 +118,12 @@ function Filter (props) {
                         <h2>Get Me Close</h2>
                         <button className={styles.clearFiltersButton} onClick={clearFilters}>Clear Filters</button>
                     </span>
-                    <button onClick={toggleGetMeCloseVisible}> {getMeCloseVisible ? "Hide" : "Show"} </button>
+                    {/* <button onClick={toggleGetMeCloseVisible}> {getMeCloseVisible ? "Hide" : "Show"} </button> */}
                 </span>
 
                 <div className={styles.getMeCloseContainer}
                     style={{display: getMeCloseVisible ? 'block' : 'none'}}>
-                    <h4 className={styles.instructionText}>SELECT ANY & ALL THAT APPLY</h4>
+                    {/* <h4 className={styles.instructionText}>SELECT ANY & ALL THAT APPLY</h4> */}
 
                     {/* USE THIS FORMAT */}
                     {/* inputDict={{ label : value }} 
@@ -157,7 +157,7 @@ function Filter (props) {
                     />
 
                     <h5>Proglottid features</h5>
-                    <h6>(GPP = Genital Pore Position)<br/>(VFA = Vitelline Follicle Arrangement)</h6>
+                    {/* <h6>(GPP = Genital Pore Position)<br/>(VFA = Vitelline Follicle Arrangement)</h6> */}
                     <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
                         value={proglottidsMargins}
                         setValue={setProglottidsMargins}
