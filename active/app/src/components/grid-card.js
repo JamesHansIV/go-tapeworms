@@ -27,7 +27,7 @@ function GridCard(props) {
     const centerIfSmall = () => {
         // const imgRatio = imgRef.current.naturalWidth / imgRef.current.naturalHeight;
 
-        console.log(genus, imgRef.current.height, portraitRef.current.style.height, parseInt(portraitRef.current.style.height));
+        // console.log(genus, imgRef.current.height, portraitRef.current.style.height, parseInt(portraitRef.current.style.height));
         if (imgRef.current.height < parseInt(portraitRef.current.style.height)) {
             portraitRef.current.style.display = 'flex';
             portraitRef.current.style.alignItems = 'center';
