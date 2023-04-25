@@ -31,7 +31,7 @@ function FeatureSelectorModal (props) {
         setSel(props.value);
         setTopZ(props.topZ);
         setPos({left: props.initPos.x, top: props.initPos.y})
-        console.log(props.initPos)
+        // console.log(props.initPos)
     }, [props.value]);
 
     // onclick handlers

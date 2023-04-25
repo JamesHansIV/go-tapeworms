@@ -15,7 +15,66 @@
     
 /* } */
 
-.results {
+.pillBody {
+    margin-left: 0.25em;
+    margin-top: 0.25em;
+
+    padding: .25em 0.25em 0.25em 0.5em;
+    /* padding */
+
+    border-radius: 1em;
+    /* margin: 0 0.25em 0 0.25em; */
+    text-align: center;
+    display: inline-block;
+
+    background-color: brown;
+
+    /* /* font-family: "Gill Sans", san-serif; */
+    /* font-style: normal; */
+    /* font-weight: 400; */
+    /* font-size: 16px; */ 
+
+    font-size: 12px;
+    /* font-style: italic; */
+    font-weight: 600;
+
+    color: white;
+}
+
+.pillCount {
+    display: inline-block;
+    background-color: rgb(245, 245, 245);
+    text-align: center;
+    width: 1.5em;
+    /* height */
+    /* padding: 0.25em; */
+    border-radius:1.35em;
+    margin-left: 0.25em;
+    color: black;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px; 
+
+}
+
+.textResults {
+    padding: .25em 0.25em;
+    border-radius: 1em;
+    /* margin: 0 0.25em 0 0.25em; */
+    text-align: center;
+    display: inline-block;
+
+    font-family: "Gill Sans", san-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: var(--line);
+}
+
+/* .results {
+    display: inline-block;
     font-family: "Gill Sans", san-serif;
     font-style: normal;
     font-weight: 400;
@@ -24,8 +83,28 @@
     line-height: 0.1em;  
     color: var(--line);
     width: 100%;
+} */
 
+.orderCountContainer {
+    /* white-space: nowrap; */
+    display: inline-block;
+    /* width: 100%; */
 }
+/* 
+.orderCount span {
+    display: inline-block;
+    min-height: 1em; 
+}
+
+.orderCount {
+    font-family: "Gill Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: left;
+    line-height: 0.1em;  
+    color: var(--line);
+} */
 
 .results h4 {
     border-bottom: 1px solid var(--line);

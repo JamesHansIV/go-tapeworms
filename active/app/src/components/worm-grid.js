@@ -8,7 +8,10 @@ function WormGrid(props) {
 
     // states
     const [numResults, setNumResults] = useState('...');
-    const [order, ] = useState("lecanicephalidea");
+    
+    const [orderCounts, setOrderCounts] = useState({});
+
+
     const [data, updateData] = useState([]);
     // const [loading, updateLoading] = useState(true);
 
@@ -33,6 +36,19 @@ function WormGrid(props) {
         'Zyxibothriidea' : '#404e5c'
     };
 
+    const calcNumResultsPerOrder = (_data) => {
+        let counts = {};
+
+        _data.map((x)=> {
+            if (x.order in counts)
+                counts[x.order] ++;
+            else
+                counts[x.order] = 1;
+        });
+
+        setOrderCounts(counts);  
+    };
+
     // useeffect
     useEffect(() => {
         gridRef.current.getBoundingClientRect();
@@ -41,10 +57,12 @@ function WormGrid(props) {
             const route = `http://localhost:8080/worms?${props.query}`;
             console.log("FETCH params", props.query);
             let response = await fetch(route)
-                response = await response.json()
-                let data = response;
-                updateData(data);
-                setNumResults(data.length);
+            response = await response.json()
+            let _data = response;
+            await updateData(_data);
+            await calcNumResultsPerOrder(_data);
+            console.log(orderCounts)
+            // setNumResults(data.length);
         };
 
         fetchAPI();
@@ -69,10 +87,15 @@ function WormGrid(props) {
         // </div>
         // ) : (
         <div className={styles.container} ref={gridRef}>
-            <div className={styles.results}>
-                <h4 className={styles.results}>
-                    <span>[{numResults}] genera of {order}ns</span>
-                </h4>
+            <div className={styles.orderCountContainer}>
+                {
+                    Object.entries(orderCounts).map(([order, count])=> (
+                        // <span className={styles.textResults}>  [{count}] {order}</span> 
+                        <span className={styles.pillBody} style={{backgroundColor:colorMap[order]}}>{order}
+                            <div className={styles.pillCount}>{count}</div>
+                        </span> 
+                    ))
+                }
             </div>
             <div className={styles.grid}>
                 {
