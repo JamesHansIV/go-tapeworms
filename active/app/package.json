@@ -9,9 +9,11 @@
     "fast-average-color": "^9.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
+    "react-widgets": "^5.8.4",
     "web-vitals": "^2.1.4",
     "webpack": "^5.77.0"
   },
