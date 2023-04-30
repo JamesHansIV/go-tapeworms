@@ -4,6 +4,7 @@ import styles from './filter.module.css';
 import RadioPillSelector from './radio-pill-selector';
 import DetailedFeatureSelection from './detailed-feature-selection';
 import ScrollToTopButton from './scroll-to-top-button';
+import { SuggestionTextBox } from './suggestion-text-box';
 
 function Filter (props) {
     // refs
@@ -216,7 +217,11 @@ function Filter (props) {
                 <br/>
                 <h2 className={styles.subtitle}>More Features</h2>
                 <div className={styles.moreFeaturesContainer}>
+                    <SuggestionTextBox 
+                            heading = "Host genera"
+                            options = {["a", "b", "c"]}
 
+                    />
                     <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
                     
                     <DetailedFeatureSelection
@@ -251,6 +256,8 @@ function Filter (props) {
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
                     />
+
+                    
                 </div>
             </div>
         </div>
