@@ -38,10 +38,24 @@ function Filter (props) {
     // host information states
     const [hostGroup, setHostGroup] = useState(null);
 
+    //genera table data
+    const [generaOptions, setGeneraOptions] = useState([])
+
+    const getGeneraTable = async() => {
+        const response = await fetch(`http://localhost:8080/genera_table`);
+        const data = await response.json()
+        let genera_array  = []
+        for(let d of data){
+            genera_array.push(d.genera_name)
+        }
+        setGeneraOptions(genera_array)
+    }
+
     // build query on load
     useEffect(() => {
         buildQuery();
-    });
+        getGeneraTable();
+    },[]);
 
     // build query
     const buildQuery = () => {
@@ -218,9 +232,8 @@ function Filter (props) {
                 <h2 className={styles.subtitle}>More Features</h2>
                 <div className={styles.moreFeaturesContainer}>
                     <SuggestionTextBox 
-                            heading = "Host genera"
-                            options = {["a", "b", "c"]}
-
+                        heading = "Host genera"
+                        options = {generaOptions}
                     />
                     <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
                     

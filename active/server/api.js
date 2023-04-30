@@ -194,5 +194,14 @@ routes.route("/update/").get( async function(req, res) {
 
 })
 
+routes.route("/genera_table").get(async function(req, res) {
+    const connection = dbo.getDb();
+    connection.collection("genera_table").find({}, {projection: {genera_name: 1, _id: 0}}).toArray(function (err, result) {
+        if (err) res.status(400).send("Error fetching from genera table")
+        else res.json(result);
+    });
+
+})
+
 
 module.exports = routes;
