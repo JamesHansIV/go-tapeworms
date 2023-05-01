@@ -4,6 +4,7 @@ import styles from './filter.module.css';
 import RadioPillSelector from './radio-pill-selector';
 import DetailedFeatureSelection from './detailed-feature-selection';
 import ScrollToTopButton from './scroll-to-top-button';
+import { SuggestionTextBox } from './suggestion-text-box';
 
 function Filter (props) {
     // refs
@@ -37,10 +38,18 @@ function Filter (props) {
     // host information states
     const [hostGroup, setHostGroup] = useState(null);
 
-    // build query on load
-    useEffect(() => {
-        buildQuery();
-    });
+    //genera table data
+    const [hostFamilies, setHostFamilies] = useState([])
+
+    const getHostFamilies = async() => {
+        const response = await fetch(`http://localhost:8080/host_families`);
+        const data = await response.json()
+        let host_array  = []
+        for(let d of data){
+            host_array.push(d.host_family)
+        }
+        setHostFamilies(host_array)
+    }
 
     // build query
     const buildQuery = () => {
@@ -71,7 +80,7 @@ function Filter (props) {
         }
 
         console.log("pruned", query);
-
+        
 
         let params = new URLSearchParams(query);
         props.setFilters(params.toString());
@@ -104,6 +113,14 @@ function Filter (props) {
         // reset host information states
         setHostGroup(null);
     };
+
+
+    // ON RENDER
+    buildQuery();
+    
+    useEffect(() => {
+        getHostFamilies();
+    },[]);
 
     return (
         <div className={styles.container}>
@@ -216,7 +233,10 @@ function Filter (props) {
                 <br/>
                 <h2 className={styles.subtitle}>More Features</h2>
                 <div className={styles.moreFeaturesContainer}>
-
+                    <SuggestionTextBox 
+                        heading = "Host family"
+                        options = {hostFamilies}
+                    />
                     <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
                     
                     <DetailedFeatureSelection
@@ -251,6 +271,8 @@ function Filter (props) {
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
                     />
+
+                    
                 </div>
             </div>
         </div>
