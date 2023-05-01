@@ -171,6 +171,7 @@ function Filter (props) {
                     <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
                         value={genitalPorePosition}
                         setValue={setGenitalPorePosition}
+                        abbreviation={{'GPP' : 'Genital Pore Position'}}
                     />
 
                     <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
@@ -186,12 +187,14 @@ function Filter (props) {
                     <RadioPillSelector inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
                         value={anteriorExtentOfUterus}
                         setValue={setAnteriorExtentOfUterus}
+                        abbreviation={{'GP':'Genital Pore'}}
                     />
 
                     <RadioPillSelector 
                         inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
                         value={vitellineFollicleArrangement}
                         setValue={setVitellineFollicleArrangement}
+                        abbreviation={{'VFA' : 'Vitelline Follicle Arrangement'}}
                     />
 
                     <h5>Strobilar Features</h5>
