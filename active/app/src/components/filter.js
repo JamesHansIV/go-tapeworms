@@ -51,12 +51,6 @@ function Filter (props) {
         setGeneraOptions(genera_array)
     }
 
-    // build query on load
-    useEffect(() => {
-        buildQuery();
-        getGeneraTable();
-    },[]);
-
     // build query
     const buildQuery = () => {
         // build query
@@ -86,7 +80,7 @@ function Filter (props) {
         }
 
         console.log("pruned", query);
-
+        
 
         let params = new URLSearchParams(query);
         props.setFilters(params.toString());
@@ -119,6 +113,14 @@ function Filter (props) {
         // reset host information states
         setHostGroup(null);
     };
+
+
+    // ON RENDER
+    buildQuery();
+    
+    useEffect(() => {
+        getGeneraTable();
+    },[]);
 
     return (
         <div className={styles.container}>
@@ -232,7 +234,7 @@ function Filter (props) {
                 <h2 className={styles.subtitle}>More Features</h2>
                 <div className={styles.moreFeaturesContainer}>
                     <SuggestionTextBox 
-                        heading = "Host genera"
+                        heading = "Host family"
                         options = {generaOptions}
                     />
                     <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
