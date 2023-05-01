@@ -39,16 +39,16 @@ function Filter (props) {
     const [hostGroup, setHostGroup] = useState(null);
 
     //genera table data
-    const [generaOptions, setGeneraOptions] = useState([])
+    const [hostFamilies, setHostFamilies] = useState([])
 
-    const getGeneraTable = async() => {
-        const response = await fetch(`http://localhost:8080/genera_table`);
+    const getHostFamilies = async() => {
+        const response = await fetch(`http://localhost:8080/host_families`);
         const data = await response.json()
-        let genera_array  = []
+        let host_array  = []
         for(let d of data){
-            genera_array.push(d.genera_name)
+            host_array.push(d.host_family)
         }
-        setGeneraOptions(genera_array)
+        setHostFamilies(host_array)
     }
 
     // build query
@@ -119,7 +119,7 @@ function Filter (props) {
     buildQuery();
     
     useEffect(() => {
-        getGeneraTable();
+        getHostFamilies();
     },[]);
 
     return (
@@ -235,7 +235,7 @@ function Filter (props) {
                 <div className={styles.moreFeaturesContainer}>
                     <SuggestionTextBox 
                         heading = "Host family"
-                        options = {generaOptions}
+                        options = {hostFamilies}
                     />
                     <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
                     
