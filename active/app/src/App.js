@@ -20,7 +20,7 @@ function App() {
       <Header/>
       <div style={{
         backgroundColor: "white",
-        height: 100
+        height: 25
       }}/>
 
       <div style={{ display: 'flex' }}>

@@ -55,7 +55,7 @@
 .selectionContainer {
     border: 1px solid lightgray;
     border-radius: 1em;
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 0.5em 0.75em;
 }
 

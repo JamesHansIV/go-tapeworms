@@ -12,6 +12,7 @@
     "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
+    "react-string-replace": "^1.1.0",
     "react-transition-group": "^4.4.5",
     "react-widgets": "^5.8.4",
     "web-vitals": "^2.1.4",
