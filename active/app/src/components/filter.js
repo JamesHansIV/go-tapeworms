@@ -37,6 +37,8 @@ function Filter (props) {
 
     // host information states
     const [hostGroup, setHostGroup] = useState(null);
+    const [hostFamily, setHostFamily] = useState(null);
+
 
     //genera table data
     const [hostFamilies, setHostFamilies] = useState([])
@@ -69,7 +71,8 @@ function Filter (props) {
             'vitelline_follicle_arrangement' : vitellineFollicleArrangement,
             'apolysis' : apolysis,
             'wide_anterior_strobia' : wideAnteriorStrobia,
-            'host_group' : hostGroup
+            'host_group' : hostGroup,
+            'host_family' : hostFamily
         };
         console.log('query', query);
 
@@ -112,6 +115,7 @@ function Filter (props) {
 
         // reset host information states
         setHostGroup(null);
+        setHostFamily(null);
     };
 
 
@@ -236,6 +240,8 @@ function Filter (props) {
                     <SuggestionTextBox 
                         heading = "Host family"
                         options = {hostFamilies}
+                        value = {hostFamily}
+                        setValue = {setHostFamily}
                     />
                     <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
                     
