@@ -72,7 +72,8 @@ routes.route("/worms/").get(async function(req, res) {
         vitelline_follicle_arrangement,
         apolysis,
         wide_anterior_strobia,
-        host_group
+        host_group,
+        host_family
     } = req.query;
     
     console.log(req.query);
@@ -151,6 +152,12 @@ routes.route("/worms/").get(async function(req, res) {
     if (host_group != null) {
         sanitize(host_group);
         query["$and"].push({ "host_group" : host_group });
+    }
+
+    if (host_family != null) {
+        console.log("HOSTFAMILY",host_family)
+        sanitize(host_family);
+        query["$and"].push({ "host_family" : host_family });
     }
 
     // if (n_col_testes != null) {

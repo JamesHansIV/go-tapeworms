@@ -10,10 +10,11 @@ export const SuggestionTextBox = (props) => {
 
     const handleDropdownChange = (value) => {
         if(value == '----None----'){
-            setSelected(null)
-            value = ''
+            setSelected(null);
+            props.setValue(null);
         } else {
-            setSelected(value)
+            setSelected(value);
+            props.setValue(value);
         }
     }
 
