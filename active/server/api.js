@@ -73,10 +73,15 @@ routes.route("/worms/").get(async function(req, res) {
         apolysis,
         wide_anterior_strobia,
         host_group,
-        host_family
+        host_family,
+        bothridial_features,
+        apical_sucker_region,
+        hook_placement,
+        peduncle_hooks,
+        hook_features
     } = req.query;
     
-    console.log(req.query);
+    console.log("recieved query", req.query);
 
     // build query
     if (scolex != null) {
@@ -155,9 +160,42 @@ routes.route("/worms/").get(async function(req, res) {
     }
 
     if (host_family != null) {
-        console.log("HOSTFAMILY",host_family)
         sanitize(host_family);
         query["$and"].push({ "host_family" : host_family });
+    }
+
+    if (bothridial_features != null) {
+        sanitize(bothridial_features);
+        featureArray = bothridial_features.split(",");
+        for (i in featureArray) {
+            query["$and"].push({"bothridial_features" : featureArray[i]});
+        }
+    }
+
+    if (apical_sucker_region != null) {
+        sanitize(apical_sucker_region);
+        featureArray = apical_sucker_region.split(",");
+        for (i in featureArray) {
+            query["$and"].push({"apical_sucker_region":featureArray[i]});
+        }
+    }
+
+    if (hook_placement != null) {
+        sanitize(hook_placement);
+        query["$and"].push({"hook_placement":hook_placement});
+    }
+
+    if (peduncle_hooks != null) {
+        sanitize(peduncle_hooks);
+        query["$and"].push({"peduncle_hooks":peduncle_hooks});
+    }
+
+    if (hook_features != null) {
+        sanitize(hook_features);
+        featureArray = hook_features.split(",");
+        for (i in featureArray) {
+            query["$and"].push({"hook_features":featureArray[i]});
+        }
     }
 
     // if (n_col_testes != null) {

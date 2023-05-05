@@ -57,7 +57,7 @@ function WormGrid(props) {
             let _data = response;
             await updateData(_data);
             await calcNumResultsPerOrder(_data);
-            console.log(orderCounts)
+            // console.log(orderCounts)
             // setNumResults(data.length);
         };
 
