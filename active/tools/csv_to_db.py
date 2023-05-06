@@ -29,7 +29,7 @@ def toBool(x):
     return y
 
 # create dataframe from csv
-path = "data_april_2023/Elasmo_Tapeworm_Genera_25Apr2023.csv"
+path = "data/Elasmo_Tapeworm_Genera_25Apr2023.csv"
 df = pd.DataFrame(pd.read_csv(path))
 
 # clean up dataframe
@@ -47,6 +47,9 @@ df.drop([0,1], inplace=True)
 
 # strip bracketed (and parenthesis) phrases from feature titles
 df = df.rename(columns=lambda x: re.sub(r"\[.*?\]|\(.*?\)", "", x))
+
+# remove leading and trailing whitespace
+df = df.rename(columns=lambda x: x.strip())
 
 # reset index
 df.reset_index(inplace=True,drop=True)
