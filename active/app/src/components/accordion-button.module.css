@@ -1,0 +1,38 @@
+.arrow {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.left, .right, .leftOpen, .rightOpen {
+    position: absolute;
+    top:0.6em;
+    width: .62em;
+    height: .1em;
+    background-color: black;
+    display: inline-block;
+    transition: all .2s ease;
+    border-radius: 0.2em;
+}
+
+.left {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.right {
+    right: 0;
+    transform: rotate(-45deg);
+}
+
+.leftOpen{
+    left: 0;
+    transform: rotate(-45deg);
+}
+
+.rightOpen {
+    right: 0;
+    transform: rotate(45deg);
+}
