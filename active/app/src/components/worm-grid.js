@@ -6,12 +6,8 @@ import styles from './worm-grid.module.css';
 function WormGrid(props) {
     const gridRef = useRef();
 
-    // states
-    const [numResults, setNumResults] = useState('...');
-    
+    // states   
     const [orderCounts, setOrderCounts] = useState({});
-
-
     const [data, updateData] = useState([]);
     // const [loading, updateLoading] = useState(true);
 
@@ -22,14 +18,14 @@ function WormGrid(props) {
         'Calliobothriidea' : '#a4243b',
         'Cathetocephalidea' : '#d8973c',
         'Caulobothriidea' : '#F8782E',
-        'CladeIII' : '#404e5c',
-        'CladeIV' : '#f0a7a0',
+        'Clade III' : '#404e5c',
+        'Clade IV' : '#f0a7a0',
         'Diphyllidea' : '#dd9ac2',
         'Gastrolecithiidea' : '#af7595',
         'Gyrocotylidea' : '#533b4d',
         'Lecanicephalidea' : '#f3b803',
         'Litobothriidea' : '#8db580',
-        'OnchoproteocephalideaII' : '#06bcc1',
+        'Onchoproteocephalidea II' : '#06bcc1',
         'Phyllobothriidea' : '#404e5c',
         'Rhinebothriidea' : '#4f6272',
         'Serendipeidea' : '#7c91b0',
@@ -61,7 +57,7 @@ function WormGrid(props) {
             let _data = response;
             await updateData(_data);
             await calcNumResultsPerOrder(_data);
-            console.log(orderCounts)
+            // console.log(orderCounts)
             // setNumResults(data.length);
         };
 

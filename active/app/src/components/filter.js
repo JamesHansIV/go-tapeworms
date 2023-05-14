@@ -1,7 +1,9 @@
 import React, {useEffect, useState, useRef } from 'react';
 
 import styles from './filter.module.css';
+import Accordion from './accordion';
 import RadioPillSelector from './radio-pill-selector';
+import ChecklistPillSelector from './checklist-pill-selector';
 import DetailedFeatureSelection from './detailed-feature-selection';
 import ScrollToTopButton from './scroll-to-top-button';
 import { SuggestionTextBox } from './suggestion-text-box';
@@ -37,6 +39,15 @@ function Filter (props) {
 
     // host information states
     const [hostGroup, setHostGroup] = useState(null);
+    const [hostFamily, setHostFamily] = useState(null);
+
+    // MORE FEATURES
+    const [bothridialFeatures, setBothridialFeatures] = useState([]);
+    const [apicalSuckerRegion, setApicalSuckerRegion] = useState([]);
+    const [hookPlacement, setHookPlacement] = useState(null);
+    const [peduncleHooks, setPeduncleHooks] = useState(null);
+    const [hookFeatures, setHookFeatures] = useState([]);
+
 
     //genera table data
     const [hostFamilies, setHostFamilies] = useState([])
@@ -69,20 +80,24 @@ function Filter (props) {
             'vitelline_follicle_arrangement' : vitellineFollicleArrangement,
             'apolysis' : apolysis,
             'wide_anterior_strobia' : wideAnteriorStrobia,
-            'host_group' : hostGroup
+            'host_group' : hostGroup,
+            'host_family' : hostFamily,
+            'bothridial_features': bothridialFeatures,
+            'apical_sucker_region': apicalSuckerRegion,
+            'hook_placement': hookPlacement,
+            'peduncle_hooks':peduncleHooks,
+            'hook_features':hookFeatures
         };
         console.log('query', query);
 
         // remove null params
         for (let p in query) {
-            if (query[p] === null)
+            if (query[p] === null || query[p].length === 0)
                 delete query[p];
         }
 
-        console.log("pruned", query);
-        
-
         let params = new URLSearchParams(query);
+        console.log("PARAMS", params);
         props.setFilters(params.toString());
     }
 
@@ -112,6 +127,14 @@ function Filter (props) {
 
         // reset host information states
         setHostGroup(null);
+        setHostFamily(null);
+
+        // MORE FEATURES
+        // scolex features
+        setBothridialFeatures([]);
+        setApicalSuckerRegion([]);
+        setHookPlacement(null);
+        setPeduncleHooks(null);
     };
 
 
@@ -147,86 +170,100 @@ function Filter (props) {
                         value={state}
                         setValue={setState} */}
 
-                    <h5>Scolex Features</h5>
-                    <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
-                        value={scolexPresent}
-                        setValue={setScolexPresent}
-                    />
+                    {/* <h5>Scolex Features</h5> */}
+                    <Accordion header={'Scolex Features'} openInitially={true}>
+                        <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
+                            value={scolexPresent}
+                            setValue={setScolexPresent}
+                        />
 
-                    <RadioPillSelector inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
-                        value={scolexAttachmentStructure}
-                        setValue={setScolexAttachmentStructure}
-                    />
+                        <RadioPillSelector inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
+                            value={scolexAttachmentStructure}
+                            setValue={setScolexAttachmentStructure}
+                        />
 
-                    <RadioPillSelector inputDict={{  'apical organ' : true, 'no apical organ': false}}
-                        value={apicalOrganPresent}
-                        setValue={setApicalOrganPresent}
-                    />
+                        <RadioPillSelector inputDict={{  'apical organ' : true, 'no apical organ': false}}
+                            value={apicalOrganPresent}
+                            setValue={setApicalOrganPresent}
+                        />
 
-                    <RadioPillSelector inputDict={{ 'tentacles' : true, 'no tentacles': false}}
-                        value={tentaclesPresent}
-                        setValue={setTentaclesPresent}
-                    />
+                        <RadioPillSelector inputDict={{ 'tentacles' : true, 'no tentacles': false}}
+                            value={tentaclesPresent}
+                            setValue={setTentaclesPresent}
+                        />
 
-                    <RadioPillSelector inputDict={{'hooks' : true, 'no hooks' : false}}
-                        value={hooksPresent}
-                        setValue={setHooksPresent}
-                    />
+                        <RadioPillSelector inputDict={{'hooks' : true, 'no hooks' : false}}
+                            value={hooksPresent}
+                            setValue={setHooksPresent}
+                        />
 
-                    <h5>Proglottid features</h5>
-                    {/* <h6>(GPP = Genital Pore Position)<br/>(VFA = Vitelline Follicle Arrangement)</h6> */}
-                    <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
-                        value={proglottidsMargins}
-                        setValue={setProglottidsMargins}
-                    />
+                    </Accordion>
 
-                    <RadioPillSelector inputDict={{'laciniations' : true, 'no laciniations' : false}}
-                        value={laciniationsPresent}
-                        setValue={setLaciniationsPresent}
-                    />
+                    {/* <h5>Proglottid features</h5> */}
+                    <Accordion header={'Proglottid Features'}>
+                        <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
+                            value={proglottidsMargins}
+                            setValue={setProglottidsMargins}
+                        />
 
-                    <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
-                        value={genitalPorePosition}
-                        setValue={setGenitalPorePosition}
-                    />
+                        <RadioPillSelector inputDict={{'laciniations' : true, 'no laciniations' : false}}
+                            value={laciniationsPresent}
+                            setValue={setLaciniationsPresent}
+                        />
 
-                    <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
-                        value={hasSingleColumnOfTestes}
-                        setValue={setHasSingleColumnOfTestes}
-                    />
+                        <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
+                            value={genitalPorePosition}
+                            setValue={setGenitalPorePosition}
+                            abbreviation={{'GPP' : 'Genital Pore Position'}}
+                        />
 
-                    <RadioPillSelector inputDict={{'post-poral testes' : true, 'no post-poral testes' : false}}
-                        value={postPoralTestesPresent}
-                        setValue={setPostPoralTestesPresent}
-                    />
+                        <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
+                            value={hasSingleColumnOfTestes}
+                            setValue={setHasSingleColumnOfTestes}
+                        />
 
-                    <RadioPillSelector inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
-                        value={anteriorExtentOfUterus}
-                        setValue={setAnteriorExtentOfUterus}
-                    />
+                        <RadioPillSelector inputDict={{'post-poral testes' : true, 'no post-poral testes' : false}}
+                            value={postPoralTestesPresent}
+                            setValue={setPostPoralTestesPresent}
+                        />
 
-                    <RadioPillSelector 
-                        inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
-                        value={vitellineFollicleArrangement}
-                        setValue={setVitellineFollicleArrangement}
-                    />
+                        <RadioPillSelector inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
+                            value={anteriorExtentOfUterus}
+                            setValue={setAnteriorExtentOfUterus}
+                            abbreviation={{'GP':'Genital Pore'}}
+                        />
 
-                    <h5>Strobilar Features</h5>
-                    <RadioPillSelector inputDict={{'apolytic' : 'apolytic', 'euapolytic' : 'euapolytic', 'hyperapolytic' : 'hyperapolytic'}}
-                        value={apolysis}
-                        setValue={setApolysis}
-                    />
+                        <RadioPillSelector 
+                            inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
+                            value={vitellineFollicleArrangement}
+                            setValue={setVitellineFollicleArrangement}
+                            abbreviation={{'VFA' : 'Vitelline Follicle Arrangement'}}
+                        />
+                    </Accordion>
+                                        
 
-                    <RadioPillSelector inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
-                        value={wideAnteriorStrobia}
-                        setValue={setWideAnteriorStrobira}
-                    />
+                    {/* <h5>Strobilar Features</h5> */}
+                    <Accordion header={'Strobilar Features'}>
+                        <RadioPillSelector inputDict={{'apolytic' : 'apolytic', 'euapolytic' : 'euapolytic', 'hyperapolytic' : 'hyperapolytic'}}
+                            value={apolysis}
+                            setValue={setApolysis}
+                        />
 
-                    <h5>Host Information</h5>
-                    <RadioPillSelector inputDict={{ 'batoid' : 'batoids', 'shark' : 'sharks', 'ratfish' : 'ratfishes'}}
-                        value={hostGroup}
-                        setValue={setHostGroup}
-                    />
+                        <RadioPillSelector inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
+                            value={wideAnteriorStrobia}
+                            setValue={setWideAnteriorStrobira}
+                        />
+                    </Accordion>
+                    
+
+                    {/* <h5>Host Information</h5> */}
+                    <Accordion header={'Host Information'}>
+                        <RadioPillSelector inputDict={{ 'batoid' : 'batoids', 'shark' : 'sharks', 'ratfish' : 'ratfishes'}}
+                            value={hostGroup}
+                            setValue={setHostGroup}
+                        />
+                    </Accordion>
+                    
 
                 </div>
                 
@@ -236,8 +273,64 @@ function Filter (props) {
                     <SuggestionTextBox 
                         heading = "Host family"
                         options = {hostFamilies}
+                        value = {hostFamily}
+                        setValue = {setHostFamily}
                     />
-                    <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
+
+                    <h5>Bothridial Features</h5>
+                    <ChecklistPillSelector 
+                        inputDict={{'facial loculi':'facial_loculi',
+                                    'marginal loculi':'marginal_loculi', 
+                                    'pouch':'pouch',
+                                    'bifid':'bifid',
+                                    'folding':'folding',
+                                    'unmodified':'unmodified',
+                                    'other':'other'
+                                }}
+                        value={bothridialFeatures}
+                        setValue={setBothridialFeatures}
+                    />
+
+                    <h5>Apical Sucker Region</h5>
+                    <ChecklistPillSelector 
+                        inputDict={{
+                                    'sucker':'sucker',
+                                    'region':'region',
+                                    'none':'none'
+                                }}
+                        value={apicalSuckerRegion}
+                        setValue={setApicalSuckerRegion}
+                    />
+
+                    <h5>Hook Placement and Features</h5>
+                    <RadioPillSelector
+                        inputDict={{'tentacle':'tentacle_hooks',
+                                    'bothridial':'bothridial_hooks',
+                                    'bothrial':'bothrial_hooks'}}
+                        value={hookPlacement}
+                        setValue={setHookPlacement}
+                    />
+
+                    <RadioPillSelector inputDict={{'peduncle hooks present' : 'yes', 'peduncle hooks absent' : 'no'}}
+                        value={peduncleHooks}
+                        setValue={setPeduncleHooks}
+                    />
+
+                    <ChecklistPillSelector 
+                        inputDict={{
+                                    'one hook pair':'1_hook_pair', 
+                                    'two hook pairs':'2_hook_pairs',
+                                    'one prongs per hook' : '1_prongs_per_hook',
+                                    'two prongs per hook' : '2_prongs_per_hook',
+                                    'three prong per hook' : '3_prongs_per_hook',
+                                    'accessory piece':'accessory_piece',
+                                    'prongs directed anteriorly':'prongs_directed_anteriorly'
+                                }}
+                        value={hookFeatures}
+                        setValue={setHookFeatures}
+                    />
+                    
+                    {/* <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
                     
                     <DetailedFeatureSelection
                         title="Apolysis"
@@ -248,30 +341,7 @@ function Filter (props) {
                         setValue={setApolysis}
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
-                    />
-
-                    <DetailedFeatureSelection
-                        title="Apolysis"
-                        inputDict={{ 'Apolytic' : 'apolytic',
-                                    'Euapolytic' : 'euapolytic',
-                                    'Hyperapolytic' : 'hyperapolytic' }}
-                        value={apolysis}
-                        setValue={setApolysis}
-                        topModalZ={topModalZ}
-                        setTopModalZ={setTopModalZ}
-                    />
-
-                    <DetailedFeatureSelection
-                        title="Apolysis"
-                        inputDict={{ 'Apolytic' : 'apolytic',
-                                    'Euapolytic' : 'euapolytic',
-                                    'Hyperapolytic' : 'hyperapolytic' }}
-                        value={apolysis}
-                        setValue={setApolysis}
-                        topModalZ={topModalZ}
-                        setTopModalZ={setTopModalZ}
-                    />
-
+                    /> */}
                     
                 </div>
             </div>

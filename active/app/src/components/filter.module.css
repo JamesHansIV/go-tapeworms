@@ -27,7 +27,7 @@
     position: sticky;
     top: 1em;
     width: fit-content;
-    max-width: 28vw;
+    max-width: 25vw;
     /* min-width: 28vw; */
     padding: 0 1em 0em 2em;
     z-index: 9;
@@ -55,7 +55,7 @@
 .selectionContainer {
     border: 1px solid lightgray;
     border-radius: 1em;
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 0.5em 0.75em;
 }
 
