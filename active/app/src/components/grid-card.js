@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import {FastAverageColor} from 'fast-average-color';
 import styles from './grid-card.module.css';
 
+
 function GridCard(props) {
     const innerRef = useRef();
     const outerRef = useRef();
@@ -18,6 +19,9 @@ function GridCard(props) {
     const [genus, ] = useState(props.genus);
     const [gridBox, ] = useState(props.gridBox.current.getBoundingClientRect());
     const [gridWidth, ] = useState(900);
+    const [imageIndex, setImageIndex] = useState(0);
+
+    let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
 
     useEffect(() => { 
         resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
@@ -94,6 +98,14 @@ function GridCard(props) {
         }
     };  
 
+    const handleNextImage = () => {
+        setImageIndex((imageIndex + 1) % images.length)
+    }
+
+    const handlePrevImage = () => {
+        setImageIndex((imageIndex -1 + images.length) % images.length)
+    }
+
     return (
         props.loading === true ? (
             <div className={styles.container}>
@@ -108,19 +120,46 @@ function GridCard(props) {
                 <div className={styles.innerContainer} ref={innerRef}>
                 
                 {/* Image (carousel?) */}
+                    
                     <div className={styles.portrait} ref={portraitRef}>
-                        <img 
+
+                        <div className= {styles.carousel}>
+                            <img 
+                                className={styles.image}
+                                src={`${process.env.PUBLIC_URL}/images/${images[imageIndex]}`} alt={`cannot find ${genus} source`}
+                                ref={imgRef}
+                                onLoad={() => {centerIfSmall(); averageBackground();}}
+                                />
+                            {/* <img 
                             className={styles.image}
                             src={`${process.env.PUBLIC_URL}/images/${props.img}`} alt={`cannot find ${genus} source`}
                             ref={imgRef}
                             onLoad={() => {centerIfSmall(); averageBackground();}}
-                        />
+                            />
+                            <img 
+                            className={styles.image}
+                            src={`${process.env.PUBLIC_URL}/images/${props.img}`} alt={`cannot find ${genus} source`}
+                            ref={imgRef}
+                            onLoad={() => {centerIfSmall(); averageBackground();}}
+                            /> */}
+                        </div>
+                        <div className={styles.buttons}>
+                            <button className={styles.carouselButton} onClick={handlePrevImage}>
+                                &#9664;
+                            </button>
+                            <button className={styles.carouselButton} onClick={handleNextImage}>
+                                &#9654;
+                            </button>
+                        </div>
+                        
                     </div>
 
                     <div className={styles.nameTag}
                         style={{backgroundColor:props.color}}>
                         {genus}
                     </div>
+
+                    
                 </div>
             </div>
         )
