@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './App.css'
 
 // components
 import Header from './components/header.js';
@@ -7,6 +8,7 @@ import Filter from './components/filter.js';
 
 // styles
 import './components/root.module.css';
+
 
 function App() {
   const [params, setParams] = useState("");
@@ -18,12 +20,11 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      <div style={{
+      <div style = {{
         backgroundColor: "white",
         height: 25
       }}/>
-
-      <div style={{ display: 'flex' }}>
+      <div class = "home">
         <Filter setFilters={setParams}/>
         <WormGrid query={params}/>
       </div>
