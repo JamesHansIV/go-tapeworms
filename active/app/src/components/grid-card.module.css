@@ -59,6 +59,7 @@
 
 .portrait, .image, .nameTag {
     transition: all 0.5s;
+    
 }
 
 .skeleton {
@@ -81,6 +82,30 @@
     width: 100%;
     height: 100%;
     position: relative;
+}
+
+
+.buttons{
+    position: absolute;
+    bottom: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.carouselButton {
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    opacity: 60%;
+}
+
+.carouselButton:hover{
+    opacity: 100%;
 }
 
 @keyframes loading {
