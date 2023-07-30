@@ -24,7 +24,9 @@ function GridCard(props) {
     let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
 
     useEffect(() => { 
-        resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+        if(!props.loading){
+            resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+        }
         // averageBackground();
     });
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import GridCard from './grid-card';
 
+
 import styles from './worm-grid.module.css';
 
 function WormGrid(props) {
@@ -9,7 +10,9 @@ function WormGrid(props) {
     // states   
     const [orderCounts, setOrderCounts] = useState({});
     const [data, updateData] = useState([]);
-    // const [loading, updateLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(30);
+    const [loading, setLoading] = useState(false);
 
     // color map
     const colorMap = {
@@ -34,54 +37,51 @@ function WormGrid(props) {
 
     const calcNumResultsPerOrder = (_data) => {
         let counts = {};
-
         _data.map((x)=> {
             if (x.order in counts)
                 counts[x.order] ++;
             else
                 counts[x.order] = 1;
         });
-
         setOrderCounts(counts);  
     };
 
-    // useeffect
-    useEffect(() => {
-        gridRef.current.getBoundingClientRect();
+    const handleScroll = () => {
+        if (
+            window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight
+        ) {
+            setPage((prevPage) => prevPage + 1)
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }
 
-        const fetchAPI = async () => {
-            const route = `http://localhost:8080/worms?${props.query}`;
+    // useEffect
+    useEffect(() => {
+        setLoading(true);
+        gridRef.current.getBoundingClientRect();
+        const fetchAPI = async (page) => {
+            const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
             console.log("FETCH params", props.query);
             let response = await fetch(route)
             response = await response.json()
-            let _data = response;
-            await updateData(_data);
-            await calcNumResultsPerOrder(_data);
+            let data_ = [...data, ...response];
+            await updateData((prevData) => [...prevData, ...response]);
+            await calcNumResultsPerOrder(data_);
+            setLoading(false)
+            if(response.length > 0){
+                window.addEventListener("scroll", handleScroll);
+            }
             // console.log(orderCounts)
             // setNumResults(data.length);
         };
-
-        fetchAPI();
-    },[props.query]);
+        fetchAPI(page);
+    },[props.query, page]);    
+    
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+    },[])
 
     return (
-        // loading == true ? (
-        //     <div className={styles.container}>
-        //     <div className={styles.results}>
-        //         <h4 className={styles.results}>
-        //             <span>[{numResults}] genera of {order}ns</span>
-        //         </h4>
-        //     </div>
-        //     <div className={styles.grid}>
-        //             {
-        //                 Array(25).fill(0).map( () => {
-        //                     <GridCard loading={true}/>
-        //                 })
-        //             }
-        //         {/* <GridCard genus="Seussepex"/> */}
-        //     </div>
-        // </div>
-        // ) : (
         <div className={styles.container} ref={gridRef}>
             <div className={styles.orderCountContainer}>
                 {
@@ -105,6 +105,17 @@ function WormGrid(props) {
                         />
                     ))
                 }
+                {
+                    loading && (
+                        (() => {
+                          const gridCards = [];
+                          for (let i = 0; i < 10; i++) {
+                            gridCards.push(<GridCard loading={true} gridBox={gridRef} />);
+                          }
+                          return gridCards;
+                        })()
+                      )
+                }                       
             </div>
         </div>
         // )
