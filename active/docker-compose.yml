@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: tapeworms-unlocked-app
+    container_name: client-app
+    command: npm start
+    volumes: 
+      - ./app:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    depends_on:
+      - server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: tapeworms-unlocked-server
+    container_name: server
+    command: nodemon server_test
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    ports:
+      - '8080:8080'
+    environment:
+      - CLUSTER_ID=${CLUSTER_ID}
+      - CLUSTER_USERNAME=${CLUSTER_USERNAME}
+      - CLUSTER_PASSWORD=${CLUSTER_PASSWORD}
+      - DATABASE=${DATABASE}
+      - COLLECTION=${COLLECTION}

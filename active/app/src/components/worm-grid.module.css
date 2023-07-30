@@ -1,10 +1,4 @@
 
-.container {
-    /* max-width: 600px; */
-    padding: 0 0.5em 2em 0.5em;
-    /* background-color: aqua; */
-    width: auto;
-}
 
 /* .results {
     display: inline-block;
@@ -85,11 +79,7 @@
     width: 100%;
 } */
 
-.orderCountContainer {
-    /* white-space: nowrap; */
-    display: inline-block;
-    /* width: 100%; */
-}
+
 /* 
 .orderCount span {
     display: inline-block;
@@ -115,15 +105,36 @@
     padding: 0px 10px;
 }
 
-.grid {
 
-    display: grid;
+.container {
+    display: flex;
+    flex-direction: column;
+
+    /* max-width: 600px; */
+    padding: 0 0.5em 2em 0.5em;
+    /* background-color: aqua; */
+    width: auto;
+    height: auto;
+    
+}
+
+.orderCountContainer {
+    /* white-space: nowrap; */
+    display: inline-block;
+    margin-bottom: 2%;
+    /* width: 100%; */
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
     /* grid-template-columns: auto auto auto auto auto auto; */
-    grid-template-columns: repeat(6,1fr);
+    /* grid-template-columns: repeat(6,1fr); */
     /* grid-template: repeat(3, [row] minmax(120px, 1fr)) / repeat(4, [col] 1fr); */
-    row-gap: 1.6em;
-    column-gap: 1.6em;
+    row-gap: 1.6rem;
+    column-gap: 2rem;
     /* gap: px; */
-    padding: 15px;
+    /* padding: 15px; */ 
     /* margin: 10px; */
 }
+
