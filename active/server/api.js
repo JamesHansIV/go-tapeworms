@@ -78,8 +78,11 @@ routes.route("/worms/").get(async function(req, res) {
         apical_sucker_region,
         hook_placement,
         peduncle_hooks,
-        hook_features
+        hook_features,
     } = req.query;
+
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);    
     
     console.log("recieved query", req.query);
 
@@ -211,10 +214,14 @@ routes.route("/worms/").get(async function(req, res) {
 
     console.log("built query: ", query);
 
+    const startIndex = (page - 1) * limit;
+
     // run query
     connection
         .collection(collection)
         .find(query.$and.length == 0 ? {} : query)
+        .skip(startIndex)
+        .limit(limit)
         .toArray ( function (err, result) {
             if (err) throw err;
             else res.json(result);

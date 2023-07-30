@@ -20,7 +20,9 @@ function GridCard(props) {
     const [gridWidth, ] = useState(900);
 
     useEffect(() => { 
-        resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+        if(!props.loading){
+            resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+        }
         // averageBackground();
     });
 
