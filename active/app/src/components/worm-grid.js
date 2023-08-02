@@ -14,6 +14,50 @@ function WormGrid(props) {
     const [limit, setLimit] = useState(30);
     const [loading, setLoading] = useState(false);
 
+
+    // infinite scroll
+    async function fetchMoreData() {
+        const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
+        console.log("FETCH MORE DATA params", props.query);
+        let response = await fetch(route)
+        response = await response.json()
+        let data_ = [...data, ...response];
+        await updateData((prevData) => [...prevData, ...response]);
+        await calcNumResultsPerOrder(data_);
+        setLoading(false)
+        if(response.length > 0){
+            window.addEventListener("scroll", handleScroll);
+        }
+    }
+
+    // new filter fetch 
+    async function fetchWithNewFilter() {
+        const route = `http://localhost:8080/worms?${props.query}&page=${1}&limit=${limit}`;
+        let response = await fetch(route);
+        let _data = await response.json();
+        await updateData(_data);
+        await calcNumResultsPerOrder(_data);
+        setLoading(false)
+        if(response.length > 0){
+            window.addEventListener("scroll", handleScroll);
+        }
+    }
+
+    // const fetchAPI = async (page) => {
+    //     const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
+    //     console.log("FETCH params", props.query);
+    //     let response = await fetch(route)
+    //     response = await response.json()
+    //     let data_ = [...data, ...response];
+    //     await updateData((prevData) => [...prevData, ...response]);
+    //     await calcNumResultsPerOrder(data_);
+    //     setLoading(false)
+    //     if(response.length > 0){
+    //         window.addEventListener("scroll", handleScroll);
+    //     }
+    // };
+
+
     // color map
     const colorMap = {
         'Anthobothriidea' : '#5c1a1b',
@@ -47,39 +91,36 @@ function WormGrid(props) {
     };
 
     const handleScroll = () => {
+        console.log("handle scroll");
         if (
             window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight
         ) {
-            setPage((prevPage) => prevPage + 1)
+            console.log("setting new page");
+            setPage(page + 1);
+            console.log("page set", page);
             window.removeEventListener('scroll', handleScroll);
         }
     }
 
-    // useEffect
-    useEffect(() => {
-        setLoading(true);
-        gridRef.current.getBoundingClientRect();
-        const fetchAPI = async (page) => {
-            const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
-            console.log("FETCH params", props.query);
-            let response = await fetch(route)
-            response = await response.json()
-            let data_ = [...data, ...response];
-            await updateData((prevData) => [...prevData, ...response]);
-            await calcNumResultsPerOrder(data_);
-            setLoading(false)
-            if(response.length > 0){
-                window.addEventListener("scroll", handleScroll);
-            }
-            // console.log(orderCounts)
-            // setNumResults(data.length);
-        };
-        fetchAPI(page);
-    },[props.query, page]);    
-    
-    useEffect(() => {
+    useEffect(()=>{
+        console.log("query changed");
+        window.scrollTo({top:0, behavior:'instant'});
+        fetchWithNewFilter();
+        setPage(1);
         window.addEventListener("scroll", handleScroll);
-    },[])
+    },[props.query])
+
+    useEffect(()=>{
+        console.log("page change")
+        console.log(page);
+        if (page === 1) {
+            console.log("skip");
+            return;
+        }
+        fetchMoreData();
+    },[page])
+    
+    const handleLoadMoreButton = () => {setPage(page + 1)}
 
     return (
         <div className={styles.container} ref={gridRef}>
@@ -87,12 +128,16 @@ function WormGrid(props) {
                 {
                     Object.entries(orderCounts).map(([order, count])=> (
                         // <span className={styles.textResults}>  [{count}] {order}</span> 
-                        <span className={styles.pillBody} style={{backgroundColor:colorMap[order]}}>{order}
+                        <span className={styles.pillBody} style={{backgroundColor:colorMap[order]}} key={`${order}_count}`}>{order}
                             <div className={styles.pillCount}>{count}</div>
                         </span> 
                     ))
                 }
             </div>
+
+            {/* Load More Button */}
+            {/* <button onClick={handleLoadMoreButton}>Load More</button> */}
+
             <div className={styles.grid}>
                 {
                     data.map( (x) => (
@@ -101,6 +146,7 @@ function WormGrid(props) {
                             gridBox = {gridRef}
                             key = {`${x.genus}_card`}
                             img = {`./${x.genus}_main.jpg`}
+                            imageSources = {x.images}
                             color = {colorMap[x.order]}
                         />
                     ))
@@ -109,8 +155,8 @@ function WormGrid(props) {
                     loading && (
                         (() => {
                           const gridCards = [];
-                          for (let i = 0; i < 10; i++) {
-                            gridCards.push(<GridCard loading={true} gridBox={gridRef} />);
+                          for (let i = 0; i < limit; i++) {
+                            gridCards.push(<GridCard loading={true} gridBox={gridRef} key={i}/>);
                           }
                           return gridCards;
                         })()
