@@ -88,7 +88,7 @@ function Filter (props) {
             'peduncle_hooks':peduncleHooks,
             'hook_features':hookFeatures
         };
-        console.log('query', query);
+        // console.log('query', query);
 
         // remove null params
         for (let p in query) {
@@ -97,7 +97,7 @@ function Filter (props) {
         }
 
         let params = new URLSearchParams(query);
-        console.log("PARAMS", params);
+        // console.log("PARAMS", params);
         props.setFilters(params.toString());
     }
 
