@@ -13,9 +13,9 @@ import './components/root.module.css';
 function App() {
   const [params, setParams] = useState("");
 
-  useEffect (()=> {
-    console.log("App params:\t",params);
-  });
+  // useEffect (()=> {
+  //   console.log("App params:\t",params);
+  // });
 
   return (
     <div className="App">

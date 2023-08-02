@@ -20,14 +20,17 @@ function GridCard(props) {
     const [gridBox, ] = useState(props.gridBox.current.getBoundingClientRect());
     const [gridWidth, ] = useState(900);
     const [imageIndex, setImageIndex] = useState(0);
+    const [imageLoading, setImageLoading] = useState(true);
 
-    let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
+    // let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
+    let images = props.imageSources;
 
     useEffect(() => { 
-        if(!props.loading){
+        if(!props.loading && !imageLoading){
             resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
         }
         // averageBackground();
+        // console.log(images)
     });
 
     const centerIfSmall = () => {
@@ -100,13 +103,33 @@ function GridCard(props) {
         }
     };  
 
+    const buildImageURL = () => {
+        let base = "https://tapeworms-unlocked.info/images";
+        let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
+        if (images === undefined) {
+            return `${base}/${genusLowerCase}`;
+        }
+
+        let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
+        // console.log(imageURL);
+        return imageURL;
+        // if (imageIndex >= images.length)
+
+    }
+
     const handleNextImage = () => {
-        setImageIndex((imageIndex + 1) % images.length)
+        setImageIndex((imageIndex + 1) % images.length);
+        buildImageURL();
+        setImageLoading(true);
     }
 
     const handlePrevImage = () => {
-        setImageIndex((imageIndex -1 + images.length) % images.length)
+        setImageIndex((imageIndex -1 + images.length) % images.length);
+        buildImageURL();
+        setImageLoading(true);
     }
+
+    // const fetchImage
 
     return (
         props.loading === true ? (
@@ -125,25 +148,27 @@ function GridCard(props) {
                     
                     <div className={styles.portrait} ref={portraitRef}>
 
-                        <div className= {styles.carousel}>
+                        <div 
+                        className={styles.skeleton} 
+                        style={{display: imageLoading ? "block" : "none"}}>
+                            {/* loading... */}
+                        </div>
+
+                        <div className= {styles.carousel} style={{display: imageLoading ? "none" : "block"}}>
                             <img 
                                 className={styles.image}
-                                src={`${process.env.PUBLIC_URL}/images/${images[imageIndex]}`} alt={`cannot find ${genus} source`}
+                                src={buildImageURL()} 
+                                alt={`cannot find ${genus} source`}
+                                crossOrigin="anonymous"
                                 ref={imgRef}
-                                onLoad={() => {centerIfSmall(); averageBackground();}}
+                                onLoad={() => {
+                                    // averageBackground();
+                                    setImageLoading(false);
+                                    averageBackground();
+                                    centerIfSmall();
+                                    // centerIfSmall(); 
+                                }}
                                 />
-                            {/* <img 
-                            className={styles.image}
-                            src={`${process.env.PUBLIC_URL}/images/${props.img}`} alt={`cannot find ${genus} source`}
-                            ref={imgRef}
-                            onLoad={() => {centerIfSmall(); averageBackground();}}
-                            />
-                            <img 
-                            className={styles.image}
-                            src={`${process.env.PUBLIC_URL}/images/${props.img}`} alt={`cannot find ${genus} source`}
-                            ref={imgRef}
-                            onLoad={() => {centerIfSmall(); averageBackground();}}
-                            /> */}
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.carouselButton} onClick={handlePrevImage}>
