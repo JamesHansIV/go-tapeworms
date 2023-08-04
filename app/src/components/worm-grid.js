@@ -146,7 +146,7 @@ function WormGrid(props) {
                             gridBox = {gridRef}
                             key = {`${x.genus}_card`}
                             img = {`./${x.genus}_main.jpg`}
-                            imageSources = {x.images}
+                            imageSources = {x.thumbnails}
                             color = {colorMap[x.order]}
                         />
                     ))
