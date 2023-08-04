@@ -104,7 +104,8 @@ function GridCard(props) {
     };  
 
     const buildImageURL = () => {
-        let base = "https://tapeworms-unlocked.info/images";
+        // let base = "https://tapeworms-unlocked.info/images";
+        let base = "https://tapeworms-unlocked.info/thumbnails";
         let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
         if (images === undefined) {
             return `${base}/${genusLowerCase}`;
@@ -112,6 +113,7 @@ function GridCard(props) {
 
         let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
         // console.log(imageURL);
+        console.log(imageURL);
         return imageURL;
         // if (imageIndex >= images.length)
 
