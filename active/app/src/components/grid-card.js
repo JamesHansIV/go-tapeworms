@@ -108,6 +108,7 @@ function GridCard(props) {
         let base = "https://tapeworms-unlocked.info/thumbnails";
         let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
         if (images === undefined) {
+            // console.log("BAD GENUS", genusLowerCase);
             return `${base}/${genusLowerCase}`;
         }
 
@@ -130,8 +131,6 @@ function GridCard(props) {
         buildImageURL();
         setImageLoading(true);
     }
-
-    // const fetchImage
 
     return (
         props.loading === true ? (
@@ -161,25 +160,28 @@ function GridCard(props) {
                                 className={styles.image}
                                 src={buildImageURL()} 
                                 alt={`cannot find ${genus} source`}
-                                crossOrigin="anonymous"
                                 ref={imgRef}
                                 onLoad={() => {
                                     // averageBackground();
                                     setImageLoading(false);
-                                    averageBackground();
                                     centerIfSmall();
+                                    averageBackground();
+
                                     // centerIfSmall(); 
                                 }}
                                 />
                         </div>
-                        <div className={styles.buttons}>
-                            <button className={styles.carouselButton} onClick={handlePrevImage}>
-                                &#9664;
-                            </button>
-                            <button className={styles.carouselButton} onClick={handleNextImage}>
-                                &#9654;
-                            </button>
-                        </div>
+                        { images?.length > 1 &&
+                            <div className={styles.buttons}>
+                                <button className={styles.carouselButton} onClick={handlePrevImage}>
+                                    &#9664;
+                                </button>
+                                <button className={styles.carouselButton} onClick={handleNextImage}>
+                                    &#9654;
+                                </button>
+                            </div>
+                        }
+                        
                         
                     </div>
 
