@@ -1,0 +1,10 @@
+{
+    "scripts" : {
+        "install-server": "cd server && npm install",
+        "start-server": "cd server && node app.js",
+        "install-client": "cd app && npm install",
+        "build-client": "cd app && npm run build",
+        "start-client": "cd app && npm run start"
+    
+    }
+}
