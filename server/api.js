@@ -79,6 +79,9 @@ routes.route("/worms/").get(async function(req, res) {
         hook_placement,
         peduncle_hooks,
         hook_features,
+
+
+        count_by_order,
     } = req.query;
 
     const page = parseInt(req.query.page);
@@ -216,16 +219,28 @@ routes.route("/worms/").get(async function(req, res) {
 
     const startIndex = (page - 1) * limit;
 
+    if (count_by_order === true) {
+        connection
+            .collection(collection)
+            .find(query.$and.length == 0 ? {} : query)
+            .toArray ( function (err, result) {
+                if (err) throw err;
+                else res.json(result);
+            });
+    } else {
+        connection
+            .collection(collection)
+            .find(query.$and.length == 0 ? {} : query)
+            .skip(startIndex)
+            .limit(limit)
+            .toArray ( function (err, result) {
+                if (err) throw err;
+                else res.json(result);
+            });
+    }
+
     // run query
-    connection
-        .collection(collection)
-        .find(query.$and.length == 0 ? {} : query)
-        .skip(startIndex)
-        .limit(limit)
-        .toArray ( function (err, result) {
-            if (err) throw err;
-            else res.json(result);
-        });
+    
 });
 
 routes.route("/update/").get( async function(req, res) {
