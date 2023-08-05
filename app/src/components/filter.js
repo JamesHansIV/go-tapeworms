@@ -277,7 +277,7 @@ function Filter (props) {
                         setValue = {setHostFamily}
                     />
 
-                    <h5>Bothridial Features</h5>
+                    <h5>Bothridial Features (select all that apply)</h5>
                     <ChecklistPillSelector 
                         inputDict={{'facial loculi':'facial_loculi',
                                     'marginal loculi':'marginal_loculi', 
@@ -302,7 +302,8 @@ function Filter (props) {
                         setValue={setApicalSuckerRegion}
                     />
 
-                    <h5>Hook Placement and Features</h5>
+                    {/* <h5>Hook Placement and Features</h5> */}
+                    <h5>Hook Placement</h5>
                     <RadioPillSelector
                         inputDict={{'tentacle':'tentacle_hooks',
                                     'bothridial':'bothridial_hooks',
@@ -316,6 +317,7 @@ function Filter (props) {
                         setValue={setPeduncleHooks}
                     />
 
+                    <h5>Hook Features (select all that apply)</h5>
                     <ChecklistPillSelector 
                         inputDict={{
                                     'one hook pair':'1_hook_pair', 
