@@ -24,7 +24,7 @@ function WormGrid(props) {
         response = await response.json()
         let data_ = [...data, ...response];
         await updateData((prevData) => [...prevData, ...response]);
-        await calcNumResultsPerOrder(data_);
+        // await calcNumResultsPerOrder(data_);
         setLoading(false)
         if(response.length > 0){
             window.addEventListener("scroll", handleScroll);
@@ -33,15 +33,22 @@ function WormGrid(props) {
 
     // new filter fetch 
     async function fetchWithNewFilter() {
+        // normal query
         const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${1}&limit=${limit}`;
         let response = await fetch(route);
         let _data = await response.json();
         await updateData(_data);
         await calcNumResultsPerOrder(_data);
-        setLoading(false)
+        
+        // count query
+        let countResponse = await fetch(`http://localhost:8080/worms?count_by_order=true`);
+        _data = await countResponse.json();
+        await calcNumResultsPerOrder(_data);
+
+        setLoading(false);
         if(response.length > 0){
             window.addEventListener("scroll", handleScroll);
-        }
+        };
     }
 
     // const fetchAPI = async (page) => {
@@ -80,7 +87,7 @@ function WormGrid(props) {
         'Zyxibothriidea' : '#404e5c'
     };
 
-    const calcNumResultsPerOrder = (_data) => {
+    const calcNumResultsPerOrder = async (_data) => {
         let counts = {};
         _data.map((x)=> {
             if (x.order in counts)
