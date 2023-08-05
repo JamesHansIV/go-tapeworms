@@ -41,7 +41,7 @@ function WormGrid(props) {
         await calcNumResultsPerOrder(_data);
         
         // count query
-        let countResponse = await fetch(`http://localhost:8080/worms?count_by_order=true`);
+        let countResponse = await fetch(`https://api.tapeworms-unlocked.info/worms?count_by_order=true`);
         _data = await countResponse.json();
         await calcNumResultsPerOrder(_data);
 
