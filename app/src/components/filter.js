@@ -14,7 +14,7 @@ function Filter (props) {
 
     // ui states
     const [getMeCloseVisible, setGetMeCloseVisible] = useState(true);
-    const [topModalZ, setTopModalZ] = useState(10);
+    const [topModalZ, setTopModalZ] = useState(99999);
 
     // filter states
     // scolex feature states
@@ -206,10 +206,22 @@ function Filter (props) {
                             setValue={setProglottidsMargins}
                         />
 
-                        <RadioPillSelector inputDict={{'laciniations' : true, 'no laciniations' : false}}
-                            value={laciniationsPresent}
-                            setValue={setLaciniationsPresent}
-                        />
+                        
+
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'laciniations' : true, 'no laciniations' : false}}
+                                value={laciniationsPresent}
+                                setValue={setLaciniationsPresent}
+                            />
+                            <DetailedFeatureSelection
+                                title="Laciniations Present"
+                                inputDict={{'laciniations' : true, 'no laciniations' : false}}
+                                value={laciniationsPresent}
+                                setValue={setLaciniationsPresent}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
                         <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
                             value={genitalPorePosition}
@@ -248,10 +260,23 @@ function Filter (props) {
 
                     {/* <h5>Strobilar Features</h5> */}
                     <Accordion header={'Strobilar Features'}>
-                        <RadioPillSelector inputDict={{'apolytic' : 'apolytic', 'euapolytic' : 'euapolytic', 'hyperapolytic' : 'hyperapolytic'}}
-                            value={apolysis}
-                            setValue={setApolysis}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'apolytic' : 'apolytic', 'euapolytic' : 'euapolytic', 'hyperapolytic' : 'hyperapolytic'}}
+                                value={apolysis}
+                                setValue={setApolysis}
+                            />
+                            <DetailedFeatureSelection
+                                title="Apolysis"
+                                inputDict={{ 'Apolytic' : 'apolytic',
+                                            'Euapolytic' : 'euapolytic',
+                                            'Hyperapolytic' : 'hyperapolytic' }}
+                                value={apolysis}
+                                setValue={setApolysis}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
+                        
 
                         <RadioPillSelector inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
                             value={wideAnteriorStrobia}
@@ -262,10 +287,20 @@ function Filter (props) {
 
                     {/* <h5>Host Information</h5> */}
                     <Accordion header={'Host Information'}>
-                        <RadioPillSelector inputDict={{ 'batoid' : 'batoids', 'shark' : 'sharks', 'ratfish' : 'ratfishes'}}
-                            value={hostGroup}
-                            setValue={setHostGroup}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{ 'batoid' : 'batoids', 'shark' : 'sharks', 'ratfish' : 'ratfishes'}}
+                                value={hostGroup}
+                                setValue={setHostGroup}
+                            />
+                            <DetailedFeatureSelection
+                                title="Host Group"
+                                inputDict={{ 'batoid' : 'batoids', 'shark' : 'sharks', 'ratfish' : 'ratfishes'}}
+                                value={hostGroup}
+                                setValue={setHostGroup}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
                     </Accordion>
                     
 
@@ -335,19 +370,8 @@ function Filter (props) {
                         value={hookFeatures}
                         setValue={setHookFeatures}
                     />
+                                        
                     
-                    {/* <h4 className={styles.instructionText}>CLICK ON A FEATURE TO SEE OPTIONS</h4>
-                    
-                    <DetailedFeatureSelection
-                        title="Apolysis"
-                        inputDict={{ 'Apolytic' : 'apolytic',
-                                    'Euapolytic' : 'euapolytic',
-                                    'Hyperapolytic' : 'hyperapolytic' }}
-                        value={apolysis}
-                        setValue={setApolysis}
-                        topModalZ={topModalZ}
-                        setTopModalZ={setTopModalZ}
-                    /> */}
                     
                 </div>
             </div>

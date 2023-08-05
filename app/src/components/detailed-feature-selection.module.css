@@ -1,5 +1,9 @@
 .container {
     padding: 0;
+    flex: 1;
+    vertical-align: bottom;
+    margin-top: 0.2em;
+    margin-left: 0.25em;
 }
 
 .titleContainer{
@@ -14,8 +18,23 @@
 }
 
 .button {
-    width: 4em;
+    width: 2em;
     height: 2em;
     align-self: center;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid darkgray;
+    font-weight: bold;
+    color: rgb(117, 117, 117);
+    /* display: inline-block; */
+    /* position: relative; */
+    /* float: right; */
+}
+
+.button:hover {    
+    background-color: #7ebac4;
+    color: white;
+    cursor: pointer;
+    border-color: white;
 }
 
