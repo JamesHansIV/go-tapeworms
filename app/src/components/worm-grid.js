@@ -17,7 +17,8 @@ function WormGrid(props) {
 
     // infinite scroll
     async function fetchMoreData() {
-        const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
+        // const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
+        const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${page}&limit=${limit}`;
         console.log("FETCH MORE DATA params", props.query);
         let response = await fetch(route)
         response = await response.json()
@@ -32,7 +33,7 @@ function WormGrid(props) {
 
     // new filter fetch 
     async function fetchWithNewFilter() {
-        const route = `http://localhost:8080/worms?${props.query}&page=${1}&limit=${limit}`;
+        const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${1}&limit=${limit}`;
         let response = await fetch(route);
         let _data = await response.json();
         await updateData(_data);
