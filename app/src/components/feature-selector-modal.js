@@ -108,7 +108,7 @@ function FeatureSelectorModal (props) {
                 >
                     <h4 className={styles.windowTitle}>{props.title}</h4>
                     <span className={styles.icons}>
-                        <LockButton onClick={toggleLock} locked={locked}/>
+                        {/* <LockButton onClick={toggleLock} locked={locked}/> */}
                         <RoundButton onClick={close}/>    
                     </span>
                     
@@ -134,6 +134,14 @@ function FeatureSelectorModal (props) {
                                 >
                                     <h4>{val}</h4>
                                     <div className={ styles.borderline } />
+                                    <img
+                                        src={process.env.PUBLIC_URL + '/'+val + '_hint.png'}
+                                        width={220}
+                                        height={400}
+                                        style={{objectFit: 'contain'}}
+                                        alt={'Image Coming Soon'}
+                                    >
+                                    </img>
                                 </div>
                             );
                         })

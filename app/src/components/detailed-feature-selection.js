@@ -26,17 +26,9 @@ function DetailedFeatureSelection (props) {
 
     return (
         <div className={styles.container}>
-            <div className={styles.titleContainer}>
-                <h5 className={styles.title}>
-                    {props.title}
-                </h5>
-                <button className={styles.button} onClick={toggleExpansion}>
-                    {selectionExpanded ? "Hide" : "Show"}
-                </button>
                 <button className={styles.button} onClick={toggleModal} ref={infoButtonRef}>
-                    Info
+                    ?
                 </button>
-            </div>
             
             
                 <div>
