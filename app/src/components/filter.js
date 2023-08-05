@@ -53,7 +53,7 @@ function Filter (props) {
     const [hostFamilies, setHostFamilies] = useState([])
 
     const getHostFamilies = async() => {
-        const response = await fetch(`http://localhost:8080/host_families`);
+        const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
         const data = await response.json()
         let host_array  = []
         for(let d of data){
