@@ -146,7 +146,7 @@ function Filter (props) {
     },[]);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} id={"filtercontainer"}>
             <div className={styles.scrollableWrapper}>
                 <span className={styles.icons}>
                     <ScrollToTopButton onClick={scrollToTop}/>
@@ -215,6 +215,7 @@ function Filter (props) {
                             value={genitalPorePosition}
                             setValue={setGenitalPorePosition}
                             abbreviation={{'GPP' : 'Genital Pore Position'}}
+                            shift={"right"}
                         />
 
                         <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
@@ -231,6 +232,7 @@ function Filter (props) {
                             value={anteriorExtentOfUterus}
                             setValue={setAnteriorExtentOfUterus}
                             abbreviation={{'GP':'Genital Pore'}}
+                            shift="left"
                         />
 
                         <RadioPillSelector 
@@ -238,6 +240,8 @@ function Filter (props) {
                             value={vitellineFollicleArrangement}
                             setValue={setVitellineFollicleArrangement}
                             abbreviation={{'VFA' : 'Vitelline Follicle Arrangement'}}
+                            shift="left"
+                            shiftIndex={2}
                         />
                     </Accordion>
                                         
