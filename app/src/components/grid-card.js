@@ -105,7 +105,7 @@ function GridCard(props) {
 
     const buildImageURL = () => {
         // let base = "https://tapeworms-unlocked.info/images";
-        let base = "https://tapeworms-unlocked.info/thumbnails";
+        let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
         let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
         if (images === undefined) {
             // console.log("BAD GENUS", genusLowerCase);
@@ -161,6 +161,7 @@ function GridCard(props) {
                                 src={buildImageURL()} 
                                 alt={`cannot find ${genus} source`}
                                 ref={imgRef}
+                                crossOrigin={"anonymous"}
                                 onLoad={() => {
                                     // averageBackground();
                                     setImageLoading(false);
