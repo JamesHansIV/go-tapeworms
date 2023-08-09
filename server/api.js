@@ -3,6 +3,14 @@ const sanitize = require("mongo-sanitize");
 const routes = express.Router({mergeParams: true});
 const dbo = require("./connect");
 
+const https = require('https');
+
+// wakeup
+setInterval(()=> {
+    // console.log("Pinging API")
+    https.get("https://api.tapeworms-unlocked.info");
+
+}, 13 * 60 * 1000);
 
 // redireect /
 routes.route("/").get(async function (req, res) {
