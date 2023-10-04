@@ -11,7 +11,7 @@ function GridCard(props) {
     const selectedRef = useRef(false);
 
     // card size constants
-    const defaultCardWidth = 140;
+    const defaultCardWidth = 200;
     const defaultCardHeight = 205;
     const defaultPortraitHeight = 180;
     const maxWidth = 300;
@@ -22,12 +22,13 @@ function GridCard(props) {
     const [imageIndex, setImageIndex] = useState(0);
     const [imageLoading, setImageLoading] = useState(true);
 
+
     // let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
     let images = props.imageSources;
 
     useEffect(() => { 
         if(!props.loading && !imageLoading){
-            resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+            // resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
         }
         // averageBackground();
         // console.log(images)
@@ -96,9 +97,9 @@ function GridCard(props) {
             const newHeight = newWidth / imgRatio;
             
             outerRef.current.style.zIndex = 90;
-            resizeCard(newWidth, newHeight+20, newHeight);
+            // resizeCard(newWidth, newHeight+20, newHeight);
         } else {
-            resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+            // resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
             outerRef.current.style.zIndex = 50;
         }
     };  
@@ -113,8 +114,8 @@ function GridCard(props) {
         }
 
         let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
-        // console.log(imageURL);
         console.log(imageURL);
+        // console.log(imageURL);
         return imageURL;
         // if (imageIndex >= images.length)
 
@@ -132,6 +133,33 @@ function GridCard(props) {
         setImageLoading(true);
     }
 
+    const getSize = () => {
+        // grid row heigth = 10px
+        // portraitheight / 10px
+
+        // const imgRatio = imgRef.current.naturalWidth / imgRef.current.naturalHeight;
+        const imgRatio = defaultCardWidth / imgRef.current.naturalWidth;
+        // const newWidth = Math.min(maxWidth, imgRef.current.naturalWidth);
+        const newHeight = imgRef.current.naturalHeight * imgRatio;
+
+        // console.log("new width" , newWidth);
+
+        console.log("width: 200");
+        console.log("imgRatio", imgRatio);
+        console.log("old width", imgRef.current.naturalWidth);
+        console.log("old height", imgRef.current.naturalHeight);
+        console.log("new height", newHeight);
+
+        let rows = ~~(newHeight / 5);
+
+        // console.log("rows", rows+1);
+        // console.log(newHeight)
+
+        // console.log(`span ${rows}`)
+        // outerRef.current.style.gridRowsEnd = `span ${rows}`;
+        return `span ${rows+9}`
+    }
+
     return (
         props.loading === true ? (
             <div className={styles.container}>
@@ -142,7 +170,7 @@ function GridCard(props) {
                 <div className={styles.nameTagSkeleton}/>
             </div>
         ) : ( 
-            <div className={styles.outerContainer} onClick={handleClick} ref={outerRef} > 
+            <div className={styles.outerContainer} onClick={handleClick} ref={outerRef} style={{gridRowEnd: imageLoading ? "" : getSize()}}> 
                 <div className={styles.innerContainer} ref={innerRef}>
                 
                 {/* Image (carousel?) */}
@@ -167,6 +195,7 @@ function GridCard(props) {
                                     setImageLoading(false);
                                     centerIfSmall();
                                     averageBackground();
+                                    // setSize();
 
                                     // centerIfSmall(); 
                                 }}

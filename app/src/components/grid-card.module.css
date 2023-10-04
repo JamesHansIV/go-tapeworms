@@ -1,10 +1,12 @@
 .outerContainer {
-    height: 205px;
-    width: 140px;
+    /* height: 205px; */
+    width: 200px;
     border-radius: 10px;
     background-color: var(--skeleton);
     position: relative;
     transition: all 0.5s;
+    /* margin-top: 30px; */
+    margin-bottom: 20px;
     /* z-index: 2; */
 }
 
@@ -32,8 +34,8 @@
 .portrait {
     /* display: flex;s */
     /* align-items: center; */
-    height: 180px;
-    width: 140px;
+    /* height: 180px; */
+    /* width: 140px; */
 }
 
 .image {
