@@ -11,10 +11,13 @@ function GridCard(props) {
     const selectedRef = useRef(false);
 
     // card size constants
-    const defaultCardWidth = 140;
+    // const [defaultCardWidth, ] = useState(props.cardWidth);
+    const defaultCardWidth =  200;
     const defaultCardHeight = 205;
     const defaultPortraitHeight = 180;
     const maxWidth = 300;
+
+    const cardWidth = props.cardWidth;
 
     const [genus, ] = useState(props.genus);
     const [gridBox, ] = useState(props.gridBox.current.getBoundingClientRect());
@@ -22,12 +25,13 @@ function GridCard(props) {
     const [imageIndex, setImageIndex] = useState(0);
     const [imageLoading, setImageLoading] = useState(true);
 
+
     // let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
     let images = props.imageSources;
 
     useEffect(() => { 
         if(!props.loading && !imageLoading){
-            resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+            // resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
         }
         // averageBackground();
         // console.log(images)
@@ -96,28 +100,22 @@ function GridCard(props) {
             const newHeight = newWidth / imgRatio;
             
             outerRef.current.style.zIndex = 90;
-            resizeCard(newWidth, newHeight+20, newHeight);
+            // resizeCard(newWidth, newHeight+20, newHeight);
         } else {
-            resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
+            // resizeCard(defaultCardWidth, defaultCardHeight, defaultPortraitHeight);
             outerRef.current.style.zIndex = 50;
         }
     };  
 
     const buildImageURL = () => {
-        // let base = "https://tapeworms-unlocked.info/images";
         let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
         let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
         if (images === undefined) {
-            // console.log("BAD GENUS", genusLowerCase);
             return `${base}/${genusLowerCase}`;
         }
 
         let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
-        // console.log(imageURL);
-        console.log(imageURL);
         return imageURL;
-        // if (imageIndex >= images.length)
-
     }
 
     const handleNextImage = () => {
@@ -132,6 +130,16 @@ function GridCard(props) {
         setImageLoading(true);
     }
 
+    const getSize = () => {
+
+        const imgRatio = cardWidth / imgRef.current.naturalWidth;
+        const newHeight = imgRef.current.naturalHeight * imgRatio;
+
+        let rows = ~~(newHeight / 5);
+
+        return `span ${rows+9}`
+    }
+
     return (
         props.loading === true ? (
             <div className={styles.container}>
@@ -142,7 +150,7 @@ function GridCard(props) {
                 <div className={styles.nameTagSkeleton}/>
             </div>
         ) : ( 
-            <div className={styles.outerContainer} onClick={handleClick} ref={outerRef} > 
+            <div className={styles.outerContainer} onClick={handleClick} ref={outerRef} style={{gridRowEnd: imageLoading ? "" : getSize()}}> 
                 <div className={styles.innerContainer} ref={innerRef}>
                 
                 {/* Image (carousel?) */}
@@ -163,12 +171,9 @@ function GridCard(props) {
                                 ref={imgRef}
                                 crossOrigin={"anonymous"}
                                 onLoad={() => {
-                                    // averageBackground();
                                     setImageLoading(false);
                                     centerIfSmall();
                                     averageBackground();
-
-                                    // centerIfSmall(); 
                                 }}
                                 />
                         </div>
