@@ -6,6 +6,8 @@ import styles from './masonry-grid.module.css';
 function MasonryGrid(props) {
     const gridRef = useRef();
 
+    const cardWidth = 200;
+
     // states   
     const [orderCounts, setOrderCounts] = useState({});
     const [data, updateData] = useState([]);
@@ -120,7 +122,7 @@ function MasonryGrid(props) {
             </div>
 
             {/*  */}
-            <div className={styles.gridContent}>
+            <div className={styles.gridContent} style={{gridTemplateColumns:`repeat(auto-fit, minmax(min-content, ${cardWidth}px)`}}>
                 {
                     data.map( (x) => (
                         <GridCard 
@@ -130,6 +132,7 @@ function MasonryGrid(props) {
                             img = {`./${x.genus}_main.jpg`}
                             imageSources = {x.thumbnails}
                             color = {colorMap[x.order]}
+                            cardWidth={cardWidth}
                             />
                     ))
                     }

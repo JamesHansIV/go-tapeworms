@@ -76,7 +76,7 @@
     display: grid;
     column-gap: 20px;
     grid-auto-rows: 5px;
-    grid-template-columns: repeat(auto-fit, minmax(min-content, 200px));
+    /* grid-template-columns: repeat(auto-fit, minmax(min-content, 200px)); */
     justify-content: left;
 }
 

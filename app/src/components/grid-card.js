@@ -17,6 +17,8 @@ function GridCard(props) {
     const defaultPortraitHeight = 180;
     const maxWidth = 300;
 
+    const cardWidth = props.cardWidth;
+
     const [genus, ] = useState(props.genus);
     const [gridBox, ] = useState(props.gridBox.current.getBoundingClientRect());
     const [gridWidth, ] = useState(900);
@@ -130,7 +132,7 @@ function GridCard(props) {
 
     const getSize = () => {
 
-        const imgRatio = defaultCardWidth / imgRef.current.naturalWidth;
+        const imgRatio = cardWidth / imgRef.current.naturalWidth;
         const newHeight = imgRef.current.naturalHeight * imgRatio;
 
         let rows = ~~(newHeight / 5);
