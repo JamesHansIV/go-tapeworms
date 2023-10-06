@@ -15,14 +15,11 @@ function MasonryGrid(props) {
 
     // infinite scroll
     async function fetchMoreData() {
-        // const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
         const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${page}&limit=${limit}`;
-        console.log("FETCH MORE DATA params", props.query);
         let response = await fetch(route)
         response = await response.json()
         let data_ = [...data, ...response];
         await updateData((prevData) => [...prevData, ...response]);
-        // await calcNumResultsPerOrder(data_);
         setLoading(false)
         if(response.length > 0){
             window.addEventListener("scroll", handleScroll);
@@ -82,19 +79,16 @@ function MasonryGrid(props) {
     };
 
     const handleScroll = () => {
-        console.log("handle scroll");
         if (
             window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight
         ) {
-            console.log("setting new page");
             setPage(page + 1);
-            console.log("page set", page);
             window.removeEventListener('scroll', handleScroll);
         }
     }
 
     useEffect(()=>{
-        console.log("query changed");
+        // console.log("query changed");
         window.scrollTo({top:0, behavior:'instant'});
         fetchWithNewFilter();
         setPage(1);
@@ -102,10 +96,10 @@ function MasonryGrid(props) {
     },[props.query]);
 
     useEffect(()=>{
-        console.log("page change")
+        // console.log("page change")
         console.log(page);
         if (page === 1) {
-            console.log("skip");
+            // console.log("skip");
             return;
         }
         fetchMoreData();
@@ -126,7 +120,7 @@ function MasonryGrid(props) {
             </div>
 
             {/*  */}
-            <div className={styles.grid}>
+            <div className={styles.gridContent}>
                 {
                     data.map( (x) => (
                         <GridCard 
@@ -136,19 +130,20 @@ function MasonryGrid(props) {
                             img = {`./${x.genus}_main.jpg`}
                             imageSources = {x.thumbnails}
                             color = {colorMap[x.order]}
-                        />
+                            />
                     ))
-                }
+                    }
                 {
-                    loading && (
-                        (() => {
-                          const gridCards = [];
-                          for (let i = 0; i < limit; i++) {
-                            gridCards.push(<GridCard loading={true} gridBox={gridRef} key={i}/>);
-                          }
-                          return gridCards;
-                        })()
-                      )
+                    // this is causing the "bottom layer card", needs to be removed
+                    // loading && (
+                    //     (() => {
+                    //       const gridCards = [];
+                    //       for (let i = 0; i < limit; i++) {
+                    //         gridCards.push(<GridCard loading={true} gridBox={gridRef} key={`loading_card_${i}`}/>);
+                    //       }
+                    //       return gridCards;
+                    //     })()
+                    //   )
                 }                       
             </div>
         </div>
