@@ -11,7 +11,8 @@ function GridCard(props) {
     const selectedRef = useRef(false);
 
     // card size constants
-    const defaultCardWidth = 200;
+    // const [defaultCardWidth, ] = useState(props.cardWidth);
+    const defaultCardWidth =  200;
     const defaultCardHeight = 205;
     const defaultPortraitHeight = 180;
     const maxWidth = 300;
@@ -105,20 +106,14 @@ function GridCard(props) {
     };  
 
     const buildImageURL = () => {
-        // let base = "https://tapeworms-unlocked.info/images";
         let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
         let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
         if (images === undefined) {
-            // console.log("BAD GENUS", genusLowerCase);
             return `${base}/${genusLowerCase}`;
         }
 
         let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
-        console.log(imageURL);
-        // console.log(imageURL);
         return imageURL;
-        // if (imageIndex >= images.length)
-
     }
 
     const handleNextImage = () => {
@@ -134,29 +129,12 @@ function GridCard(props) {
     }
 
     const getSize = () => {
-        // grid row heigth = 10px
-        // portraitheight / 10px
 
-        // const imgRatio = imgRef.current.naturalWidth / imgRef.current.naturalHeight;
         const imgRatio = defaultCardWidth / imgRef.current.naturalWidth;
-        // const newWidth = Math.min(maxWidth, imgRef.current.naturalWidth);
         const newHeight = imgRef.current.naturalHeight * imgRatio;
-
-        // console.log("new width" , newWidth);
-
-        console.log("width: 200");
-        console.log("imgRatio", imgRatio);
-        console.log("old width", imgRef.current.naturalWidth);
-        console.log("old height", imgRef.current.naturalHeight);
-        console.log("new height", newHeight);
 
         let rows = ~~(newHeight / 5);
 
-        // console.log("rows", rows+1);
-        // console.log(newHeight)
-
-        // console.log(`span ${rows}`)
-        // outerRef.current.style.gridRowsEnd = `span ${rows}`;
         return `span ${rows+9}`
     }
 
@@ -191,13 +169,9 @@ function GridCard(props) {
                                 ref={imgRef}
                                 crossOrigin={"anonymous"}
                                 onLoad={() => {
-                                    // averageBackground();
                                     setImageLoading(false);
                                     centerIfSmall();
                                     averageBackground();
-                                    // setSize();
-
-                                    // centerIfSmall(); 
                                 }}
                                 />
                         </div>
