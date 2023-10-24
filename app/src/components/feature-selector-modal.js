@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-// import styles from './feature-selector-modal.module.css';
 import styles from './feature-selector-modal.module.css';
+// import styles from './featureSelectorModal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
@@ -25,12 +25,33 @@ function FeatureSelectorModal (props) {
     // close-on-click lock
     const [locked, setLocked] = useState(false);
 
+    // panel size
+    const panelSize = props.panelSize; // {height: 111, width: 222} 
+
+    // hint components positioning
+    const imgSrc = props.imgSrc;
+    const imgPos = props.imgPos; // {x: 111, y: 222}
+    const imgSize = props.imgSize; // {height: 111, width: 111 }
+
+    const definition = props.definition; // { x:111, y:222, width: 111, text: "hello world" }
+
+    const circle = props.circle; // { x: 111, y: 222, width: 333, height: 444, }
+
+    const helperText = props.helperText; // { x:111, y:222, width: 111, text: "hello world" }
+
+    const hintCircle = props.hintCircle; // { width: 111, hieght: 222, rotation: 333, x: 111, y: 222 }
+    const hintCircleLabel = props.hintCircleLabel; // { text: "hellow world", x: 111, y: 222 }
+    const hintDescription = props.hintDescription; // { text: "hello world", x: 111, y: 222 } 
+    const citationText = props.citationText; 
+
+
     useEffect(()=> {
         // setActive(props.active);
         setInputs(props.inputDict);
         setSel(props.value);
         setTopZ(props.topZ);
         setPos({left: props.initPos.x, top: props.initPos.y})
+
         // console.log(props.initPos)
     }, [props.value]);
 
@@ -118,9 +139,9 @@ function FeatureSelectorModal (props) {
                         Object.entries(inputs).map( ([index, val]) => {
                             let classes = `${styles.panel}`;
                             if (sel === val) classes += ` ${styles.selected}`;
-                            
+
                             return (
-                                <div className={ classes } key={index}
+                                <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
                                     onMouseEnter={ disableDrag }
                                     onMouseLeave={ enableDrag }
                                     onClick={()=> {
@@ -134,14 +155,29 @@ function FeatureSelectorModal (props) {
                                 >
                                     <h4>{val}</h4>
                                     <div className={ styles.borderline } />
-                                    <img
-                                        src={process.env.PUBLIC_URL + '/'+val + '_hint.png'}
-                                        width={220}
-                                        height={400}
-                                        style={{objectFit: 'contain'}}
-                                        alt={'Image Coming Soon'}
-                                    >
-                                    </img>
+                                    <img src={imgSrc}
+                                        className={styles.hintImage}
+                                        style={{left: imgPos.x,
+                                                top: imgPos.y,
+                                                height: imgSize.height}}
+                                        alt={'Image Comming Soon'}
+                                    />
+                                    <div className={ styles.hintDefinition }
+                                        style={{left: definition.x, top: definition.y, width: definition.width }}>
+                                        <p>{definition.text}</p>
+                                    </div>
+                                    <div className={styles.helperText}
+                                        style={{left: helperText.x, top: helperText.y, width: helperText.width}}>
+                                        <p>{helperText.text}</p>
+                                    </div>
+                                    <div className={ styles.helperCircle } 
+                                        style={{left: circle.x, 
+                                            top: circle.y, 
+                                            height: circle.height,
+                                            width: circle.width, 
+                                            rotate: circle.rotate 
+                                        }}
+                                    />
                                 </div>
                             );
                         })
