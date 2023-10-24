@@ -4,6 +4,7 @@ const routes = express.Router({mergeParams: true});
 const dbo = require("./connect");
 
 const https = require('https');
+const { features } = require("process");
 
 // wakeup
 setInterval(()=> {
@@ -272,7 +273,7 @@ routes.route("/update/").get( async function(req, res) {
 routes.route("/host_families").get(async function(req, res) {
     const connection = dbo.getDb();
     connection.collection("host_families").find({}, {projection: {host_family: 1, _id: 0}}).toArray(function (err, result) {
-        if (err) res.status(400).send("Error fetching from genera table")
+        if (err) res.status(400).send("Error fetching from host families table")
         else res.json(result);
     });
 
@@ -281,6 +282,29 @@ routes.route("/host_families").get(async function(req, res) {
 routes.route('/change').get(async function(req,res){
     const connection = dbo.getDb()
     connection.collection("host_family_names").rename("host_families")
+})
+
+routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
+    const connection = dbo.getDb();
+
+    // ensure features feild is filled out
+    if (!("features" in req.query)) {
+        res.status(400).send('endpoint requires features[] URL parameter.');
+    }
+
+    let query = {"$or" : []};
+
+    // get fatures from params
+    let featuresList = Object.values(req.query.features)[0].split(',');
+
+    // build mongo query
+    featuresList.forEach(value => query["$or"].push({"feature" : value}));
+
+    // exexute query
+    connection.collection("feature_selector_modal_hints").find(query).toArray((err, result)=>{
+        if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
+        else res.json(result);
+    });
 })
 
 module.exports = routes;
