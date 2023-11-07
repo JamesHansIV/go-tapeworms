@@ -300,6 +300,8 @@ routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
     // build mongo query
     featuresList.forEach(value => query["$or"].push({"feature" : value}));
 
+    console.log("QUERY: ", query);
+
     // exexute query
     connection.collection("feature_selector_modal_hints").find(query).toArray((err, result)=>{
         if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
