@@ -223,14 +223,14 @@ function Filter (props) {
                             />
                         </div>
 
-                        <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
+                        <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP dorsal/ventral' : 'dorsal_ventral'}}
                             value={genitalPorePosition}
                             setValue={setGenitalPorePosition}
                             abbreviation={{'GPP' : 'Genital Pore Position'}}
                             shift={"right"}
                         />
 
-                        <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
+                        <RadioPillSelector inputDict={{'1 column of testes' : true, '>1 column of testes' : false}}
                             value={hasSingleColumnOfTestes}
                             setValue={setHasSingleColumnOfTestes}
                         />
