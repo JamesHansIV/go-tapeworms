@@ -172,11 +172,19 @@ function Filter (props) {
 
                     {/* <h5>Scolex Features</h5> */}
                     <Accordion header={'Scolex Features'} openInitially={true}>
-                        <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
-                            value={scolexPresent}
-                            setValue={setScolexPresent}
-                        />
-
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
+                                value={scolexPresent}
+                                setValue={setScolexPresent}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'scolex present' : true, 'scolex absent' : false}}
+                                value={scolexPresent}
+                                setValue={setScolexPresent}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
                         <RadioPillSelector inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
                             value={scolexAttachmentStructure}
                             setValue={setScolexAttachmentStructure}
@@ -266,10 +274,10 @@ function Filter (props) {
                                 setValue={setApolysis}
                             />
                             <DetailedFeatureSelection
-                                title="Apolysis"
-                                inputDict={{ 'Apolytic' : 'apolytic',
-                                            'Euapolytic' : 'euapolytic',
-                                            'Hyperapolytic' : 'hyperapolytic' }}
+                                title="apolysis"
+                                inputDict={{ 'apolytic' : 'apolytic',
+                                            'euapolytic' : 'euapolytic',
+                                            'hyperapolytic' : 'hyperapolytic' }}
                                 value={apolysis}
                                 setValue={setApolysis}
                                 topModalZ={topModalZ}

@@ -56,6 +56,7 @@ function DetailedFeatureSelection (props) {
 
                                 // panelsize
                                 panelSize={{height: 540, width: 300}}
+                                // panelSize={{height: 300, width: 150}}
 
                                 // hint components positioning
                                 imgSrc={process.env.PUBLIC_URL+"/apolytic_Acan_nano_Zschocheetal(2011).png"}
