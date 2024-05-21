@@ -4,6 +4,7 @@ import './App.css'
 // components
 import Header from './components/header.js';
 import WormGrid from './components/worm-grid.js';
+import MasonryGrid from './components/masonry-grid.js';
 import Filter from './components/filter.js';
 
 // styles
@@ -26,7 +27,8 @@ function App() {
       }}/>
       <div class = "home">
         <Filter setFilters={setParams}/>
-        <WormGrid query={params}/>
+        {/* <WormGrid query={params}/> */}
+        <MasonryGrid query={params}/>
       </div>
 
       {/* footer placeholder */}

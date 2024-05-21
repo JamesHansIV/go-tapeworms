@@ -1,0 +1,82 @@
+.pillBody {
+    margin-left: 0.25em;
+    margin-top: 0.25em;
+
+    padding: .25em 0.25em 0.25em 0.5em;
+
+    border-radius: 1em;
+    text-align: center;
+    display: inline-block;
+
+    background-color: brown;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    color: white;
+}
+
+.pillCount {
+    display: inline-block;
+    background-color: rgb(245, 245, 245);
+    text-align: center;
+    width: 1.5em;
+    border-radius:1.35em;
+    margin-left: 0.25em;
+    color: black;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px; 
+
+}
+
+.textResults {
+    padding: .25em 0.25em;
+    border-radius: 1em;
+    text-align: center;
+    display: inline-block;
+
+    font-family: "Gill Sans", san-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: var(--line);
+}
+
+.results h4 {
+    border-bottom: 1px solid var(--line);
+}
+
+.results h4 span {
+    background-color: white;
+    padding: 0px 10px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.5em 2em 0.5em;
+    width: 80vw;
+    height: auto;
+    /* background-color: aqua; */
+    /* max-width: 2000pxx/; */
+    
+}
+
+.orderCountContainer {
+    display: inline-block;
+    margin-bottom: 2%;
+}
+
+.gridContent {
+    margin: 0;
+    display: grid;
+    column-gap: 20px;
+    grid-auto-rows: 5px;
+    /* grid-template-columns: repeat(auto-fit, minmax(min-content, 200px)); */
+    justify-content: left;
+}
+
