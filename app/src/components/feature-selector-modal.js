@@ -170,10 +170,6 @@ function FeatureSelectorModal (props) {
         }
         return (<></>);
     }
-
-    const getHintType = (hint) => {
-        // if 
-    }
     
     // if (active)
     return (
@@ -195,8 +191,14 @@ function FeatureSelectorModal (props) {
             { loading === true ? (
                 // <p>Loading...</p>
                 Object.entries(inputs).map(([index, val]) => {
+                    console.log("INPUT DICT: " + index + ", " + val + "   | sel: " + sel);
+                    // console.log(sel + " === " + val + ":   " + (sel === val))
+
                     let classes = `${styles.panel}`;
-                    if (sel === val) classes += ` ${styles.selected}`;
+                    if (sel === val) { 
+                        classes += ` ${styles.selected}`;
+                        // console.log("applied style")
+                    } 
                     return (
                         <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
                             onMouseEnter={ disableDrag }
@@ -219,12 +221,14 @@ function FeatureSelectorModal (props) {
                 // <p>Loaded...</p>
                 // map panels
                 Object.entries(hintData).map( ([index, curr]) => {
+                    // console.log("CURR: " + JSON.stringify(curr));
+                    // console.log("sel: " + sel);
                     let classes = `${styles.panel}`;
-                    if (sel === curr) classes += ` ${styles.selected}`;
+                    if (sel === inputs[curr.feature]) classes += ` ${styles.selected}`;
 
-                    console.log(curr);
+                    // console.log(curr);
 
-                    setImages(curr);
+                    // setImages(curr);
 
                     return (
                         <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
@@ -235,15 +239,34 @@ function FeatureSelectorModal (props) {
                                     isDragging.current = false; 
                                     return;
                                 }
-                                sel === curr ? props.setValue(null) : props.setValue(curr.feature);
+                                // console.log("curr.feature " + curr.feature);
+                                // console.log("curr: " + JSON.stringify(curr));
+                                // console.log("input[curr.feature]" + inputs[curr.feature]);
+                                sel === curr ? props.setValue(null) : props.setValue(inputs[curr.feature]);
                                 if (!locked) close();
                             }}
                         >
-                            <h4>{curr.feature}</h4>
+                            <h4 style={{textTransform:'capitalize'}}>{curr.feature}</h4>
                             <div className={ styles.borderline } />
                             {/* NEW FLATTENED METHOD */}
                             <div className={ styles.hintDefinition}>
-                                <p >{curr.definition}</p>
+                                {(curr.definition.slice(0,6) != "\\u2022") 
+                                    ? (<p>{curr.definition}</p>) 
+                                    : (
+                                        <ul style={{paddingLeft:'1em'}}>
+                                        {curr.definition.split("\\u2022").map((word) => {
+                                            // console.log(curr.hints.length);
+                                            if (word !== "")
+                                                return <li style={{fontSize:'0.875em'}}>{word}</li>
+
+                                            // return 
+                                        })}
+                                        </ul>
+                                    )
+                                }
+                                {/* <p >{curr.definition}</p> */}
+                                {console.log("CURR: " + JSON.stringify(curr))}
+                                {/* {console.log("DEFINITION: " + curr.definition)} */}
                             </div>
                             <img src={curr.image_source + ".png"}/>
                             

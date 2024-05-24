@@ -64,6 +64,11 @@
     color: white;
 }
 
+.selected:hover {
+    background-color: #e1eef1;
+    color: black;
+}
+
 .icons {
     position: absolute;
     display: flex;

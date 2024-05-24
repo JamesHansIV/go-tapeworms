@@ -199,11 +199,19 @@ function Filter (props) {
                             />
                         </div>
                         
-
-                        <RadioPillSelector inputDict={{  'apical organ' : true, 'no apical organ': false}}
-                            value={apicalOrganPresent}
-                            setValue={setApicalOrganPresent}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{  'apical organ' : true, 'no apical organ': false}}
+                                value={apicalOrganPresent}
+                                setValue={setApicalOrganPresent}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'apical organ present' : true, 'apical organ absent' : false}}
+                                value={apicalOrganPresent}
+                                setValue={setApicalOrganPresent}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
                         <div style={{display:'flex', height:'100%'}}>
                             <RadioPillSelector inputDict={{ 'tentacles' : true, 'no tentacles': false}}
@@ -219,10 +227,19 @@ function Filter (props) {
                             />
                         </div>
 
-                        <RadioPillSelector inputDict={{'hooks' : true, 'no hooks' : false}}
-                            value={hooksPresent}
-                            setValue={setHooksPresent}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'hooks' : true, 'no hooks' : false}}
+                                value={hooksPresent}
+                                setValue={setHooksPresent}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'hooks' : true, 'no hooks' : false}}
+                                value={hooksPresent}
+                                setValue={setHooksPresent}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
                     </Accordion>
 
