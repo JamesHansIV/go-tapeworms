@@ -26,8 +26,9 @@
     /* posititioning */
     position: sticky;
     top: 1em;
-    width: fit-content;
-    max-width: 25vw;
+    width: 25em;
+    /* width: fit-content; */
+    /* max-width: 25vw; */
     /* min-width: 28vw; */
     padding: 0 1em 0em 2em;
     z-index: 9;

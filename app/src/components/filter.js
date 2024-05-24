@@ -172,25 +172,52 @@ function Filter (props) {
 
                     {/* <h5>Scolex Features</h5> */}
                     <Accordion header={'Scolex Features'} openInitially={true}>
-                        <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
-                            value={scolexPresent}
-                            setValue={setScolexPresent}
-                        />
-
-                        <RadioPillSelector inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
-                            value={scolexAttachmentStructure}
-                            setValue={setScolexAttachmentStructure}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'scolex present' : true, 'scolex absent' : false}}
+                                value={scolexPresent}
+                                setValue={setScolexPresent}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'scolex present' : true, 'scolex absent' : false}}
+                                value={scolexPresent}
+                                setValue={setScolexPresent}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
+                                value={scolexAttachmentStructure}
+                                setValue={setScolexAttachmentStructure}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
+                                value={scolexAttachmentStructure}
+                                setValue={scolexAttachmentStructure}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
+                        
 
                         <RadioPillSelector inputDict={{  'apical organ' : true, 'no apical organ': false}}
                             value={apicalOrganPresent}
                             setValue={setApicalOrganPresent}
                         />
 
-                        <RadioPillSelector inputDict={{ 'tentacles' : true, 'no tentacles': false}}
-                            value={tentaclesPresent}
-                            setValue={setTentaclesPresent}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{ 'tentacles' : true, 'no tentacles': false}}
+                                value={tentaclesPresent}
+                                setValue={setTentaclesPresent}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'tentacles' : true, 'no tentacles' : false}}
+                                value={tentaclesPresent}
+                                setValue={setTentaclesPresent}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
                         <RadioPillSelector inputDict={{'hooks' : true, 'no hooks' : false}}
                             value={hooksPresent}
@@ -223,14 +250,14 @@ function Filter (props) {
                             />
                         </div>
 
-                        <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP doral/ventral' : 'dorsal_ventral'}}
+                        <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP dorsal/ventral' : 'dorsal_ventral'}}
                             value={genitalPorePosition}
                             setValue={setGenitalPorePosition}
                             abbreviation={{'GPP' : 'Genital Pore Position'}}
                             shift={"right"}
                         />
 
-                        <RadioPillSelector inputDict={{'1 columnn of testes' : true, '>1 column of testes' : false}}
+                        <RadioPillSelector inputDict={{'1 column of testes' : true, '>1 column of testes' : false}}
                             value={hasSingleColumnOfTestes}
                             setValue={setHasSingleColumnOfTestes}
                         />
@@ -266,10 +293,10 @@ function Filter (props) {
                                 setValue={setApolysis}
                             />
                             <DetailedFeatureSelection
-                                title="Apolysis"
-                                inputDict={{ 'Apolytic' : 'apolytic',
-                                            'Euapolytic' : 'euapolytic',
-                                            'Hyperapolytic' : 'hyperapolytic' }}
+                                title="apolysis"
+                                inputDict={{ 'apolytic' : 'apolytic',
+                                            'euapolytic' : 'euapolytic',
+                                            'hyperapolytic' : 'hyperapolytic' }}
                                 value={apolysis}
                                 setValue={setApolysis}
                                 topModalZ={topModalZ}

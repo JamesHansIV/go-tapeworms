@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-// import styles from './feature-selector-modal.module.css';
 import styles from './feature-selector-modal.module.css';
+// import styles from './featureSelectorModal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
@@ -9,6 +9,10 @@ function FeatureSelectorModal (props) {
     // filter states
     const [inputs, setInputs] = useState([]);
     const [sel, setSel] = useState();
+
+    const [hintData, setHintData] = useState([]);
+
+    const [loading, setLoading] = useState(true);
 
     // movement refs
     const hasMoved = useRef(false);
@@ -25,19 +29,75 @@ function FeatureSelectorModal (props) {
     // close-on-click lock
     const [locked, setLocked] = useState(false);
 
+    // panel size
+    const panelSize = props.panelSize; // {height: 111, width: 222} 
+
+    // hint components positioning
+    const imgSrc = props.imgSrc;
+    const imgPos = props.imgPos; // {x: 111, y: 222}
+    const imgSize = props.imgSize; // {height: 111, width: 111 }
+
+    const definition = props.definition; // { x:111, y:222, width: 111, text: "hello world" }
+
+    const circle = props.circle; // { x: 111, y: 222, width: 333, height: 444, }
+
+    const helperText = props.helperText; // { x:111, y:222, width: 111, text: "hello world" }
+
+    const hintCircle = props.hintCircle; // { width: 111, hieght: 222, rotation: 333, x: 111, y: 222 }
+    const hintCircleLabel = props.hintCircleLabel; // { text: "hellow world", x: 111, y: 222 }
+    const hintDescription = props.hintDescription; // { text: "hello world", x: 111, y: 222 } 
+    const citationText = props.citationText; 
+
+
+
+
+    const getHintData = async() => {
+        const params = Object.keys(inputs);
+
+        if(params.length == 0) return;
+
+        let paramsString = "features[]=" ;
+        params.forEach((value,index)=>{
+            paramsString += value;
+            if (index != params.length - 1) paramsString += ',';
+        })
+        console.log(paramsString);
+        
+        const response = await fetch(`http://localhost:8080/feature_selection_modal_hints?${paramsString}`);
+        const data = await response.json();
+        console.log(data);
+
+        setHintData(data);
+    }
+
     useEffect(()=> {
         // setActive(props.active);
         setInputs(props.inputDict);
         setSel(props.value);
         setTopZ(props.topZ);
         setPos({left: props.initPos.x, top: props.initPos.y})
+
         // console.log(props.initPos)
     }, [props.value]);
 
+    useEffect(()=> {
+        getHintData();
+    }, [inputs])
+
+    useEffect(()=> {
+        if (hintData != null) {
+            if (hintData.length > 0) {
+                console.log("NOT UNDEFINED");
+                console.log(hintData);
+                setLoading(false);
+            } else {
+                console.log("LENGTH 0")
+            }
+        }
+    }, [hintData])
+
     // onclick handlers
     const close = () => props.setActive(false);
-    // const close =()=>{console.log("CLOSE")};
-    // const toggleLock = () => setLocked(!locked);
     const toggleLock = () =>{setLocked(!locked);console.log("LOCK",locked)}
 
     // drag enable/disable
@@ -94,6 +154,27 @@ function FeatureSelectorModal (props) {
         isDragging.current = false;
     }
 
+    // param: hint is one item in hint data
+    const setImages = (hint) => {
+        // Object.en
+    }
+
+    const getHintLabel = (hint) => {
+        if ("label" in hint) {
+            return (
+                <div className={styles.helperText}
+                    style={{left: hint.label.x, top: hint.label.y, width: hint.label.width}}>
+                    <p>{hint.label.text}</p>
+                </div>
+            )
+        }
+        return (<></>);
+    }
+
+    const getHintType = (hint) => {
+        // if 
+    }
+    
     // if (active)
     return (
         <div className={styles.movableWrapper}
@@ -104,53 +185,147 @@ function FeatureSelectorModal (props) {
             // style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute', zIndex: topZ} : { }}
             style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
         >
-            <span className={styles.container}
-                >
-                    <h4 className={styles.windowTitle}>{props.title}</h4>
-                    <span className={styles.icons}>
-                        {/* <LockButton onClick={toggleLock} locked={locked}/> */}
-                        <RoundButton onClick={close}/>    
-                    </span>
-                    
-                
-                    {
-                        // map panels
-                        Object.entries(inputs).map( ([index, val]) => {
-                            let classes = `${styles.panel}`;
-                            if (sel === val) classes += ` ${styles.selected}`;
+            <span className={styles.container}>
+            {/* <h4 className={styles.windowTitle}>{props.title}</h4> */}
+            <span className={styles.icons}>
+                {/* <LockButton onClick={toggleLock} locked={locked}/> */}
+                <RoundButton onClick={close}/>    
+            </span>
+            
+            { loading === true ? (
+                // <p>Loading...</p>
+                Object.entries(inputs).map(([index, val]) => {
+                    let classes = `${styles.panel}`;
+                    if (sel === val) classes += ` ${styles.selected}`;
+                    return (
+                        <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
+                            onMouseEnter={ disableDrag }
+                            onMouseLeave={ enableDrag }
+                            onClick={()=> {
+                                if(isDragging.current === true) {
+                                    isDragging.current = false; 
+                                    return;
+                                }
+                                sel === val ? props.setValue(null) : props.setValue(val);
+                                console.log(val);
+                                if (!locked) close();
+                            }}
+                        >
+                            <p>loading...</p>
+                        </div>
+                    );
+                })
+            ) : (
+                // <p>Loaded...</p>
+                // map panels
+                Object.entries(hintData).map( ([index, curr]) => {
+                    let classes = `${styles.panel}`;
+                    if (sel === curr) classes += ` ${styles.selected}`;
+
+                    console.log(curr);
+
+                    setImages(curr);
+
+                    return (
+                        <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
+                            onMouseEnter={ disableDrag }
+                            onMouseLeave={ enableDrag }
+                            onClick={()=> {
+                                if(isDragging.current === true) {
+                                    isDragging.current = false; 
+                                    return;
+                                }
+                                sel === curr ? props.setValue(null) : props.setValue(curr.feature);
+                                if (!locked) close();
+                            }}
+                        >
+                            <h4>{curr.feature}</h4>
+                            <div className={ styles.borderline } />
+                            {/* NEW FLATTENED METHOD */}
+                            <div className={ styles.hintDefinition}>
+                                <p >{curr.definition}</p>
+                            </div>
+                            <img src={curr.image_source + ".png"}/>
                             
-                            return (
-                                <div className={ classes } key={index}
-                                    onMouseEnter={ disableDrag }
-                                    onMouseLeave={ enableDrag }
-                                    onClick={()=> {
-                                        if(isDragging.current === true) {
-                                            isDragging.current = false; 
-                                            return;
-                                        }
-                                        sel === val ? props.setValue(null) : props.setValue(val);
-                                        if (!locked) close();
-                                    }}
-                                >
-                                    <h4>{val}</h4>
-                                    <div className={ styles.borderline } />
-                                    <img
-                                        src={process.env.PUBLIC_URL + '/'+val + '_hint.png'}
-                                        width={220}
-                                        height={400}
-                                        style={{objectFit: 'contain'}}
-                                        alt={'Image Coming Soon'}
-                                    >
-                                    </img>
+                            {/* IMAGES */}
+                            {/* {
+                                Object.entries(curr.images).map(([_index, _image]) => {
+                                    return (
+                                        <img src={_image.src} 
+                                            className={styles.hintImage}
+                                            style={{left: _image.x,
+                                                    top: _image.y,
+                                                    height: _image.height,
+                                                    width: _image.width,
+
+                                                }}
+                                            alt={'Image Comming Soon'}
+                                        />
+                                    );
+                                })
+                            } */}
+                            {/* <div className={ styles.hintDefinition }
+                                style={{left: curr.definition.x, top: curr.definition.y, width: curr.definition.width }}> */}
+                                {/* <p>{curr.definition.text}</p> */}
+                                {/* {curr.definition.text.slice(0,6) == "\\u2022" && 
+                                    
+                                    <ul>
+                                        {curr.definition.text.split("\\u2022").map((word) => {
+                                            // <li>{word}</li>
+                                            console.log(curr.hints.length);
+                                            if (word !== "")
+                                                return <li>{word}</li>
+                                            // return <p>test</p>
+
+                                            // return (<>word</>)
+                                        })}
+                                    </ul>   
+                                }
+                            </div> */}
+                            {/* HINT CIRCLES, ARROWS, & LABELS */}
+                            {/* {
+                                Object.entries(curr?.hints).map(([_index, _hint]) => {
+                                    return ( 
+                                        <>
+                                            {getHintLabel(_hint)}
+                                            <div className={ styles.helperCircle } 
+                                                style={{left: _hint.x, 
+                                                    top: _hint.y, 
+                                                    height: _hint.height,
+                                                    width: _hint.width, 
+                                                    transform: `rotate(${_hint.rotate}deg)` 
+                                                }}
+                                            />
+                                        </>
+                                    )
+                                })
+                            }
+                            {curr.hints.length != 0 &&
+                                <div className={styles.helperText}
+                                    style={{left: curr.hints[0]?.label.x, 
+                                    top: curr.hints[0]?.label.y, 
+                                    width: curr.hints[0]?.label.width}}>
+                                    {curr.hints.length != 0 &&
+                                        <p>{curr.hints[0]?.label.text}</p>
+                                    }
                                 </div>
-                            );
-                        })
-                    }
+                            }
+                            {curr.hints.length != 0 &&
+                                <div className={ styles.helperCircle } 
+                                    style={{left: curr.hints[0]?.x, 
+                                        top: curr.hints[0]?.y, 
+                                        height: curr.hints[0]?.height,
+                                        width: curr.hints[0]?.width, 
+                                        transform: `rotate(${curr.hints[0]?.rotate}deg)` 
+                                    }}
+                                />
+                            } */}
+                        </div>
+                )})
+            )}
             </span>
         </div>
-            
     )
-    // else return;
 }
 
 export default FeatureSelectorModal

@@ -115,6 +115,8 @@ function GridCard(props) {
         }
 
         let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
+        // console.log(imageURL);
+        // console.log(imageURL);
         return imageURL;
     }
 
