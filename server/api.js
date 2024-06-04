@@ -290,6 +290,7 @@ routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
     // ensure features feild is filled out
     if (!("features" in req.query)) {
         res.status(400).send('endpoint requires features[] URL parameter.');
+        return;
     }
 
     let query = {"$or" : []};
