@@ -5,6 +5,9 @@ import styles from './feature-selector-modal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
+const API_BASE_URL = "api.tapeworms-unlocked.info"
+// const API_BASE_URL = "localhost:8080"
+
 function FeatureSelectorModal (props) {
     // filter states
     const [inputs, setInputs] = useState([]);
@@ -49,6 +52,7 @@ function FeatureSelectorModal (props) {
     const citationText = props.citationText; 
 
 
+    const image_source_base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/hint_images/";
 
 
     const getHintData = async() => {
@@ -63,7 +67,8 @@ function FeatureSelectorModal (props) {
         })
         console.log(paramsString);
         
-        const response = await fetch(`http://localhost:8080/feature_selection_modal_hints?${paramsString}`);
+        // switch to live server
+        const response = await fetch(`http://${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
         const data = await response.json();
         console.log(data);
 
@@ -268,7 +273,7 @@ function FeatureSelectorModal (props) {
                                 {console.log("CURR: " + JSON.stringify(curr))}
                                 {/* {console.log("DEFINITION: " + curr.definition)} */}
                             </div>
-                            <img src={curr.image_source + ".png"}/>
+                            <img src={image_source_base + curr.image_source}/>
                             
                             {/* IMAGES */}
                             {/* {
