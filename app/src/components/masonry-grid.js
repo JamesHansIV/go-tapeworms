@@ -34,11 +34,11 @@ function MasonryGrid(props) {
         const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${1}&limit=${limit}`;
         let response = await fetch(route);
         let _data = await response.json();
-        await updateData(_data);
-        await calcNumResultsPerOrder(_data);
+        updateData(_data);
+        // await calcNumResultsPerOrder(_data);
         
         // count query
-        let countResponse = await fetch(`https://api.tapeworms-unlocked.info/worms?count_by_order=true`);
+        let countResponse = await fetch(`https://api.tapeworms-unlocked.info/worms?${props.query}&count_by_order=true`);
         _data = await countResponse.json();
         await calcNumResultsPerOrder(_data);
 

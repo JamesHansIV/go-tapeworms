@@ -14,7 +14,7 @@ function WormGrid(props) {
     const [limit, setLimit] = useState(30);
     const [loading, setLoading] = useState(false);
 
-
+    
     // infinite scroll
     async function fetchMoreData() {
         // const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
@@ -37,34 +37,19 @@ function WormGrid(props) {
         const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${1}&limit=${limit}`;
         let response = await fetch(route);
         let _data = await response.json();
-        await updateData(_data);
-        await calcNumResultsPerOrder(_data);
+
+        // get counts
+        const countResponse = await fetch(`http://localhost:8080/worms?${props.query}`);
+        const countData = await countResponse.json();
         
-        // count query
-        let countResponse = await fetch(`https://api.tapeworms-unlocked.info/worms?count_by_order=true`);
-        _data = await countResponse.json();
-        await calcNumResultsPerOrder(_data);
+        await calcNumResultsPerOrder(countData);
+        updateData(_data);
 
         setLoading(false);
         if(response.length > 0){
             window.addEventListener("scroll", handleScroll);
         };
     }
-
-    // const fetchAPI = async (page) => {
-    //     const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
-    //     console.log("FETCH params", props.query);
-    //     let response = await fetch(route)
-    //     response = await response.json()
-    //     let data_ = [...data, ...response];
-    //     await updateData((prevData) => [...prevData, ...response]);
-    //     await calcNumResultsPerOrder(data_);
-    //     setLoading(false)
-    //     if(response.length > 0){
-    //         window.addEventListener("scroll", handleScroll);
-    //     }
-    // };
-
 
     // color map
     const colorMap = {

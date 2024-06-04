@@ -7,11 +7,11 @@
 }
 
 .outerContainer:hover {
-    transform: scale(1.15);
+    /* transform: scale(1.15);
     transition-delay: 0.1s;
     box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     z-index: 99;
-    cursor: pointer;
+    cursor: pointer; */
 }
 
 .innerContainer {
