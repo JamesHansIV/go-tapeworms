@@ -1,6 +1,12 @@
 '''
     This script uploads images to the s3 images bucket, 
     then adds the links the files were added to to the correct mongo documents
+    
+    TODO: 
+    * Add checks and flags for overwrite, duplicate handling in s3 bucket
+    * Add flag for .env directory
+    * Documentation on script usage
+    * streamline flags implmentation (flag any order)
 '''
 
 import os
@@ -10,32 +16,47 @@ from progressbar import progressbar
 import boto3
 import pymongo
 import cv2
+from enum import Enum
 
 from datetime import datetime
 startTime = datetime.now()
 
 from time import sleep
 
+class Flags(Enum):
+    NONE = 0,
+    THUMBNAILS = 1,
+    FEATURE_SELECTION_HINTS = 2
+
 if len(sys.argv) != 2 and len(sys.argv) != 3:
     raise Exception("Invalid number of arguments! Include relative folder path as the only additional argument.")
 
-thumbnails = False
+flag = Flags(Flags.NONE)
 if len(sys.argv) == 3:
-    if sys.argv[2] != "--thumbnails":
-        raise Exception("Invalid flag. Available flags: --thumbnails");
-    else:
-        thumbnails = True
+    if sys.argv[2] != "--thumbnails" and sys.argv[2] != "--feature_selection_hints":
+        # print(sys.argv[2])
+        raise Exception("Invalid flag. Available flags: --thumbnails, --feature_selection_hints")
+    if sys.argv[2] == flag:
+        flag = Flags.THUMBNAILS
+    if sys.argv[2] == "--feature_selection_hints":
+        flag = Flags.FEATURE_SELECTION_HINTS
 
 # get folder path
 folder = sys.argv[1]
 
 #env vars
-dotenv.load_dotenv('.env')
+dotenv.load_dotenv('tools/.env')
 ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
 SECRET_KEY = os.getenv("AWS_SECRET_KEY")
 MONGO_USER = os.getenv("MONGO_USER_NAME")
 MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
 MONGO_CLUSTER = os.getenv("MONGO_CLUSTER_ID")
+
+# print(ACCESS_KEY)
+# print(SECRET_KEY)
+# print(MONGO_USER)
+# print(MONGO_PASSWORD)
+# print(MONGO_CLUSTER)
 
 print(f"Connecting to AWS S3 Bucket:  {datetime.now() - startTime}")
 # s3
@@ -43,14 +64,22 @@ s3 = boto3.client('s3',
     aws_access_key_id=ACCESS_KEY,
     aws_secret_access_key=SECRET_KEY,
 )
-bucket_name = 'tapeworms-unlocked.info'
+bucket_name = 'images.tapeworms-unlocked.info'
 print(f"Connected to AWS S3 Bucket:  {datetime.now() - startTime}")
 
 print(f"Connecting to MongoDB:  {datetime.now() - startTime}")
 # mongo
-mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net")
+try:
+    # mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net")
+    mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@cluster1.of1bayg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
+    print(MONGO_USER)
+    print(MONGO_PASSWORD)
+except Exception as e:
+    print(f"Could not connect to MongoDB!\nError: {e}")
+    exit()
+
 db = mongo["csv_to_db_test"]
-collection = db["test_2"]
+collection = db["test_2"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
 print(f"Connected to MongoDB:  {datetime.now() - startTime}")
 
 # get folder from cmd line args
@@ -61,7 +90,9 @@ folder_size = len(os.listdir(folder_name))
 print("Updating MONGO and S3...")
 # attempt to update mongo and s3
 fail_count = 0
-genus_images = []
+s3_fail_count = 0
+mongo_fail_count = 0
+images = []
 for i in progressbar(range(folder_size), redirect_stdout=True):
     
     # add edge case (i == folder_size-1)
@@ -69,30 +100,33 @@ for i in progressbar(range(folder_size), redirect_stdout=True):
     curr_file = folder_contents[i]
     
     # get genus name from filename
-    curr_genus = curr_file.split('_')[0].lower()
-    next_genus = next_file.split('_')[0].lower()
+    if flag == Flags.NONE or flag == Flags.THUMBNAILS:
+        curr_genus = curr_file.split('_')[0].lower()
+        next_genus = next_file.split('_')[0].lower()
     
     # if current genus is same as next one, add current gen
-    genus_images.append(curr_file)
-    if curr_genus != next_genus:
+    images.append(curr_file)
+    if (flag == Flags.NONE or flag == Flags.THUMBNAILS) and curr_genus != next_genus:
         # update mongo
         string = "^" + curr_genus
         doc = collection.update
         try:
-            if thumbnails == False:
-                collection.update_one({"genus":{"$regex":string, "$options":"i"}},{"$set":{"images":genus_images}},upsert=False)
-            else:
-                collection.update_one({"genus":{"$regex":string, "$options":"i"}},{"$set":{"thumbnails":genus_images}},upsert=False)
-        except:
+            if flag == Flags.NONE:
+                collection.update_one({"genus":{"$regex":string, "$options":"i"}},{"$set":{"images":images}},upsert=False)
+            elif flag == Flags.THUMBNAILS:
+                collection.update_one({"genus":{"$regex":string, "$options":"i"}},{"$set":{"thumbnails":images}},upsert=False)
+            # elif flag == Flags.FEATURE_SELECTION_HINTS:
+            
+        except Exception as e:
+            mongo_fail_count += 1
             print(f"\u2717 Failed to update MONGO with {curr_genus} images...")
+            print(f"ERROR: {e}")
         
         # update s3
-        for image in genus_images:
+        for image in images:
             try:
                 image_path = f"{folder_name}/{image}"
-                if thumbnails == False:
-                    print("something")
-                else:
+                if flag == Flags.THUMBNAILS:
                     # copy image to temp thumbnails folder
                     image_copy = cv2.imread(image_path).copy()
                     
@@ -114,18 +148,43 @@ for i in progressbar(range(folder_size), redirect_stdout=True):
                     thumbnail_path = f"../thumbnails/{image}.png"
                     cv2.imwrite(thumbnail_path, resized_image)
                 
-                if thumbnails == False:
+                if flag == Flags.NONE:
                     s3.upload_file(image_path, bucket_name, 'images/{}/{}'.format(curr_genus,image))
-                else:
+                if flag == Flags.THUMBNAILS:
                     s3.upload_file(thumbnail_path, bucket_name, 'thumbnails/{}/{}'.format(curr_genus,image))
             except Exception as e:
-                fail_count += 1
+                s3_fail_count += 1
                 print(f"\u2717 {image} failed to upload to S3...")
-                print(e)
+                # print(e)
         
         # reset genus images
-        genus_images = []
+        images = []
+    
+    if flag == Flags.FEATURE_SELECTION_HINTS:
+        path = f"{folder}/{curr_file}"
+        curr_file_words = curr_file.split("_")
+        feature_words = [word for word in curr_file_words if word != "hint.png"]
+        feature = " ".join(feature_words)
+        try:
+            # print(collection)
+            # collection.update_one({"feature":feature},{"$set":{"image_source":path}},upsert=False)
+            # doc = collection.find_one({"feature":feature})
+            # print(doc)
+            collection.update_one({"feature":feature},{"$set":{"image_source":curr_file}}, upsert=False)
+        except Exception as e:
+            print(f"\u2717 Failed to update MONGO with \"{feature}\" image source \"{path}\"...")
+            # print(f"ERROR: {e}")
+            mongo_fail_count += 1
+        try:
+            s3.upload_file(path, bucket_name, 'hint_images/{}'.format(curr_file))
+        except Exception as e:
+            s3_fail_count += 1
+            print(f"\u2717 {path} failed to upload to S3...")
+            print(f"ERROR: {e}")
+
+            
         
 # print success status
-print(f"Uploaded {folder_size - fail_count} of {folder_size}")
+print(f"Uploaded {folder_size - s3_fail_count} of {folder_size} to S3")
+print(f"Updated {folder_size - mongo_fail_count} of {folder_size} in MongoDB")
 print("FINISHED: ", datetime.now() - startTime)
