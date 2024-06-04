@@ -5,8 +5,8 @@ import styles from './feature-selector-modal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
-const API_BASE_URL = "api.tapeworms-unlocked.info"
-// const API_BASE_URL = "localhost:8080"
+const API_BASE_URL = "https://api.tapeworms-unlocked.info"
+// const API_BASE_URL = "http://localhost:8080"
 
 function FeatureSelectorModal (props) {
     // filter states
@@ -68,7 +68,7 @@ function FeatureSelectorModal (props) {
         console.log(paramsString);
         
         // switch to live server
-        const response = await fetch(`http://${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
+        const response = await fetch(`${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
         const data = await response.json();
         console.log(data);
 
