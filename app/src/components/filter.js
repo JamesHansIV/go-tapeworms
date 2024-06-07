@@ -193,7 +193,7 @@ function Filter (props) {
                             <DetailedFeatureSelection
                                 inputDict={{'bothria' : 'bothria', 'bothridia' : 'bothridia', 'suckers': 'suckers', 'other' : 'other'}}
                                 value={scolexAttachmentStructure}
-                                setValue={scolexAttachmentStructure}
+                                setValue={setScolexAttachmentStructure}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
                             />
