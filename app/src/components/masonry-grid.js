@@ -13,7 +13,7 @@ function MasonryGrid(props) {
     const [totalCount, setTotalCount] = useState();
     const [data, updateData] = useState([]);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(30);
+    const [limit, setLimit] = useState(60);
     const [loading, setLoading] = useState(false);
 
     // infinite scroll
