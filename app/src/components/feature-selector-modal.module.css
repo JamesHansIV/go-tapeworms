@@ -102,6 +102,10 @@
 .hintImage {
     object-fit: contain;
     position: absolute;
+    width: 90%;
+    bottom:0.5em;
+    left:50%;
+    transform: translateX(-50%);
 }
 
 .hintDefinition, .helperText {

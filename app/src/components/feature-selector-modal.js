@@ -247,6 +247,7 @@ function FeatureSelectorModal (props) {
                                 // console.log("curr.feature " + curr.feature);
                                 // console.log("curr: " + JSON.stringify(curr));
                                 // console.log("input[curr.feature]" + inputs[curr.feature]);
+                                console.log(props.setValue);
                                 sel === curr ? props.setValue(null) : props.setValue(inputs[curr.feature]);
                                 if (!locked) close();
                             }}
@@ -273,7 +274,7 @@ function FeatureSelectorModal (props) {
                                 {console.log("CURR: " + JSON.stringify(curr))}
                                 {/* {console.log("DEFINITION: " + curr.definition)} */}
                             </div>
-                            <img src={image_source_base + curr.image_source}/>
+                            <img className={styles.hintImage} src={image_source_base + curr.image_source}/>
                             
                             {/* IMAGES */}
                             {/* {
