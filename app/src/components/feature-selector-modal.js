@@ -247,7 +247,7 @@ function FeatureSelectorModal (props) {
                                 // console.log("curr.feature " + curr.feature);
                                 // console.log("curr: " + JSON.stringify(curr));
                                 // console.log("input[curr.feature]" + inputs[curr.feature]);
-                                console.log(props.setValue);
+                                // console.log(props.setValue);
                                 sel === curr ? props.setValue(null) : props.setValue(inputs[curr.feature]);
                                 if (!locked) close();
                             }}
