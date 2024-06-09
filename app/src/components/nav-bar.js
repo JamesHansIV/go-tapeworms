@@ -12,6 +12,7 @@ function NavBar() {
                 <li className={styles.list}>
                     <NavLink 
                         to='/home' 
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
                         style={{width: 65}}
                         >Home
@@ -20,6 +21,7 @@ function NavBar() {
                 <li className={styles.list}>
                     <NavLink 
                         to='/about' 
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
                         style={{width: 65}}
                         >About
@@ -28,6 +30,7 @@ function NavBar() {
                 <li className={styles.list}>
                     <NavLink 
                         to='/elasmobranch-tapeworm-orders' 
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
                         style={{width: 320}}
 
@@ -37,6 +40,7 @@ function NavBar() {
                 <li className={styles.list}>
                     <NavLink 
                         to='/key'
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
                         style={{width: 150}}
 

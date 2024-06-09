@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './App.css'
 
+// router
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+
 // components
 import Header from './components/header.js';
 import WormGrid from './components/worm-grid.js';
@@ -21,26 +24,60 @@ function App() {
 
   return (
     <div className="App">
+      {/* <BrowserRouter> */}
       <Header/>
-      <div style = {{
-        backgroundColor: "white",
-        height: 25
-      }}/>
-      <div class = "home">
-        <Filter setFilters={setParams}/>
-        {/* <WormGrid query={params}/> */}
-        <MasonryGrid query={params}/>
-      </div>
 
-      {/* footer placeholder */}
-      <div style={{
-        backgroundColor: "white",
-        height: 100
-      }}/>
-      {/* <div style={{
-        backgroundColor: '#69ACBB',
-        height: 100
-      }}/> */}
+      <Router>
+        <Routes>
+          <Route 
+            path="/home" 
+            element={
+              <>
+                <img src={"Scolex banner.png"}/>
+                {/* Should add text, short paragraph to describe use of the site */}
+              </>
+            }
+          />
+          <Route 
+            path="/key"
+            element={
+              <>
+                <div style = {{backgroundColor: "white", height: 25}}/>
+                <div class = "home">
+                  <Filter setFilters={setParams}/>
+                  <MasonryGrid query={params}/>
+                </div>
+                <div style={{ backgroundColor: "white", height: 100}}/>
+              </>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <>
+                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Whoops! Current page is under construction!</h1>
+              </>
+            }
+          />
+          <Route
+            path="/elasmobranch-tapeworm-orders"
+            element={
+              <>
+                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Whoops! Current page is under construction!</h1>
+              </>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <>
+                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Whoops! Current page is under construction!</h1>
+              </>
+            }
+          />
+        </Routes>
+      </Router>
+      {/* </BrowserRouter> */}
       <Footer/>
     </div>
   );
