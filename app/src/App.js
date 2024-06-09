@@ -6,6 +6,7 @@ import Header from './components/header.js';
 import WormGrid from './components/worm-grid.js';
 import MasonryGrid from './components/masonry-grid.js';
 import Filter from './components/filter.js';
+import Footer from './components/footer.js'
 
 // styles
 import './components/root.module.css';
@@ -36,10 +37,11 @@ function App() {
         backgroundColor: "white",
         height: 100
       }}/>
-      <div style={{
+      {/* <div style={{
         backgroundColor: '#69ACBB',
         height: 100
-      }}/>
+      }}/> */}
+      <Footer/>
     </div>
   );
 }

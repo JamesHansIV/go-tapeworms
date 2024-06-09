@@ -54,6 +54,7 @@
 .logo {
   max-width: 400px;
   padding: 1.5em;
+  transform: scaleX(-1)
 }
 
 .navbar {
