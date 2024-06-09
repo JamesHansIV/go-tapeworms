@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css'
 
 // router
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, redirect } from 'react-router-dom';
 
 // components
 import Header from './components/header.js';
@@ -29,6 +29,20 @@ function App() {
 
       <Router>
         <Routes>
+          <Route 
+            path="*"
+            element={
+              <>
+                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Page Not Found!</h1>
+              </>
+            }
+          />
+          {/* set up redirects from / to /home */}
+          <Route 
+            path="/"
+            // loader={()=>{return redirect("/home")}}
+            element={<><img src={"Scolex banner.png"}/></>}
+          />
           <Route 
             path="/home" 
             element={
