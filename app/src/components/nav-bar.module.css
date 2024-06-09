@@ -1,13 +1,13 @@
 .container {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
 }
 
 .listContainer {
     list-style: none;
     border-top: 1px solid white;
-    margin-top:110px;
+    /* margin-top:110px; */
     padding: 0px;
 }
 
@@ -32,10 +32,11 @@
 
 .link:hover {
     font-weight: 600;
+    padding:10;
 }
 
 .activeLink {
-    font-weight: 600;
+    font-weight:600;
     list-style: none;
     text-decoration: none;
     color: white;

@@ -27,18 +27,20 @@ function NavBar() {
                 </li>
                 <li className={styles.list}>
                     <NavLink 
-                        to='/key' 
+                        to='/elasmobranch-tapeworm-orders' 
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
-                        style={{width: 40}}
-                        >Key
+                        style={{width: 320}}
+
+                        >Elasmobranch Tapeworm Orders
                     </NavLink>
                 </li>
                 <li className={styles.list}>
                     <NavLink 
-                        to='/other-resources'
+                        to='/key'
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
-                        style={{width: 170}}
-                        >Other Resources
+                        style={{width: 150}}
+
+                        >Key to Genera
                     </NavLink>
                 </li>
             </ul>
