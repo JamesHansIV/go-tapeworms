@@ -9,7 +9,8 @@ import Header from './components/header.js';
 import WormGrid from './components/worm-grid.js';
 import MasonryGrid from './components/masonry-grid.js';
 import Filter from './components/filter.js';
-import Footer from './components/footer.js'
+import Footer from './components/footer.js';
+import UnderConstructionPage from './components/under-construction.js';
 
 // styles
 import './components/root.module.css';
@@ -67,27 +68,19 @@ function App() {
           />
           <Route
             path="/about"
-            element={
-              <>
-                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Whoops! Current page is under construction!</h1>
-              </>
-            }
+            element={ <UnderConstructionPage/> }
           />
           <Route
             path="/elasmobranch-tapeworm-orders"
-            element={
-              <>
-                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Whoops! Current page is under construction!</h1>
-              </>
-            }
+            element={ <UnderConstructionPage/> }
           />
           <Route
             path="/contact"
-            element={
-              <>
-                <h1 style={{textAlign:"center", paddingTop:250, paddingBottom:250}}>Whoops! Current page is under construction!</h1>
-              </>
-            }
+            element={ <UnderConstructionPage/> }
+          />
+          <Route
+            path="/docs"
+            element={ <UnderConstructionPage/> }
           />
         </Routes>
       </Router>
