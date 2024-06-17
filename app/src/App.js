@@ -27,8 +27,19 @@ function App() {
     <div className="App">
       {/* <BrowserRouter> */}
       <Header/>
+      
+      {/* Uncomment me when disabling routing */}
+      <>
+        <div style = {{backgroundColor: "white", height: 25}}/>
+        <div class = "home">
+          <Filter setFilters={setParams}/>
+          <MasonryGrid query={params}/>
+        </div>
+        <div style={{ backgroundColor: "white", height: 100}}/>
+      </>
 
-      <Router>
+      {/* Comment me out when disabling routing */}
+      {/* <Router>
         <Routes>
           <Route 
             path="*"
@@ -38,7 +49,6 @@ function App() {
               </>
             }
           />
-          {/* set up redirects from / to /home */}
           <Route 
             path="/"
             // loader={()=>{return redirect("/home")}}
@@ -49,7 +59,6 @@ function App() {
             element={
               <>
                 <img src={"Scolex banner.png"}/>
-                {/* Should add text, short paragraph to describe use of the site */}
               </>
             }
           />
@@ -83,7 +92,7 @@ function App() {
             element={ <UnderConstructionPage/> }
           />
         </Routes>
-      </Router>
+      </Router> */}
       {/* </BrowserRouter> */}
       <Footer/>
     </div>
