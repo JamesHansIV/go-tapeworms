@@ -106,6 +106,7 @@
     bottom:0.5em;
     left:50%;
     transform: translateX(-50%);
+    max-height: 75%;
 }
 
 .hintDefinition, .helperText {

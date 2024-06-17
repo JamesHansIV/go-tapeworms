@@ -65,12 +65,14 @@ function FeatureSelectorModal (props) {
             paramsString += value;
             if (index != params.length - 1) paramsString += ',';
         })
-        console.log(paramsString);
+        // console.log("PARAMS", paramsString);
+        paramsString = paramsString.replaceAll("/"," ");
+        console.log("param fixed,", paramsString);
         
         // switch to live server
         const response = await fetch(`${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
         const data = await response.json();
-        console.log(data);
+        console.log("feature selection modal hint data: ", data);
 
         setHintData(data);
     }
@@ -196,7 +198,7 @@ function FeatureSelectorModal (props) {
             { loading === true ? (
                 // <p>Loading...</p>
                 Object.entries(inputs).map(([index, val]) => {
-                    console.log("INPUT DICT: " + index + ", " + val + "   | sel: " + sel);
+                    // console.log("INPUT DICT: " + index + ", " + val + "   | sel: " + sel);
                     // console.log(sel + " === " + val + ":   " + (sel === val))
 
                     let classes = `${styles.panel}`;
@@ -255,6 +257,7 @@ function FeatureSelectorModal (props) {
                             <h4 style={{textTransform:'capitalize'}}>{curr.feature}</h4>
                             <div className={ styles.borderline } />
                             {/* NEW FLATTENED METHOD */}
+                            {curr.definition != null &&
                             <div className={ styles.hintDefinition}>
                                 {(curr.definition.slice(0,6) != "\\u2022") 
                                     ? (<p>{curr.definition}</p>) 
@@ -274,7 +277,11 @@ function FeatureSelectorModal (props) {
                                 {console.log("CURR: " + JSON.stringify(curr))}
                                 {/* {console.log("DEFINITION: " + curr.definition)} */}
                             </div>
-                            <img className={styles.hintImage} src={image_source_base + curr.image_source}/>
+                            }
+                            <img 
+                                className={ curr.definition != null && curr.definition.length > 0 ? styles.hintImage : styles.hintImageNoDefinition} 
+                                src={image_source_base + curr.image_source}
+                            />                            
                             
                             {/* IMAGES */}
                             {/* {

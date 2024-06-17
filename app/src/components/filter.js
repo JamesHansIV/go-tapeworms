@@ -245,11 +245,19 @@ function Filter (props) {
 
                     {/* <h5>Proglottid features</h5> */}
                     <Accordion header={'Proglottid Features'}>
-                        <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
-                            value={proglottidsMargins}
-                            setValue={setProglottidsMargins}
-                        />
-
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
+                                value={proglottidsMargins}
+                                setValue={setProglottidsMargins}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{ 'craspedote' : 'craspedote', 'acraspedote' : 'acraspedote'}}
+                                value={proglottidsMargins}
+                                setValue={setProglottidsMargins}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
                         
 
                         <div style={{display:'flex', height:'100%'}}>
@@ -267,38 +275,83 @@ function Filter (props) {
                             />
                         </div>
 
-                        <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP dorsal/ventral' : 'dorsal_ventral'}}
-                            value={genitalPorePosition}
-                            setValue={setGenitalPorePosition}
-                            abbreviation={{'GPP' : 'Genital Pore Position'}}
-                            shift={"right"}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP dorsal/ventral' : 'dorsal_ventral'}}
+                                value={genitalPorePosition}
+                                setValue={setGenitalPorePosition}
+                                abbreviation={{'GPP' : 'Genital Pore Position'}}
+                                shift={"right"}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'GPP lateral/sublateral' : 'lateral_sublateral', 'GPP dorsal/ventral' : 'dorsal_ventral'}}
+                                value={genitalPorePosition}
+                                setValue={setGenitalPorePosition}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
-                        <RadioPillSelector inputDict={{'1 column of testes' : true, '>1 column of testes' : false}}
-                            value={hasSingleColumnOfTestes}
-                            setValue={setHasSingleColumnOfTestes}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'1 column of testes' : true, '>1 column of testes' : false}}
+                                value={hasSingleColumnOfTestes}
+                                setValue={setHasSingleColumnOfTestes}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'1 column of testes' : true, '>1 column of testes' : false}}
+                                value={hasSingleColumnOfTestes}
+                                setValue={setHasSingleColumnOfTestes}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
-                        <RadioPillSelector inputDict={{'post-poral testes' : true, 'no post-poral testes' : false}}
-                            value={postPoralTestesPresent}
-                            setValue={setPostPoralTestesPresent}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'post-poral testes' : true, 'no post-poral testes' : false}}
+                                value={postPoralTestesPresent}
+                                setValue={setPostPoralTestesPresent}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'post-poral testes' : true, 'no post-poral testes' : false}}
+                                value={hasSingleColumnOfTestes}
+                                setValue={setHasSingleColumnOfTestes}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
-                        <RadioPillSelector inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
-                            value={anteriorExtentOfUterus}
-                            setValue={setAnteriorExtentOfUterus}
-                            abbreviation={{'GP':'Genital Pore'}}
-                            shift="left"
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
+                                value={anteriorExtentOfUterus}
+                                setValue={setAnteriorExtentOfUterus}
+                                abbreviation={{'GP':'Genital Pore'}}
+                                shift="left"
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{ 'uterus extends to GP' : 'to_pore', 'uterus extends beyond GP': 'beyond'}}
+                                value={anteriorExtentOfUterus}
+                                setValue={setAnteriorExtentOfUterus}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
 
-                        <RadioPillSelector 
-                            inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
-                            value={vitellineFollicleArrangement}
-                            setValue={setVitellineFollicleArrangement}
-                            abbreviation={{'VFA' : 'Vitelline Follicle Arrangement'}}
-                            shift="left"
-                            shiftIndex={2}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector 
+                                inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
+                                value={vitellineFollicleArrangement}
+                                setValue={setVitellineFollicleArrangement}
+                                abbreviation={{'VFA' : 'Vitelline Follicle Arrangement'}}
+                                shift="left"
+                                shiftIndex={2}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{ 'circumsegmental VFA' : 'circumsegmental', 'lateral VFA' : 'lateral', 'other VFA' : 'other'}}
+                                value={vitellineFollicleArrangement}
+                                setValue={setVitellineFollicleArrangement}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
                     </Accordion>
                                         
 
@@ -321,11 +374,20 @@ function Filter (props) {
                             />
                         </div>
                         
-
-                        <RadioPillSelector inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
-                            value={wideAnteriorStrobia}
-                            setValue={setWideAnteriorStrobira}
-                        />
+                        <div style={{display:'flex', height:'100%'}}>
+                            <RadioPillSelector inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
+                                value={wideAnteriorStrobia}
+                                setValue={setWideAnteriorStrobira}
+                            />
+                            <DetailedFeatureSelection
+                                inputDict={{'wide anterior strobila' : true, 'narrow anterior strobila' : false}}
+                                value={wideAnteriorStrobia}
+                                setValue={setWideAnteriorStrobira}
+                                topModalZ={topModalZ}
+                                setTopModalZ={setTopModalZ}
+                            />
+                        </div>
+                        
                     </Accordion>
                     
 
