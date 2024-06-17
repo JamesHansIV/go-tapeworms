@@ -29,7 +29,7 @@ class Flags(Enum):
     FEATURE_SELECTION_HINTS = 2
 
 if len(sys.argv) != 2 and len(sys.argv) != 3:
-    raise Exception("Invalid number of arguments! Include relative folder path as the only additional argument.")
+    raise Exception("Invalid number of arguments! Invoke this command with: python3 upload_images.py [image directory relative path] [flag]")
 
 flag = Flags(Flags.NONE)
 if len(sys.argv) == 3:
@@ -67,8 +67,8 @@ s3 = boto3.client('s3',
 bucket_name = 'images.tapeworms-unlocked.info'
 print(f"Connected to AWS S3 Bucket:  {datetime.now() - startTime}")
 
-print(f"Connecting to MongoDB:  {datetime.now() - startTime}")
 # mongo
+print(f"Connecting to MongoDB:  {datetime.now() - startTime}")
 try:
     # mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net")
     mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@cluster1.of1bayg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
@@ -165,12 +165,13 @@ for i in progressbar(range(folder_size), redirect_stdout=True):
         curr_file_words = curr_file.split("_")
         feature_words = [word for word in curr_file_words if word != "hint.png"]
         feature = " ".join(feature_words)
+        # print(feature)
         try:
             # print(collection)
             # collection.update_one({"feature":feature},{"$set":{"image_source":path}},upsert=False)
             # doc = collection.find_one({"feature":feature})
             # print(doc)
-            collection.update_one({"feature":feature},{"$set":{"image_source":curr_file}}, upsert=False)
+            collection.update_one({"feature":feature},{"$set":{"image_source":curr_file}}, upsert=True)
         except Exception as e:
             print(f"\u2717 Failed to update MONGO with \"{feature}\" image source \"{path}\"...")
             # print(f"ERROR: {e}")
