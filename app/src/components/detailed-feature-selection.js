@@ -43,6 +43,7 @@ function DetailedFeatureSelection (props) {
                     { modalActive &&
                         createPortal(
                             <FeatureSelectorModal
+                                browser={props.browser}
                                 src={['test','test','test']}
                                 title={props.title}
                                 inputDict={props.inputDict}

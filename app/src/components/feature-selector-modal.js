@@ -67,12 +67,12 @@ function FeatureSelectorModal (props) {
         })
         // console.log("PARAMS", paramsString);
         paramsString = paramsString.replaceAll("/"," ");
-        console.log("param fixed,", paramsString);
+        // console.log("param fixed,", paramsString);
         
         // switch to live server
         const response = await fetch(`${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
         const data = await response.json();
-        console.log("feature selection modal hint data: ", data);
+        // console.log("feature selection modal hint data: ", data);
 
         setHintData(data);
     }
@@ -84,6 +84,8 @@ function FeatureSelectorModal (props) {
         setTopZ(props.topZ);
         setPos({left: props.initPos.x, top: props.initPos.y})
 
+        setEventListeners();
+
         // console.log(props.initPos)
     }, [props.value]);
 
@@ -94,12 +96,8 @@ function FeatureSelectorModal (props) {
     useEffect(()=> {
         if (hintData != null) {
             if (hintData.length > 0) {
-                console.log("NOT UNDEFINED");
-                console.log(hintData);
                 setLoading(false);
-            } else {
-                console.log("LENGTH 0")
-            }
+            } 
         }
     }, [hintData])
 
@@ -126,6 +124,9 @@ function FeatureSelectorModal (props) {
         if (!draggable.current) 
             return;
 
+        // e.preventDefault();
+        // e.stopPropagation();
+
         mouseDown.current = true;
         hasMoved.current = true;
 
@@ -139,15 +140,21 @@ function FeatureSelectorModal (props) {
         // update layer of modal
         props.setTopZ(props.topZ + 1);
         setTopZ(props.topZ);
+
     }
 
     const drag = (e) => {
         // prevent text highlighting
         window.getSelection().removeAllRanges();
+        // e.preventDefault();
+        // e.stopPropagation();
 
         // stop drag if mouse up or not allowed and not currently dragging
-        if ((!mouseDown.current || !draggable) && !isDragging.current)
+        if ((!mouseDown.current || !draggable) && !isDragging.current) {
             return;
+        }
+
+        // issues caused by scroll???
 
         // update pos
         setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
@@ -159,6 +166,13 @@ function FeatureSelectorModal (props) {
     const dragEnd = () => {
         mouseDown.current = false;
         isDragging.current = false;
+    }
+
+    const handlePointerLeave = (e) => {
+        if (mouseDown.current !== true && isDragging !== true)
+            dragEnd();
+        else
+            drag(e);
     }
 
     // param: hint is one item in hint data
@@ -177,15 +191,25 @@ function FeatureSelectorModal (props) {
         }
         return (<></>);
     }
-    
+
+    const setEventListeners = () => {
+        if (props.browser === "Chrome") {
+            box.current.addEventListener("pointerdown",(e)=>dragStart(e));
+            box.current.addEventListener("pointermove",(e)=>drag(e));
+            box.current.addEventListener("pointerup",(e)=>dragEnd(e));
+            box.current.addEventListener("pointerleave",(e)=>handlePointerLeave(e));
+        }
+        if (props.browser === "Firefox") {
+            box.current.addEventListener("mousedown",(e)=>dragStart(e));
+            box.current.addEventListener("mousemove",(e)=>drag(e));
+            box.current.addEventListener("mouseup",(e)=>dragEnd(e));
+        }
+    }
+
     // if (active)
     return (
         <div className={styles.movableWrapper}
-            onMouseDown={ e => dragStart(e) }
-            onMouseMove={ e => drag(e) }
-            onMouseUp={ dragEnd }
             ref={box}
-            // style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute', zIndex: topZ} : { }}
             style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
         >
             <span className={styles.container}>
@@ -274,7 +298,7 @@ function FeatureSelectorModal (props) {
                                     )
                                 }
                                 {/* <p >{curr.definition}</p> */}
-                                {console.log("CURR: " + JSON.stringify(curr))}
+                                {/* {console.log("CURR: " + JSON.stringify(curr))} */}
                                 {/* {console.log("DEFINITION: " + curr.definition)} */}
                             </div>
                             }

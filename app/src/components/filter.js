@@ -183,6 +183,7 @@ function Filter (props) {
                                 setValue={setScolexPresent}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                         <div style={{display:'flex', height:'100%'}}>
@@ -196,6 +197,7 @@ function Filter (props) {
                                 setValue={setScolexAttachmentStructure}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                         
@@ -210,6 +212,7 @@ function Filter (props) {
                                 setValue={setApicalOrganPresent}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -224,6 +227,7 @@ function Filter (props) {
                                 setValue={setTentaclesPresent}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -238,6 +242,7 @@ function Filter (props) {
                                 setValue={setHooksPresent}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -256,6 +261,7 @@ function Filter (props) {
                                 setValue={setProglottidsMargins}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                         
@@ -272,6 +278,7 @@ function Filter (props) {
                                 setValue={setLaciniationsPresent}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -288,6 +295,7 @@ function Filter (props) {
                                 setValue={setGenitalPorePosition}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -302,6 +310,7 @@ function Filter (props) {
                                 setValue={setHasSingleColumnOfTestes}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -316,6 +325,7 @@ function Filter (props) {
                                 setValue={setHasSingleColumnOfTestes}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -332,6 +342,7 @@ function Filter (props) {
                                 setValue={setAnteriorExtentOfUterus}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
 
@@ -350,6 +361,7 @@ function Filter (props) {
                                 setValue={setVitellineFollicleArrangement}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                     </Accordion>
@@ -371,6 +383,7 @@ function Filter (props) {
                                 setValue={setApolysis}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                         
@@ -385,6 +398,7 @@ function Filter (props) {
                                 setValue={setWideAnteriorStrobira}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                         
@@ -405,6 +419,7 @@ function Filter (props) {
                                 setValue={setHostGroup}
                                 topModalZ={topModalZ}
                                 setTopModalZ={setTopModalZ}
+                                browser={props.browser}
                             />
                         </div>
                     </Accordion>

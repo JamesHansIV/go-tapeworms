@@ -15,13 +15,19 @@ import UnderConstructionPage from './components/under-construction.js';
 // styles
 import './components/root.module.css';
 
+// broswer
+import getBrowserType from './getBrowserType.js';
 
 function App() {
   const [params, setParams] = useState("");
+  const [browser, ] = useState(getBrowserType());
 
-  // useEffect (()=> {
-  //   console.log("App params:\t",params);
-  // });
+  useEffect(()=>{
+    console.log("BROWSER", browser);
+    if (browser !== "Chrome" && browser !== "Firefox") {
+      alert(`WARNING!\n\nIt looks like you are using an unsupported browser!\n\nTapeworms Unlocked works best on Firefox or Chrome. Use of other browsers may result in UI bugs. \n\nHappy learning!`);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -32,7 +38,7 @@ function App() {
       <>
         <div style = {{backgroundColor: "white", height: 25}}/>
         <div class = "home">
-          <Filter setFilters={setParams}/>
+          <Filter setFilters={setParams} browser={browser}/>
           <MasonryGrid query={params}/>
         </div>
         <div style={{ backgroundColor: "white", height: 100}}/>
