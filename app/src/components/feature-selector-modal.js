@@ -9,6 +9,8 @@ const API_BASE_URL = "https://api.tapeworms-unlocked.info"
 // const API_BASE_URL = "http://localhost:8080"
 
 function FeatureSelectorModal (props) {
+    const MOVABLE_WRAPPER_HIT_SLOP = 125; // in px
+
     // filter states
     const [inputs, setInputs] = useState([]);
     const [sel, setSel] = useState();
@@ -23,10 +25,13 @@ function FeatureSelectorModal (props) {
     const isDragging = useRef(false);
     const draggable = useRef(true);
     const offset = useRef({left: 0, top: 0})
-    const box = useRef(null);
+    const box = useRef(null);   // rename to wrapper or hitslop or some shit
+    const container = useRef(null);
+    const position = useRef({left: 0, top: 0});
 
     // movement states
     const [pos, setPos] = useState({left: 0, top: 0});
+    const [height, setHeight] = useState(0);
     const [topZ, setTopZ] = useState();
 
     // close-on-click lock
@@ -91,7 +96,8 @@ function FeatureSelectorModal (props) {
 
     useEffect(()=> {
         getHintData();
-    }, [inputs])
+
+    }, [inputs]);
 
     useEffect(()=> {
         if (hintData != null) {
@@ -99,7 +105,16 @@ function FeatureSelectorModal (props) {
                 setLoading(false);
             } 
         }
-    }, [hintData])
+
+    }, [hintData]);
+
+    useEffect(()=>{
+        // const containerBox = container.current.getBoundingClientRect();
+        const containerWidth = container.current.clientWidth;
+        const containerHeight = container.current.clientHeight;
+        box.current.style.width = `${containerWidth + 1.65 * MOVABLE_WRAPPER_HIT_SLOP}px`;
+        box.current.style.height = `${containerHeight + 1.65 * MOVABLE_WRAPPER_HIT_SLOP}px`;
+    });
 
     // onclick handlers
     const close = () => props.setActive(false);
@@ -120,6 +135,13 @@ function FeatureSelectorModal (props) {
     }
 
     const dragStart = (e) => {
+        // extend height and width
+        // console.log("height pre",box.current.getBoundingClientRect());
+        // box.current.style.offsetHeight = box.current.style.offsetHeight * 2;
+        // console.log("height post",box.current.style.offsetHeight);
+        // box.current.style.height = '100px';
+        // console.log("dragstart height:",box.current.style.height)
+
         // prevent drag if not allowed
         if (!draggable.current) 
             return;
@@ -136,6 +158,9 @@ function FeatureSelectorModal (props) {
 
         // update position
         setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
+        position.current.left = e.pageX - offset.current.left;
+        position.current.top  = e.pageY - offset.current.top;
+        // console.log("drag start pos: ", position.current.left, position.current.top);
         
         // update layer of modal
         props.setTopZ(props.topZ + 1);
@@ -147,7 +172,7 @@ function FeatureSelectorModal (props) {
         // prevent text highlighting
         window.getSelection().removeAllRanges();
         // e.preventDefault();
-        // e.stopPropagation();
+        // e.stopPropagation();/
 
         // stop drag if mouse up or not allowed and not currently dragging
         if ((!mouseDown.current || !draggable) && !isDragging.current) {
@@ -158,6 +183,9 @@ function FeatureSelectorModal (props) {
 
         // update pos
         setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
+        position.current.left = e.pageX - offset.current.left;
+        position.current.top  = e.pageY - offset.current.top;
+        // console.log("drag start pos: ", position.current.left, position.current.top);
 
         // record that dragging is ongoing
         isDragging.current = true;
@@ -166,13 +194,34 @@ function FeatureSelectorModal (props) {
     const dragEnd = () => {
         mouseDown.current = false;
         isDragging.current = false;
+        // box.current.style.height = '0px';
+        // console.log("dragend height:",box.current.style.height);
     }
 
     const handlePointerLeave = (e) => {
-        if (mouseDown.current !== true && isDragging !== true)
-            dragEnd();
-        else
-            drag(e);
+        // e.stopPropagation();
+        // return;
+        // if less than 50px outside of 
+        // if (e.pageX - offset.current.left - pos.left < 120 || e.pageY - offset.current.top - pos.top < 120)
+        //     // setTimeout(console.log, 500, "test");
+        //     // setTimeout(drag, 100, e);
+        //     drag(e);
+        // // drag(e);
+        // else {
+        //     console.log(e.pageX - offset.current.left - pos.left);
+        //     dragEnd();
+
+        // }
+
+        dragEnd();
+        console.log("POS", pos.left, pos.top);
+        console.log("Mouse", e.pageX - offset.current.left, e.pageY - offset.current.top);
+
+        // if (mouseDown.current !== true && isDragging !== true)
+        //     dragEnd();
+        // else
+        //     drag(e);
+        // dragEnd();
     }
 
     // param: hint is one item in hint data
@@ -192,12 +241,18 @@ function FeatureSelectorModal (props) {
         return (<></>);
     }
 
+    const handleClick = e => {
+        console.log("POS", pos.left, pos.top);
+        console.log("Mouse", e.pageX - offset.current.left, e.pageY - offset.current.top);
+    }
+
     const setEventListeners = () => {
         if (props.browser === "Chrome") {
             box.current.addEventListener("pointerdown",(e)=>dragStart(e));
             box.current.addEventListener("pointermove",(e)=>drag(e));
             box.current.addEventListener("pointerup",(e)=>dragEnd(e));
             box.current.addEventListener("pointerleave",(e)=>handlePointerLeave(e));
+
         }
         if (props.browser === "Firefox") {
             box.current.addEventListener("mousedown",(e)=>dragStart(e));
@@ -211,13 +266,17 @@ function FeatureSelectorModal (props) {
         <div className={styles.movableWrapper}
             ref={box}
             style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
+            // style={{left: position.current.left, top: position.current.top, position:'absolute', zIndex: topZ}}
         >
-            <span className={styles.container}>
+            
+            <span className={styles.container}
+                ref={container}
+            >
             {/* <h4 className={styles.windowTitle}>{props.title}</h4> */}
-            <span className={styles.icons}>
-                {/* <LockButton onClick={toggleLock} locked={locked}/> */}
-                <RoundButton onClick={close}/>    
-            </span>
+                <span className={styles.icons}>
+                    {/* <LockButton onClick={toggleLock} locked={locked}/> */}
+                    <RoundButton onClick={close}/>    
+                </span>
             
             { loading === true ? (
                 // <p>Loading...</p>
@@ -241,7 +300,7 @@ function FeatureSelectorModal (props) {
                                 }
                                 sel === val ? props.setValue(null) : props.setValue(val);
                                 console.log(val);
-                                if (!locked) close();
+                                // if (!locked) close();
                             }}
                         >
                             <p>loading...</p>
@@ -275,7 +334,7 @@ function FeatureSelectorModal (props) {
                                 // console.log("input[curr.feature]" + inputs[curr.feature]);
                                 // console.log(props.setValue);
                                 sel === curr ? props.setValue(null) : props.setValue(inputs[curr.feature]);
-                                if (!locked) close();
+                                // if (!locked) close();
                             }}
                         >
                             <h4 style={{textTransform:'capitalize'}}>{curr.feature}</h4>
