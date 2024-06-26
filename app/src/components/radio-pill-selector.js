@@ -55,6 +55,11 @@ function RadioPillSelector(props) {
                                     abbrClasses = `${styles.abbreviationRight}`;
                             }
                             
+                            if (sel === input_val) 
+                                abbrClasses += ` ${styles.abbreviationSelected}`;
+                            else
+                                abbrClasses += ` ${styles.abbreviationUnselected}`;
+
                             // let test = "uterus extends to GP";
                             const shiftindex = (i) => {
                                 if (props.shiftIndex != null) {

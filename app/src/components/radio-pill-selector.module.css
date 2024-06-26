@@ -48,6 +48,18 @@
     /* box-shadow: 1px 1px darkgray; */
 }
 
+.abbreviationSelected {
+    border-bottom: 2px dotted white;
+    transition: border-bottom 0.4s linear
+
+}
+
+.abbreviationUnselected {
+    border-bottom: 2px dotted black;
+    transition: border-bottom 0.4s linear
+
+}
+
 .vertical {
     width: max-width;
     display: block;
@@ -56,7 +68,7 @@
 
 .abbreviation {
     /* text-decoration: underline dotted 2px; */
-    border-bottom: 2px dotted black;
+    /* border-bottom: 2px dotted black; */
     position: relative;
     /* float:inline-start; */
 }
@@ -102,7 +114,7 @@
 
 .abbreviationLeft {
     /* text-decoration: underline dotted 2px; */
-    border-bottom: 2px dotted black;
+    /* border-bottom: 2px dotted black; */
     position: relative;
     /* float:inline-start; */
 }
@@ -148,7 +160,7 @@
 
 .abbreviationRight {
     /* text-decoration: underline dotted 2px; */
-    border-bottom: 2px dotted black;
+    /* border-bottom: 2px dotted black; */
     position: relative;
     /* float:inline-start; */
 }
@@ -190,4 +202,5 @@
     display: block;
     font-weight: bold;
     opacity: 1;
+    /* border-bottom: 2px dotted white; */
 }
