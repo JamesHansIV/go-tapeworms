@@ -20,7 +20,7 @@ export const SuggestionTextBox = (props) => {
 
     return (
         <div>
-        <h5>{heading}</h5>
+        {/* <h5>{heading}</h5> */}
         <DropdownList
             data ={options}
             value={selected}

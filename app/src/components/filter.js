@@ -430,70 +430,74 @@ function Filter (props) {
                 <br/>
                 <h2 className={styles.subtitle}>More Features</h2>
                 <div className={styles.moreFeaturesContainer}>
-                    <SuggestionTextBox 
-                        heading = "Host family"
-                        options = {hostFamilies}
-                        value = {hostFamily}
-                        setValue = {setHostFamily}
-                    />
+                    <Accordion header={'More Host Information'} divider>
+                        <h5 className={styles.moreFeaturesHeader}>Host Family</h5>
+                        <SuggestionTextBox 
+                            heading = "Host family"
+                            options = {hostFamilies}
+                            value = {hostFamily}
+                            setValue = {setHostFamily}
+                        />
+                    </Accordion>
 
-                    <h5>Bothridial Features (select all that apply)</h5>
-                    <ChecklistPillSelector 
-                        inputDict={{'facial loculi':'facial_loculi',
-                                    'marginal loculi':'marginal_loculi', 
-                                    'pouch':'pouch',
-                                    'bifid':'bifid',
-                                    'folding':'folding',
-                                    'unmodified':'unmodified',
-                                    'other':'other'
-                                }}
-                        value={bothridialFeatures}
-                        setValue={setBothridialFeatures}
-                    />
+                    {/* <hr className={styles.divider}/> */}
 
-                    <h5>Apical Sucker Region</h5>
-                    <ChecklistPillSelector 
-                        inputDict={{
-                                    'sucker':'sucker',
-                                    'region':'region',
-                                    'none':'none'
-                                }}
-                        value={apicalSuckerRegion}
-                        setValue={setApicalSuckerRegion}
-                    />
+                    <Accordion header={'More Scolex Features'}>
+                        <h5 className={styles.moreFeaturesHeader}>Bothridial Features (select all that apply)</h5>
+                        <ChecklistPillSelector 
+                            inputDict={{'facial loculi':'facial_loculi',
+                                        'marginal loculi':'marginal_loculi', 
+                                        'pouch':'pouch',
+                                        'bifid':'bifid',
+                                        'folding':'folding',
+                                        'unmodified':'unmodified',
+                                        'other':'other'
+                                    }}
+                            value={bothridialFeatures}
+                            setValue={setBothridialFeatures}
+                        />
 
-                    {/* <h5>Hook Placement and Features</h5> */}
-                    <h5>Hook Placement</h5>
-                    <RadioPillSelector
-                        inputDict={{'tentacle':'tentacle_hooks',
-                                    'bothridial':'bothridial_hooks',
-                                    'bothrial':'bothrial_hooks'}}
-                        value={hookPlacement}
-                        setValue={setHookPlacement}
-                    />
+                        <h5 className={styles.moreFeaturesHeader}>Apical Sucker Region</h5>
+                        <ChecklistPillSelector 
+                            inputDict={{
+                                        'sucker':'sucker',
+                                        'region':'region',
+                                        'none':'none'
+                                    }}
+                            value={apicalSuckerRegion}
+                            setValue={setApicalSuckerRegion}
+                        />
 
-                    <RadioPillSelector inputDict={{'peduncle hooks present' : 'yes', 'peduncle hooks absent' : 'no'}}
-                        value={peduncleHooks}
-                        setValue={setPeduncleHooks}
-                    />
+                        {/* <h5 className={styles.moreFeaturesHeader}>Hook Placement and Features</h5> */}
+                        <h5 className={styles.moreFeaturesHeader}>Hook Placement</h5>
+                        <RadioPillSelector
+                            inputDict={{'tentacle':'tentacle_hooks',
+                                        'bothridial':'bothridial_hooks',
+                                        'bothrial':'bothrial_hooks'}}
+                            value={hookPlacement}
+                            setValue={setHookPlacement}
+                        />
 
-                    <h5>Hook Features (select all that apply)</h5>
-                    <ChecklistPillSelector 
-                        inputDict={{
-                                    'one hook pair':'1_hook_pair', 
-                                    'two hook pairs':'2_hook_pairs',
-                                    'one prongs per hook' : '1_prongs_per_hook',
-                                    'two prongs per hook' : '2_prongs_per_hook',
-                                    'three prong per hook' : '3_prongs_per_hook',
-                                    'accessory piece':'accessory_piece',
-                                    'prongs directed anteriorly':'prongs_directed_anteriorly'
-                                }}
-                        value={hookFeatures}
-                        setValue={setHookFeatures}
-                    />
-                                        
-                    
-                    
+                        <RadioPillSelector inputDict={{'peduncle hooks present' : 'yes', 'peduncle hooks absent' : 'no'}}
+                            value={peduncleHooks}
+                            setValue={setPeduncleHooks}
+                        />
+
+                        <h5 className={styles.moreFeaturesHeader}>Hook Features (select all that apply)</h5>
+                        <ChecklistPillSelector 
+                            inputDict={{
+                                        'one hook pair':'1_hook_pair', 
+                                        'two hook pairs':'2_hook_pairs',
+                                        'one prongs per hook' : '1_prongs_per_hook',
+                                        'two prongs per hook' : '2_prongs_per_hook',
+                                        'three prong per hook' : '3_prongs_per_hook',
+                                        'accessory piece':'accessory_piece',
+                                        'prongs directed anteriorly':'prongs_directed_anteriorly'
+                                    }}
+                            value={hookFeatures}
+                            setValue={setHookFeatures}
+                        />
+                    </Accordion>              
                 </div>
             </div>
         </div>

@@ -117,3 +117,16 @@ h2 {
     color: white;
     cursor: pointer;
 }
+
+.moreFeaturesContainer {
+    padding-bottom: 2em;
+}
+
+.moreFeaturesHeader {
+    margin-top: 1.25em;
+}
+
+.divider {
+    /* border: 2px solid var(--filterDivider); */
+    border-top: 1px solid var(--line);
+}
