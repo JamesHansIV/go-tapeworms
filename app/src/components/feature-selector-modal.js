@@ -31,6 +31,7 @@ function FeatureSelectorModal (props) {
 
     // movement states
     const [pos, setPos] = useState({left: 0, top: 0});
+    // const [pos, setPos] = useState();
     const [height, setHeight] = useState(0);
     const [topZ, setTopZ] = useState();
 
@@ -82,12 +83,15 @@ function FeatureSelectorModal (props) {
         setHintData(data);
     }
 
+    useEffect(()=>{
+        setPos({left: props.initPos.x, top: props.initPos.y});
+    },[])
+
     useEffect(()=> {
         // setActive(props.active);
         setInputs(props.inputDict);
         setSel(props.value);
         setTopZ(props.topZ);
-        setPos({left: props.initPos.x, top: props.initPos.y})
 
         setEventListeners();
 
