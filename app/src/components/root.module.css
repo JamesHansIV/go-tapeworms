@@ -1,13 +1,16 @@
 :root {
     --skeleton: rgb(208, 208, 213);
     --line : #BF6B04;
-    --selected : #689ca5;
+    /* --selected : #689ca5; */
+    --selected : #93c4cf;
     --unselected : #E2F0F3;
     --background: lightgrey;
-    --banner:#69ACBB;
+    /* --banner:#69ACBB; */
+    --banner: #3F7E8C;
     --primary: #fff;
     --black: #1b1f23;
     --name-tag: #F2B705;
     --iconBorderColor: darkgrey;
     --iconColor: darkgrey;
+    --footer: #E2F0F3;
 }

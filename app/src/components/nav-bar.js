@@ -12,33 +12,41 @@ function NavBar() {
                 <li className={styles.list}>
                     <NavLink 
                         to='/home' 
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
                         style={{width: 65}}
                         >Home
                     </NavLink>
                 </li>
-                <li className={styles.list}>
+                {/* <li className={styles.list}>
                     <NavLink 
                         to='/about' 
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
                         style={{width: 65}}
                         >About
                     </NavLink>
-                </li>
+                </li> */}
+                
                 <li className={styles.list}>
                     <NavLink 
-                        to='/key' 
+                        to='/key'
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
-                        style={{width: 40}}
-                        >Key
+                        style={{width: 150}}
+
+                        >Key to Genera
                     </NavLink>
                 </li>
                 <li className={styles.list}>
                     <NavLink 
-                        to='/other-resources'
+                        to='/elasmobranch-tapeworm-orders' 
+                        reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
-                        style={{width: 170}}
-                        >Other Resources
+                        style={{width: 200}}
+
+                        // >Elasmobranch Tapeworm Orders
+                        >About the Orders
                     </NavLink>
                 </li>
             </ul>

@@ -1,0 +1,44 @@
+.container {
+    background-color: var(--footer);
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+    padding-bottom: 1em;
+}
+
+.text, .copyright {
+    color: var(--banner);
+}
+
+.text {
+    font-size: 16px;
+}
+
+.copyright {
+    text-shadow: 0 4px 4px #00000040;
+    font-size: 20px;
+}
+
+.universityLogo {
+    float: right;
+}
+
+.universityLogo:first-child {
+    padding-bottom: 1em;
+}
+
+.siteLogo {
+    width: 160px;
+}
+
+.nsfLogo {
+    width: 80px;
+}
+
+.grantContainer, .infoContainer {
+   text-align: center;
+}
+
+.universitiesContainer {
+
+}

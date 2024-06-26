@@ -9,6 +9,8 @@ const API_BASE_URL = "https://api.tapeworms-unlocked.info"
 // const API_BASE_URL = "http://localhost:8080"
 
 function FeatureSelectorModal (props) {
+    const MOVABLE_WRAPPER_HIT_SLOP = 125; // in px
+
     // filter states
     const [inputs, setInputs] = useState([]);
     const [sel, setSel] = useState();
@@ -23,10 +25,13 @@ function FeatureSelectorModal (props) {
     const isDragging = useRef(false);
     const draggable = useRef(true);
     const offset = useRef({left: 0, top: 0})
-    const box = useRef(null);
+    const box = useRef(null);   // rename to wrapper or hitslop or some shit
+    const container = useRef(null);
+    const position = useRef({left: 0, top: 0});
 
     // movement states
     const [pos, setPos] = useState({left: 0, top: 0});
+    const [height, setHeight] = useState(0);
     const [topZ, setTopZ] = useState();
 
     // close-on-click lock
@@ -65,12 +70,14 @@ function FeatureSelectorModal (props) {
             paramsString += value;
             if (index != params.length - 1) paramsString += ',';
         })
-        console.log(paramsString);
+        // console.log("PARAMS", paramsString);
+        paramsString = paramsString.replaceAll("/"," ");
+        // console.log("param fixed,", paramsString);
         
         // switch to live server
         const response = await fetch(`${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
         const data = await response.json();
-        console.log(data);
+        // console.log("feature selection modal hint data: ", data);
 
         setHintData(data);
     }
@@ -82,24 +89,32 @@ function FeatureSelectorModal (props) {
         setTopZ(props.topZ);
         setPos({left: props.initPos.x, top: props.initPos.y})
 
+        setEventListeners();
+
         // console.log(props.initPos)
     }, [props.value]);
 
     useEffect(()=> {
         getHintData();
-    }, [inputs])
+
+    }, [inputs]);
 
     useEffect(()=> {
         if (hintData != null) {
             if (hintData.length > 0) {
-                console.log("NOT UNDEFINED");
-                console.log(hintData);
                 setLoading(false);
-            } else {
-                console.log("LENGTH 0")
-            }
+            } 
         }
-    }, [hintData])
+
+    }, [hintData]);
+
+    useEffect(()=>{
+        // const containerBox = container.current.getBoundingClientRect();
+        const containerWidth = container.current.clientWidth;
+        const containerHeight = container.current.clientHeight;
+        box.current.style.width = `${containerWidth + 1.65 * MOVABLE_WRAPPER_HIT_SLOP}px`;
+        box.current.style.height = `${containerHeight + 1.65 * MOVABLE_WRAPPER_HIT_SLOP}px`;
+    });
 
     // onclick handlers
     const close = () => props.setActive(false);
@@ -120,9 +135,19 @@ function FeatureSelectorModal (props) {
     }
 
     const dragStart = (e) => {
+        // extend height and width
+        // console.log("height pre",box.current.getBoundingClientRect());
+        // box.current.style.offsetHeight = box.current.style.offsetHeight * 2;
+        // console.log("height post",box.current.style.offsetHeight);
+        // box.current.style.height = '100px';
+        // console.log("dragstart height:",box.current.style.height)
+
         // prevent drag if not allowed
         if (!draggable.current) 
             return;
+
+        // e.preventDefault();
+        // e.stopPropagation();
 
         mouseDown.current = true;
         hasMoved.current = true;
@@ -133,22 +158,34 @@ function FeatureSelectorModal (props) {
 
         // update position
         setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
+        position.current.left = e.pageX - offset.current.left;
+        position.current.top  = e.pageY - offset.current.top;
+        // console.log("drag start pos: ", position.current.left, position.current.top);
         
         // update layer of modal
         props.setTopZ(props.topZ + 1);
         setTopZ(props.topZ);
+
     }
 
     const drag = (e) => {
         // prevent text highlighting
         window.getSelection().removeAllRanges();
+        // e.preventDefault();
+        // e.stopPropagation();/
 
         // stop drag if mouse up or not allowed and not currently dragging
-        if ((!mouseDown.current || !draggable) && !isDragging.current)
+        if ((!mouseDown.current || !draggable) && !isDragging.current) {
             return;
+        }
+
+        // issues caused by scroll???
 
         // update pos
         setPos({left: e.pageX - offset.current.left, top: e.pageY - offset.current.top});
+        position.current.left = e.pageX - offset.current.left;
+        position.current.top  = e.pageY - offset.current.top;
+        // console.log("drag start pos: ", position.current.left, position.current.top);
 
         // record that dragging is ongoing
         isDragging.current = true;
@@ -157,6 +194,34 @@ function FeatureSelectorModal (props) {
     const dragEnd = () => {
         mouseDown.current = false;
         isDragging.current = false;
+        // box.current.style.height = '0px';
+        // console.log("dragend height:",box.current.style.height);
+    }
+
+    const handlePointerLeave = (e) => {
+        // e.stopPropagation();
+        // return;
+        // if less than 50px outside of 
+        // if (e.pageX - offset.current.left - pos.left < 120 || e.pageY - offset.current.top - pos.top < 120)
+        //     // setTimeout(console.log, 500, "test");
+        //     // setTimeout(drag, 100, e);
+        //     drag(e);
+        // // drag(e);
+        // else {
+        //     console.log(e.pageX - offset.current.left - pos.left);
+        //     dragEnd();
+
+        // }
+
+        dragEnd();
+        console.log("POS", pos.left, pos.top);
+        console.log("Mouse", e.pageX - offset.current.left, e.pageY - offset.current.top);
+
+        // if (mouseDown.current !== true && isDragging !== true)
+        //     dragEnd();
+        // else
+        //     drag(e);
+        // dragEnd();
     }
 
     // param: hint is one item in hint data
@@ -175,28 +240,48 @@ function FeatureSelectorModal (props) {
         }
         return (<></>);
     }
-    
+
+    const handleClick = e => {
+        console.log("POS", pos.left, pos.top);
+        console.log("Mouse", e.pageX - offset.current.left, e.pageY - offset.current.top);
+    }
+
+    const setEventListeners = () => {
+        if (props.browser === "Chrome") {
+            box.current.addEventListener("pointerdown",(e)=>dragStart(e));
+            box.current.addEventListener("pointermove",(e)=>drag(e));
+            box.current.addEventListener("pointerup",(e)=>dragEnd(e));
+            box.current.addEventListener("pointerleave",(e)=>handlePointerLeave(e));
+
+        }
+        if (props.browser === "Firefox") {
+            box.current.addEventListener("mousedown",(e)=>dragStart(e));
+            box.current.addEventListener("mousemove",(e)=>drag(e));
+            box.current.addEventListener("mouseup",(e)=>dragEnd(e));
+        }
+    }
+
     // if (active)
     return (
         <div className={styles.movableWrapper}
-            onMouseDown={ e => dragStart(e) }
-            onMouseMove={ e => drag(e) }
-            onMouseUp={ dragEnd }
             ref={box}
-            // style={hasMoved.current ? {left: pos.left, top: pos.top, position:'absolute', zIndex: topZ} : { }}
             style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
+            // style={{left: position.current.left, top: position.current.top, position:'absolute', zIndex: topZ}}
         >
-            <span className={styles.container}>
+            
+            <span className={styles.container}
+                ref={container}
+            >
             {/* <h4 className={styles.windowTitle}>{props.title}</h4> */}
-            <span className={styles.icons}>
-                {/* <LockButton onClick={toggleLock} locked={locked}/> */}
-                <RoundButton onClick={close}/>    
-            </span>
+                <span className={styles.icons}>
+                    {/* <LockButton onClick={toggleLock} locked={locked}/> */}
+                    <RoundButton onClick={close}/>    
+                </span>
             
             { loading === true ? (
                 // <p>Loading...</p>
                 Object.entries(inputs).map(([index, val]) => {
-                    console.log("INPUT DICT: " + index + ", " + val + "   | sel: " + sel);
+                    // console.log("INPUT DICT: " + index + ", " + val + "   | sel: " + sel);
                     // console.log(sel + " === " + val + ":   " + (sel === val))
 
                     let classes = `${styles.panel}`;
@@ -215,7 +300,7 @@ function FeatureSelectorModal (props) {
                                 }
                                 sel === val ? props.setValue(null) : props.setValue(val);
                                 console.log(val);
-                                if (!locked) close();
+                                // if (!locked) close();
                             }}
                         >
                             <p>loading...</p>
@@ -247,13 +332,15 @@ function FeatureSelectorModal (props) {
                                 // console.log("curr.feature " + curr.feature);
                                 // console.log("curr: " + JSON.stringify(curr));
                                 // console.log("input[curr.feature]" + inputs[curr.feature]);
+                                // console.log(props.setValue);
                                 sel === curr ? props.setValue(null) : props.setValue(inputs[curr.feature]);
-                                if (!locked) close();
+                                // if (!locked) close();
                             }}
                         >
                             <h4 style={{textTransform:'capitalize'}}>{curr.feature}</h4>
                             <div className={ styles.borderline } />
                             {/* NEW FLATTENED METHOD */}
+                            {curr.definition != null &&
                             <div className={ styles.hintDefinition}>
                                 {(curr.definition.slice(0,6) != "\\u2022") 
                                     ? (<p>{curr.definition}</p>) 
@@ -270,10 +357,14 @@ function FeatureSelectorModal (props) {
                                     )
                                 }
                                 {/* <p >{curr.definition}</p> */}
-                                {console.log("CURR: " + JSON.stringify(curr))}
+                                {/* {console.log("CURR: " + JSON.stringify(curr))} */}
                                 {/* {console.log("DEFINITION: " + curr.definition)} */}
                             </div>
-                            <img src={image_source_base + curr.image_source}/>
+                            }
+                            <img 
+                                className={ curr.definition != null && curr.definition.length > 0 ? styles.hintImage : styles.hintImageNoDefinition} 
+                                src={image_source_base + curr.image_source}
+                            />                            
                             
                             {/* IMAGES */}
                             {/* {

@@ -1,18 +1,31 @@
 .movableWrapper {
-    cursor: grab;
+    /* background-color: blue; */
+    pointer-events: none;
+    height: 800px;
+    /* width */
 }
 
 .movableWrapper:active {
     cursor: grabbing;
+    /* background-color: red; */
+    pointer-events: all;
+    /* margin-top:-10px; */
+    /* margin-top:-200px; */
+    /* padding: 3em; */
+    /* margin-top:-3em; */
+    /* padding-top:3em; */
 }
 
 .container {
+    pointer-events: all;
+    cursor: grab;
     /* padding: 2em 0 0 2em; */
     border: 1px solid lightgray;
     border-radius: 1em;
     overflow: hidden;
     white-space: nowrap;
     padding: 1.5em 1em;
+    /* margin-top: 1em; */
 
     align-items: center;
     text-align: center;
@@ -21,8 +34,20 @@
     flex-direction: row;
 
     background-color: white;
+    /* opacity: 80%; */
     position: relative;
+    top: 100px;
+    left: 100px;
     z-index: 10;
+}
+
+.container:active {
+    /* padding:3em 2em; */
+    /* padding-top: 3em; */
+    /* margin-top: 3em; */
+    /* position: absolute;
+    top: 10px; */
+    cursor: grabbing;
 }
 
 .panel {
@@ -102,6 +127,11 @@
 .hintImage {
     object-fit: contain;
     position: absolute;
+    width: 90%;
+    bottom:0.5em;
+    left:50%;
+    transform: translateX(-50%);
+    max-height: 75%;
 }
 
 .hintDefinition, .helperText {
@@ -112,6 +142,7 @@
     text-align: left;
     justify-content: center;
     padding-left: 1em;
+    padding-right: 1em;
 }
 
 .helperCircle {
