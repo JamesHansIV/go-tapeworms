@@ -18,7 +18,7 @@ function NavBar() {
                         >Home
                     </NavLink>
                 </li>
-                <li className={styles.list}>
+                {/* <li className={styles.list}>
                     <NavLink 
                         to='/about' 
                         reloadDocument
@@ -26,17 +26,8 @@ function NavBar() {
                         style={{width: 65}}
                         >About
                     </NavLink>
-                </li>
-                <li className={styles.list}>
-                    <NavLink 
-                        to='/elasmobranch-tapeworm-orders' 
-                        reloadDocument
-                        className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
-                        style={{width: 320}}
-
-                        >Elasmobranch Tapeworm Orders
-                    </NavLink>
-                </li>
+                </li> */}
+                
                 <li className={styles.list}>
                     <NavLink 
                         to='/key'
@@ -45,6 +36,17 @@ function NavBar() {
                         style={{width: 150}}
 
                         >Key to Genera
+                    </NavLink>
+                </li>
+                <li className={styles.list}>
+                    <NavLink 
+                        to='/elasmobranch-tapeworm-orders' 
+                        reloadDocument
+                        className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
+                        style={{width: 200}}
+
+                        // >Elasmobranch Tapeworm Orders
+                        >About the Orders
                     </NavLink>
                 </li>
             </ul>
