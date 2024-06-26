@@ -52,9 +52,11 @@
 }
 
 .logo {
+  display: block;
+  object-fit: contain;
   max-width: 400px;
-  padding: 1.5em;
-  transform: scaleX(-1)
+  padding: 0.5em;
+  transform: scaleX(-1);
 }
 
 .navbar {
