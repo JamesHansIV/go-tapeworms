@@ -12,3 +12,19 @@
     margin-right: 0.5em;
     /* background-color: red; */
 }
+
+.dividerOpen, .dividerClosed {
+    border-bottom: 1px solid var(--filterDivider);
+}
+
+.dividerOpen {
+    padding-bottom: 1.25em;
+}
+
+.dividerClosed {
+    padding-bottom: 1.25em;
+}
+
+h5 {
+    margin-top: 1.25em;
+}

@@ -10,7 +10,7 @@ function Accordion (props) {
 
 
     const toggleOpen = () => {
-        console.log("toggling")
+        // console.log("toggling")
         setOpen(!open);
     }
 
@@ -48,9 +48,7 @@ function Accordion (props) {
     },[open]);
 
     return (
-
-        <>
-            
+        <>   
             <h5>
                 <span className={styles.buttonWrapper} onClick={toggleOpen}>
                     <AccordionButton open={open}/>
@@ -58,8 +56,14 @@ function Accordion (props) {
                 {props.header}
             </h5>
             
-
-            <div ref={contentRef} className={styles.content}>
+            <div ref={contentRef} 
+                className={`
+                    ${styles.content} 
+                    ${(props.divider === true) ? 
+                        (open === true) ? styles.dividerOpen : styles.dividerClosed
+                        : ''}
+                `}
+            >
                 {props.children}
             </div>
         </>
