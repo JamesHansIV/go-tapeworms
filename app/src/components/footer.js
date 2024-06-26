@@ -8,6 +8,7 @@ function Footer () {
             <div className={styles.grantContainer}>
                 <img className={styles.nsfLogo} src={"nsf_logo.png"}/>
                 <p className={styles.text}>NSF DEB Award<br/>Nos. 1921404 & 1921411</p>
+                <a className={styles.text} href="/citation-guidelines">Project & Citation Information</a>
             </div>
             <div className={styles.infoContainer}>
                 <img className={styles.siteLogo} src={"logo.png"}/>
