@@ -289,7 +289,11 @@ routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
 
     // ensure features feild is filled out
     if (!("features" in req.query)) {
-        res.status(400).send('endpoint requires features[] URL parameter.');
+        connection.collection("feature_selection_modal_hints_v2").find().toArray((err, result)=>{
+            if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
+            else res.json(result);
+        })
+        // res.status(400).send('endpoint requires features[] URL parameter.');
         return;
     }
 
