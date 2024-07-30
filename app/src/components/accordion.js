@@ -5,30 +5,26 @@ import styles from './accordion.module.css';
 
 function Accordion (props) {
     const [open, setOpen] = useState(true);
+    const [childrenHeight, setChildrenHeight] = useState("");
     const contentRef = useRef(null);
     const firstRender = useRef(true);
+    const hasBeenOpenedOrClosed = useRef(false);
 
 
     const toggleOpen = () => {
-        // console.log("toggling")
+        hasBeenOpenedOrClosed.current = true;
         setOpen(!open);
     }
 
-    // const setInitialHeight = () => {
-    //     console.log("OPEN INIT", props.openInitially);
-    //     if (props.openInitially === true) {
-    //         // contentRef.current.style.maxHeight = null;
-    //     } else {
-    //         contentRef.current.style.maxHeight = "0px";
-    //     }
-    // }
+    const setInitialHeight = () => {
+        setOpen(props.openInitially)
+    }
 
-    const setMaxHeight = () => {
+    const setMaxHeight = (childrenHeight) => {
         if (open === false)
             contentRef.current.style.maxHeight = "0px";
         else
-            contentRef.current.style.maxHeight = "1000px";
-            //contentRef.current.scrollHeight + "px"
+            contentRef.current.style.maxHeight = Math.ceil(childrenHeight) + 20 + "px";
     }
 
     const toggleFirstRender = () => {
@@ -36,33 +32,78 @@ function Accordion (props) {
             firstRender.current = false;
     }
 
-    useEffect(()=> {
-        // if (firstRender.current === true) {
-        //     setInitialHeight();
+    const transitionEndHandler = (e) => {
+        if (e.currentTarget !== e.target) {
+            return;
+        }
+        if (contentRef.current.className.includes("Open")) {
+            contentRef.current.style.overflow = "visible";
+        }
+    }
 
-        //     // disable first render
-        //     firstRender.current = false;
-        // } else {
-            setMaxHeight();
-        // }
+    const transitionStartHandler = (e) => {
+        if (e.currentTarget !== e.target) {
+            return;
+        }
+        if (contentRef.current.className.includes("Close")) {
+            contentRef.current.style.overflow = "hidden";
+        }
+    }
+
+    const sumChildHeights = () => {
+        let sum = 0;
+
+        Array.from(contentRef.current.children).map((child)=>{
+            const marginBottom = parseFloat(window.getComputedStyle(child).getPropertyValue('margin-bottom'));
+            const marginTop = parseFloat(window.getComputedStyle(child).getPropertyValue('margin-top'));
+            sum += parseFloat(child.offsetHeight) + marginBottom + marginTop;
+        });
+        return sum;
+    }
+
+    useEffect(()=>{
+        setChildrenHeight(sumChildHeights());
+        contentRef.current.addEventListener("transitionstart", transitionStartHandler);
+    },[]);
+
+    useEffect(()=> {
+        if (firstRender.current === true) {
+            setInitialHeight();
+
+            // disable first render
+            firstRender.current = false;
+        } 
+
+        setMaxHeight(childrenHeight);
     },[open]);
 
     return (
         <>   
             <h5>
                 <span className={styles.buttonWrapper} onClick={toggleOpen}>
-                    <AccordionButton open={open}/>
+                    <AccordionButton 
+                        open={
+                            (props.openInitially === false && hasBeenOpenedOrClosed.current === false)
+                                ? false : open
+                        }
+                    />
                 </span>
                 {props.header}
             </h5>
             
             <div ref={contentRef} 
                 className={`
-                    ${styles.content} 
-                    ${(props.divider === true) ? 
-                        (open === true) ? styles.dividerOpen : styles.dividerClosed
-                        : ''}
+                    ${(props.openInitially === false && hasBeenOpenedOrClosed.current === false) 
+                        ? (props.divider === true)
+                            ? styles.initiallyClosedWithDivider
+                            : styles.initiallyClosedWithoutDivider
+                        : (props.divider === true) 
+                            ? (open === true) ? styles.dividerOpen : styles.dividerClosed
+                            : (open === true) ? styles.contentOpen : styles.contentClosed
+                        // : styles
+                    }
                 `}
+                onTransitionEnd={ e=>transitionEndHandler(e)}
             >
                 {props.children}
             </div>
