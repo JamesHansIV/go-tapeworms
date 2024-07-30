@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import styles from './suggestion-text-box.module.css';
 import DropdownList from "react-widgets/DropdownList";
 import "react-widgets/styles.css";
 import "./suggestion-text-box.css"
@@ -19,7 +20,7 @@ export const SuggestionTextBox = (props) => {
     }
 
     return (
-        <div>
+        <div className={styles.wrapper}>
         {/* <h5>{heading}</h5> */}
         <DropdownList
             data ={options}
