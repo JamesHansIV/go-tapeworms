@@ -80,3 +80,27 @@
     justify-content: left;
 }
 
+.animationWrapper {
+    margin-left: auto;
+    margin-top: 5em;
+    width: 50%;
+}
+
+.loadMore {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+    /* width: 7em; */
+    max-width: fit-content;
+    padding: 0.6em;
+    border: 1px solid rgba(63, 126, 140, 0.4); /* var(--banner) with opacity */
+    border-radius: 1em;
+    color: var(--banner);
+    font-weight: 600;
+    font-size:larger;
+    background-color: var(--unselected);
+}
+
+.loadMore:hover {
+    cursor: pointer;
+}
