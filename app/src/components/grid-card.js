@@ -107,28 +107,15 @@ function GridCard(props) {
         }
     };  
 
-    const buildImageURL = () => {
-        let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
-        let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
-        if (images === undefined) {
-            return `${base}/${genusLowerCase}`;
-        }
-
-        let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
-        // console.log(imageURL);
-        // console.log(imageURL);
-        return imageURL;
-    }
-
     const handleNextImage = () => {
         setImageIndex((imageIndex + 1) % images.length);
-        buildImageURL();
+        // buildImageURL();
         setImageLoading(true);
     }
 
     const handlePrevImage = () => {
         setImageIndex((imageIndex -1 + images.length) % images.length);
-        buildImageURL();
+        // buildImageURL();
         setImageLoading(true);
     }
 
@@ -165,10 +152,11 @@ function GridCard(props) {
                             {/* loading... */}
                         </div>
 
-                        <div className= {styles.carousel} style={{display: imageLoading ? "none" : "block"}}>
+                        <div className= {styles.carousel} >
                             <img 
                                 className={styles.image}
-                                src={buildImageURL()} 
+                                src={buildImageURL(genus, images, imageIndex)} 
+                                // src={props.img}
                                 alt={`cannot find ${genus} source`}
                                 ref={imgRef}
                                 crossOrigin={"anonymous"}
@@ -205,4 +193,18 @@ function GridCard(props) {
     );
 }
 
+export const buildImageURL = (genusName, imgArray, index) => {
+    let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
+    let genusLowerCase = genusName.charAt(0).toLowerCase() + genusName.slice(1);
+    if (imgArray === undefined) {
+        return `${base}/${genusLowerCase}`;
+    }
+
+    let imageURL = `${base}/${genusLowerCase}/${imgArray[index]}`;
+    // console.log(imageURL);
+    // console.log(imageURL);
+    return imageURL;
+}
+
 export default GridCard;
+// export {buildImageURL};
