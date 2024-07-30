@@ -24,7 +24,8 @@ function Accordion (props) {
         if (open === false)
             contentRef.current.style.maxHeight = "0px";
         else
-            contentRef.current.style.maxHeight = Math.ceil(childrenHeight) + 20 + "px";
+            contentRef.current.style.maxHeight = "1000px";
+            // contentRef.current.style.maxHeight = Math.ceil(childrenHeight) + 20 + "px";
     }
 
     const toggleFirstRender = () => {
