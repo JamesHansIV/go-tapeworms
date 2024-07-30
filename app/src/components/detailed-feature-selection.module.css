@@ -32,10 +32,10 @@
 }
 
 .button:hover {    
-    background-color: #7ebac4;
-    color: white;
+    /* background-color: #7ebac4; */
+    /* color: white; */
     cursor: pointer;
-    border-color: white;
+    /* border-color: white; */
 }
 
 .panelImage {

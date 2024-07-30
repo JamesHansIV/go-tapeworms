@@ -37,14 +37,13 @@
 
 .pillButton:hover {
     cursor: pointer;
-    background-color: #7ebac4;
-    /* background-color: #86cad5; */
+    background-color: var(--selected);
 
 }
 
 .selected {
     background-color: var(--selected);
-    color: white;
+    /* color: white; */
     /* box-shadow: 1px 1px darkgray; */
 }
 
