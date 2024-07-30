@@ -29,20 +29,20 @@ def toBool(x):
     return y
 
 # create dataframe from csv
-path = "data/Elasmo_Tapeworm_Genera_25Apr2023.csv"
+path = "data/03_02_without_notes_(21Jul24).csv"
 df = pd.DataFrame(pd.read_csv(path))
 
 # clean up dataframe
 # drop empty rows with all nans
-df.dropna(how="all", inplace=True);
+df.dropna(how="all", inplace=True)
 
 # drop color and x columns (unnamed and "Feature" columns)
 
 df = df.loc[:, ~df.columns.str.contains('Unnamed')]
-df.drop("Feature", axis=1, inplace=True)
+# df.drop("Feature", axis=1, inplace=True)
 
 
-# drop helper rows
+# drop helper rows (used later)
 df.drop([0,1], inplace=True)
 
 # strip bracketed (and parenthesis) phrases from feature titles
@@ -54,6 +54,9 @@ df = df.rename(columns=lambda x: x.strip())
 # reset index
 df.reset_index(inplace=True,drop=True)
 
+df.to_csv("test.csv", sep='\t', encoding='utf-8', index=False, header=True)
+# exit(0)
+
 # get env vars
 dotenv.load_dotenv('.env')
 user = os.getenv("MONGO_USER_NAME")
@@ -64,10 +67,10 @@ cluster_id = os.getenv("MONGO_CLUSTER_ID")
 client = pymongo.MongoClient(f"mongodb+srv://{user}:{pw}@{cluster_id}.mongodb.net")
 
 # create database
-db = client["csv_to_db_test"]
+db = client["july_30_automation_test"]
 
 # create collection
-collection = db["test_2"]
+collection = db["test_0"]
 
 # clear collection
 print("CLEARING OLD COLLECTION")
@@ -79,6 +82,8 @@ for i, genus in df.iloc[:].iterrows():
     for feature in df:
         if pd.isna(genus[feature]):
             continue
+        
+        # print(feature,'\n')
         
         # fix spacing of genus or order names with roman numerals
         if feature == "order" or feature == "genus":
