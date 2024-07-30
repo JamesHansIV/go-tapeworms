@@ -9,6 +9,7 @@ import Header from './components/header.js';
 import WormGrid from './components/worm-grid.js';
 import MasonryGrid from './components/masonry-grid.js';
 import Filter from './components/filter.js';
+// import Filter from './components/filter_old.js';
 import Footer from './components/footer.js';
 import UnderConstructionPage from './components/under-construction.js';
 
