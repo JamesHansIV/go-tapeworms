@@ -311,6 +311,11 @@ def build_radio_pill_selector_jsx(filter):
     # add check for modal for wrapper div
     # find and replace  with  for n_indents
     jsx = ""
+    
+    heading_jsx = ""
+    if ('heading' in filter):
+        heading_jsx = "<h5 className={styles.moreFeaturesHeader}>" + filter['heading'] + "</h5>\n"
+    
     has_hint_modal = filter['hint_modal']
     if (has_hint_modal):
         jsx += "<div style={{display:'flex', height:'100%'}}>\n"
@@ -329,14 +334,18 @@ def build_radio_pill_selector_jsx(filter):
     if (has_hint_modal):
         jsx += "\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
     
-    return jsx
+    return heading_jsx + jsx
 
 def build_checklist_pill_selector_jsx(filter):
+    heading_jsx = ""
+    if ('heading' in filter):
+        heading_jsx = "<h5 className={styles.moreFeaturesHeader}>" + filter['heading'] + "</h5>\n"
+    
     jsx = ""
     has_hint_modal = filter['hint_modal']
     if (has_hint_modal):
         jsx += "<div style={{display:'flex', height:'100%'}}>\n"
-        input_dict = "{{"
+    input_dict = "{{"
         
     for i, pair in enumerate(filter['inputs']):
         # add checks for value type
@@ -351,14 +360,17 @@ def build_checklist_pill_selector_jsx(filter):
     if (has_hint_modal):
         jsx += "\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
     
-    return jsx
+    return heading_jsx + jsx
 
 def build_suggestion_box_jsx(filter):
+    heading_jsx = ""
+    if ('heading' in filter):
+        heading_jsx = "<h5 className={styles.moreFeaturesHeader}>" + filter['heading'] + "</h5>\n"
     value = filter['feature_name']
     set_value = "set" + filter['feature_name'][0].upper() + filter['feature_name'][1:]
     options = filter['feature_name'] + "Data"
     
-    return f"<SuggestionTextBox\noptions={{{options}}}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n/>"
+    return heading_jsx + f"<SuggestionTextBox\noptions={{{options}}}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n/>"
 
 def build_detailed_feature_selection_jsx(input_dict, value, set_value):
     jsx = f"<DetailedFeatureSelection\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n/>"
@@ -481,3 +493,90 @@ out = imports + "\n\n" + functional_component
 # with open("result.js", "w") as file:
 with open("filter.js", "w") as file:
     file.write(out)
+
+exit(0)
+
+# API
+def api_build_imports_and_headers():
+    string = textwrap.dedent("""
+        const express = require("express");
+        const sanitize = require("mongo-sanitize");
+        const routes = express.Router({mergeParams: true});
+        const dbo = require("./connect");
+
+        const https = require('https');
+        const { features } = require("process");
+
+        // wakeup
+        setInterval(()=> {
+            // console.log("Pinging API")
+            https.get("https://api.tapeworms-unlocked.info");
+
+        }, 13 * 60 * 1000);
+
+        // redireect /
+        routes.route("/").get(async function (req, res) {
+            res.redirect("/worms");
+        });
+    """)
+    return string
+
+def api_build_query_params_set(components):
+    string = ""
+    for i in range(1, len(components)):
+        if components[i] == COMPONENT_TYPE.ACCORDION:
+            for filter in content[i]['accordion']['filters']:
+                filter = filter['filter']
+                string += filter['feature_name'] + ",\n"
+        elif components[i] == COMPONENT_TYPE.FILTER:
+            filter = content[i]['filter']
+            string += filter['feature_name'] + ",\n"
+        else:
+            continue 
+    string += "\ncount_by_order\n} = req.query;\n\n"  
+    return string
+
+def api_build_query_param(filter):
+    string = ""
+    param = filter['feature_name']
+    if filter['filter_type'] == "radio_pill_selector" or filter['filter_type'] == "suggestion_box":
+        string += f'if ({param} != null)' + '{' + f'\nsanitize({param});\nquery["$and"].push({{"{param}": {param}}});\n'
+    elif filter['filter_type'] == "checklist_pill_selector":
+        string += f'if ({param} != null)' + '{' + f'\nsanitize({param});\nfeatureArray = {param}.split(",");\nfor (i in featureArray) {{\nquery["$and"].push({{"{param}": featureArray[i]}});\n}}'
+    string += "}\n\n"
+    return string
+
+def api_build_query_params_handling(components):
+    string = ""
+    for i in range(1, len(components)):
+        if components[i] == COMPONENT_TYPE.ACCORDION:
+            for filter in content[i]['accordion']['filters']:
+                filter = filter['filter']
+                string += api_build_query_param(filter)
+        elif components[i] == COMPONENT_TYPE.FILTER:
+            filter = content[i]['filter']
+            string += api_build_query_param(filter)
+        else:
+            continue 
+    return string
+
+def api_build_filter_route(components, content):
+    # worms needs to be replaced
+    string = "routes.route('/worms/').get(async function(req, res) {\nconst connection = dbo.getDb();\n\nlet query = {}\nquery['$and'] = [];\n\nlet collection = process.env.COLLECTION;\n\nlet {\n"
+    string += api_build_query_params_set(components)
+    string += "const page = parseInt(req.query.page);\nconst limit = parseInt(req.query.limit);\n\n"
+    string += api_build_query_params_handling(components)
+    string += "const startIndex = (page - 1) * limit;\n\nif (count_by_order === true) {\nconnection\n.collection(collection)\n.find(query.$and.length == 0 ? {} : query)\n.toArray ( function (err, result) {\nif (err) throw err;\nelse res.json(result);\n});\n"
+    string += "} else {\nconnection\n.collection(collection)\n.find(query.$and.length == 0 ? {} : query)\n.skip(startIndex)\n.limit(limit)\n.toArray ( function (err, result) {\nif (err) throw err;\nelse res.json(result);\n});\n}\n});\n\n"
+    
+    return string
+
+imports = api_build_imports_and_headers()
+filter_route = api_build_filter_route(components, content)
+# suggestion_box_data_route = api_build_suggestion_box_data_route(components)
+# colors_route = api_build_colors_route(content)
+# modal_hints = api_build_modal_hints_route(components, content)
+
+api_out = imports + "\n\n" + filter_route + "\n\nmodule.exports = routes;"
+# with open("api.js", "w") as file:
+    # file.write(api_out)
