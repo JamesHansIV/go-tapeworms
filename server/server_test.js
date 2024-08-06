@@ -7,7 +7,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(require("./api"));
+app.use(require("./api.js"));
 
 
 app.listen(PORT, () => console.log(`Node server started on port: ${PORT}`));
