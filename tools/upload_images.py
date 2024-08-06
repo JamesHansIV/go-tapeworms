@@ -33,19 +33,23 @@ if len(sys.argv) != 2 and len(sys.argv) != 3:
 
 flag = Flags(Flags.NONE)
 if len(sys.argv) == 3:
+    # print(sys.argv[2])
     if sys.argv[2] != "--thumbnails" and sys.argv[2] != "--feature_selection_hints":
         # print(sys.argv[2])
         raise Exception("Invalid flag. Available flags: --thumbnails, --feature_selection_hints")
-    if sys.argv[2] == flag:
+    if sys.argv[2] == "--thumbnails":
         flag = Flags.THUMBNAILS
     if sys.argv[2] == "--feature_selection_hints":
         flag = Flags.FEATURE_SELECTION_HINTS
+
+# print(flag)
+# exit(0)
 
 # get folder path
 folder = sys.argv[1]
 
 #env vars
-dotenv.load_dotenv('tools/.env')
+dotenv.load_dotenv('.env')
 ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
 SECRET_KEY = os.getenv("AWS_SECRET_KEY")
 MONGO_USER = os.getenv("MONGO_USER_NAME")
@@ -72,14 +76,16 @@ print(f"Connecting to MongoDB:  {datetime.now() - startTime}")
 try:
     # mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net")
     mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@cluster1.of1bayg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
-    print(MONGO_USER)
-    print(MONGO_PASSWORD)
+    print("user",MONGO_USER)
+    print("pass",MONGO_PASSWORD)
 except Exception as e:
     print(f"Could not connect to MongoDB!\nError: {e}")
     exit()
 
-db = mongo["csv_to_db_test"]
-collection = db["test_2"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
+# db = mongo["csv_to_db_test"]
+db = mongo["july_30_automation_test"]
+# collection = db["test_2"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
+collection = db["test_0"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
 print(f"Connected to MongoDB:  {datetime.now() - startTime}")
 
 # get folder from cmd line args
