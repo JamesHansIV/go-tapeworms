@@ -86,7 +86,10 @@ for i, genus in df.iloc[:].iterrows():
         # print(feature,'\n')
         
         # fix spacing of genus or order names with roman numerals
-        if feature == "order" or feature == "genus":
+        if feature == "order":
+        # or feature == "genus": # uncomment if roman numerals in genus, although this can lead to errors 
+        # if the genera name is capitalized (regex will recognize capital I, V, X, L, C, D, M as roman 
+        # numerals and split the string accordingly)
             # regex
             reg_res = re.search(r'\B[IVXLCDM]+',genus[feature])
             if reg_res != None:
