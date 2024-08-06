@@ -90,7 +90,8 @@ filters_template:
       # hint_modal: True # true: adds hint modal button, false: does not add hint modal button
 
 # accordion
-accordion_template:
+# WARNING: accordions cannot be nested in current implmentation
+accordion_template: 
   accordion:
     header: "my header"
     open_initally: True # true/false
@@ -105,167 +106,204 @@ accordion_template:
 # CONTENT
 filter_content:
   - heading: "Get Me Close" # first element must be a heading
-  - filter:
-      feature_name: "scolex"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "apical_organ"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "tentacles"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "hooks"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "scolex_attachment_structures"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "bothria": "bothria"
-        - "bothridia": "bothridia"
-        - "suckers" : "suckers"
-        - "other" : "other"
-      hint_modal: True
-  - filter:
-      feature_name: "proglottid_margins"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "craspedote": "craspedote"
-        - "acraspedote": "acraspedote"
-      hint_modal: True
-  - filter:
-      feature_name: "laciniations"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "genital_pore_position"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "lateral sublateral": "lateral_sublateral"
-        - "dorsal ventral": "dorsal_ventral"
-      hint_modal: True
-  - filter:
-      feature_name: "single_column_of_testes"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "post_poral_testes"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "present": "present"
-        - "absent": "absent"
-      hint_modal: True
-  - filter:
-      feature_name: "anterior_extent_of_uterus"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "to pore": "to_pore"
-        - "beyond": "beyond"
-      hint_modal: True
-  - filter:
-      feature_name: "vitelline_follicle_arrangement"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "circumsegmental": "circumsegmental"
-        - "lateral": "lateral"
-        - "other": "other"
-      hint_modal: True
-  - filter:
-      feature_name: "apolysis"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "hyperapolytic": "hyperapolytic"
-        - "euapolytic": "euapolytic"
-        - "apolytic": "apolytic"
-      hint_modal: True
-  - filter:
-      feature_name: "host_group"
-      filter_type: radio_pill_selector
-      inputs: 
-        - "batoids": "batoids"
-        - "sharks": "sharks"
-        - "ratfishes": "ratfishes"
-      hint_modal: True
+  - accordion:
+      header: "Scolex Features"
+      open_initally: True # true/false
+      divider: False # true adds a dividing line beneath the accordion
+      filters:
+        - filter:
+            feature_name: "scolex"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "scolex present": "present"
+              - "scolex absent": "absent"
+            hint_modal: True
+        - filter:
+            feature_name: "apical_organ"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "apical organ present": "present"
+              - "apical organ absent": "absent"
+            hint_modal: True
+        - filter:
+            feature_name: "tentacles"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "tentacles present": "present"
+              - "tentacles absent": "absent"
+            hint_modal: True
+        - filter:
+            feature_name: "hooks"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "hooks present": "present"
+              - "hooks absent": "absent"
+            hint_modal: True
+        - filter:
+            feature_name: "scolex_attachment_structures"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "bothria": "bothria"
+              - "bothridia": "bothridia"
+              - "suckers" : "suckers"
+              - "other" : "other"
+            hint_modal: True
+  - accordion:
+      header: "Proglottid Features"
+      open_initally: True # true/false
+      divider: False # true adds a dividing line beneath the accordion
+      filters:
+        - filter:
+            feature_name: "proglottid_margins"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "craspedote": "craspedote"
+              - "acraspedote": "acraspedote"
+            hint_modal: True
+        - filter:
+            feature_name: "laciniations"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "laciniations present": "present"
+              - "laciniations absent": "absent"
+            hint_modal: True
+        - filter: # needs abbreviations
+            feature_name: "genital_pore_position"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "GPP lateral sublateral": "lateral_sublateral"
+              - "GPP dorsal ventral": "dorsal_ventral"
+            hint_modal: True
+        - filter:
+            feature_name: "single_column_of_testes"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "1 column of testes": "present"
+              - ">1 column of testes": "absent"
+            hint_modal: True
+        - filter:
+            feature_name: "post_poral_testes"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "post-poral testes": "present"
+              - "no post-poral testes": "absent"
+            hint_modal: True
+        - filter:
+            feature_name: "anterior_extent_of_uterus"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "uterus extends to GP": "to_pore"
+              - "uterus extends beyond GP": "beyond"
+            hint_modal: True
+        - filter:
+            feature_name: "vitelline_follicle_arrangement"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "circumsegmental VFA": "circumsegmental"
+              - "lateral VFA": "lateral"
+              - "other VFA": "other"
+            hint_modal: True
+  - accordion:
+      header: "Strobilar Features"
+      open_initally: True # true/false
+      divider: False # true adds a dividing line beneath the accordion
+      filters:
+        - filter:
+            feature_name: "apolysis"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "hyperapolytic": "hyperapolytic"
+              - "euapolytic": "euapolytic"
+              - "apolytic": "apolytic"
+            hint_modal: True
+        - filter:
+            feature_name: "wide_anterior_strobia"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "wide anterior strobila": "present"
+              - "narrow anterior strobila": "absent"
+            hint_modal: True
+  - accordion:
+      header: "Host Information"
+      open_initally: True # true/false
+      divider: False # true adds a dividing line beneath the accordion
+      filters:
+        - filter:
+            feature_name: "host_group"
+            filter_type: radio_pill_selector
+            inputs: 
+              - "batoids": "batoids"
+              - "sharks": "sharks"
+              - "ratfishes": "ratfishes"
+            hint_modal: True
   - heading: "More Features"
-  - filter: 
-      feature_name: "host_family"
-      filter_type: suggestion_box
-      heading: "Host Family"
-      api_endpoint: "https://api.tapeworms-unlocked.info/host_families"
-      target_data_key: "host_family"
-  - filter: 
-      feature_name: "bothridial_features"
-      filter_type: checklist_pill_selector
-      heading: "Bothridial Features"
-      inputs: 
-        - "2 loculi": "2_loculi"
-        - "3 loculi": "3_loculi"
-        - "4 loculi": "4_loculi"
-        - "5 loculi": "5_loculi"
-        - "6 loculi": "6_loculi"
-        - "bifid": "bifid"
-        - "central circular_muscle_bands": "central_circular_muscle_bands"
-        - "folded": "folded"
-        - "marginal loculi": "marginal_loculi"
-        - "numerous loculi": "numerous_loculi"
-        - "pedicles": "pedicles"
-        - "pouch": "pouch"
-        - "stalks": "stalks"
-        - "subloculi": "subloculi"
-        - "uniloculated": "uniloculated"
-      hint_modal: True
-  - filter: 
-      feature_name: "apical_bothridial_region"
-      filter_type: checklist_pill_selector
-      heading: "Apical Bothridial Region"
-      inputs: 
-        - "apical sucker": "apical_sucker"
-        - "muscular pad": "muscular_pad"
-        - "apical loculus": "apical_loculus"
-      hint_modal: True
-  - filter: 
-      feature_name: "hook_placement"
-      filter_type: checklist_pill_selector
-      heading: "Hook Placement"
-      inputs: 
-        - "tentacle hooks": "tentacle_hooks"
-        - "bothridial hooks": "bothridial_hooks"
-        - "bothrial hooks": "bothrial_hooks"
-        - "peduncle hooks": "peduncle_hooks"
-      hint_modal: True
-  - filter: 
-      feature_name: "hook_features"
-      filter_type: checklist_pill_selector
-      heading: "Hook Features"
-      inputs: 
-        - "accessory_piece": "accessory_piece"
-        - "1 hook pair": "1_hook_pair"
-        - "2 hook pairs": "2_hook_pairs"
-        - "1 prong per hook": "1_prong_per_hook"
-        - "2 prongs per hook": "2_prongs_per_hook"
-        - "3 prongs per hook": "3_prongs_per_hook"
-        - "prongs directed anteriorly": "prongs_directed_anteriorly"
-        - "yellow hooks": "yellow_hooks"
-      hint_modal: True
+  - accordion:
+      header: "More Host Information"
+      open_initally: True # true/false
+      divider: True # true adds a dividing line beneath the accordion
+      filters:
+        - filter: 
+            feature_name: "host_family"
+            filter_type: suggestion_box
+            heading: "Host Family"
+            api_endpoint: "https://api.tapeworms-unlocked.info/host_families"
+            target_data_key: "host_family"
+  - accordion:
+      header: "Host Information"
+      open_initally: True # true/false
+      divider: False # true adds a dividing line beneath the accordion
+      filters:
+        - filter: 
+            feature_name: "bothridial_features"
+            filter_type: checklist_pill_selector
+            heading: "Bothridial Features"
+            inputs: 
+              - "uniloculated": "uniloculated"
+              - "2 loculi": "2_loculi"
+              - "3 loculi": "3_loculi"
+              - "4 loculi": "4_loculi"
+              - "5 loculi": "5_loculi"
+              - "6 loculi": "6_loculi"
+              - "numerous loculi": "numerous_loculi"
+              - "marginal loculi": "marginal_loculi"
+              - "subloculi": "subloculi"
+              - "stalks": "stalks"
+              - "pedicles": "pedicles"
+              - "bifid": "bifid"
+              - "central circular_muscle_bands": "central_circular_muscle_bands"
+              - "folded": "folded"
+              - "pouch": "pouch"
+            hint_modal: False
+        - filter: 
+            feature_name: "apical_bothridial_region"
+            filter_type: checklist_pill_selector
+            heading: "Apical Bothridial Region"
+            inputs: 
+              - "apical sucker": "apical_sucker"
+              - "muscular pad": "muscular_pad"
+              - "apical loculus": "apical_loculus"
+            hint_modal: False
+        - filter: 
+            feature_name: "hook_placement"
+            filter_type: checklist_pill_selector
+            heading: "Hook Placement"
+            inputs: 
+              - "tentacle hooks": "tentacle_hooks"
+              - "bothridial hooks": "bothridial_hooks"
+              - "bothrial hooks": "bothrial_hooks"
+              - "peduncle hooks": "peduncle_hooks"
+            hint_modal: False
+        - filter: 
+            feature_name: "hook_features"
+            filter_type: checklist_pill_selector
+            heading: "Hook Features"
+            inputs: 
+              - "accessory_piece": "accessory_piece"
+              - "1 hook pair": "1_hook_pair"
+              - "2 hook pairs": "2_hook_pairs"
+              - "1 prong per hook": "1_prong_per_hook"
+              - "2 prongs per hook": "2_prongs_per_hook"
+              - "3 prongs per hook": "3_prongs_per_hook"
+              - "prongs directed anteriorly": "prongs_directed_anteriorly"
+              - "yellow hooks": "yellow_hooks"
+            hint_modal: False
