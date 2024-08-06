@@ -165,6 +165,10 @@ function GridCard(props) {
                                     centerIfSmall();
                                     averageBackground();
                                 }}
+                                onError={(e)=> {
+                                    e.target.src = "/error.jpg";
+                                    e.target.alt = "Image failed to load :(";
+                                }}
                                 />
                         </div>
                         { images?.length > 1 &&
