@@ -249,7 +249,7 @@ filter_content:
             api_endpoint: "https://api.tapeworms-unlocked.info/host_families"
             target_data_key: "host_family"
   - accordion:
-      header: "Host Information"
+      header: "More Scolex Features"
       open_initally: True # true/false
       divider: False # true adds a dividing line beneath the accordion
       filters:
