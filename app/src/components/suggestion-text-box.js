@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './suggestion-text-box.module.css';
 import DropdownList from "react-widgets/DropdownList";
 import "react-widgets/styles.css";
-import "./suggestion-text-box.css"
+import "./suggestion-text-box.module.css"
 
 export const SuggestionTextBox = (props) => {
     const options = ['----None----', ...props.options];
