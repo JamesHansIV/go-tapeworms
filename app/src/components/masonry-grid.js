@@ -24,6 +24,7 @@ function MasonryGrid(props) {
     // infinite scroll
     async function fetchMoreData() {
         setLoading(true);
+        // const route = `http://localhost:8080/worms?${props.query}&page=${page}&limit=${limit}`;
         const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${page}&limit=${limit}`;
         let response = await fetch(route)
         response = await response.json()
@@ -40,6 +41,7 @@ function MasonryGrid(props) {
     async function fetchWithNewFilter() {
         setLoading(true);
         // normal query
+        // const route = `http://localhost:8080/worms?${props.query}&page=${1}&limit=${limit}`;
         const route = `https://api.tapeworms-unlocked.info/worms?${props.query}&page=${1}&limit=${limit}`;
         let response = await fetch(route);
         let _data = await response.json();
@@ -47,6 +49,7 @@ function MasonryGrid(props) {
         // await calcNumResultsPerOrder(_data);
         
         // count query
+        // let countResponse = await fetch(`http://localhost:8080/worms?${props.query}&count_by_order=true`);
         let countResponse = await fetch(`https://api.tapeworms-unlocked.info/worms?${props.query}&count_by_order=true`);
         _data = await countResponse.json();
         await calcNumResultsPerOrder(_data);
@@ -192,6 +195,7 @@ function MasonryGrid(props) {
                     style={{gridTemplateColumns:`repeat(auto-fit, minmax(min-content, ${cardWidth}px)`}}>
                     {
                         data.map( x => (
+                            // console.log(x)
                             <GridCard 
                                 genus={()=>{ return x.genus.charAt(0).toUpperCase() + x.genus.slice(1); }}
                                 gridBox = {gridRef}
@@ -199,6 +203,7 @@ function MasonryGrid(props) {
                                 // img = {`./${x.genus}_main.jpg`}
                                 img = {imageSrcMap[x.genus]}
                                 imageSources = {x.thumbnails}
+                                // imageSources = {x.images}
                                 color = {colorMap[x.order]}
                                 cardWidth={cardWidth}
                                 loading={false}
