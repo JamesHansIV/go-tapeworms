@@ -122,6 +122,7 @@ def build_query_key_value_pair(filter):
 def build_clear_query_function_call(filter, isArray):
     # print(filter,"\n")
     feature_name = filter['feature_name']
+    print(feature_name, filter['filter_type'], filter['filter_type'] == 'checklist_pill_selector', isArray)
     return "set" + feature_name[0].upper() + feature_name[1:] + ("(null)" if not isArray else "([])")
 
 def build_suggestion_box_fetch_data_function(filter):
@@ -204,10 +205,10 @@ def build_helper_functions(components):
         if components[i] == COMPONENT_TYPE.ACCORDION:
             for filter in content[i]['accordion']['filters']:
                 filter = filter['filter']
-                string += build_clear_query_function_call(filter, filter['filter_type'] == ['checklist_pill_selector']) + ";\n"
+                string += build_clear_query_function_call(filter, filter['filter_type'] == 'checklist_pill_selector') + ";\n"
         elif components[i] == COMPONENT_TYPE.FILTER:
             filter = content[i]['filter']
-            string += build_clear_query_function_call(filter, filter['filter_type'] == ['checklist_pill_selector']) + ";\n"
+            string += build_clear_query_function_call(filter, filter['filter_type'] == 'checklist_pill_selector') + ";\n"
         else:
             continue
     string += "}\n"
