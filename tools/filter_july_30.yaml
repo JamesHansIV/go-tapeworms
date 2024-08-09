@@ -256,7 +256,7 @@ filter_content:
         - filter: 
             feature_name: "bothridial_features"
             filter_type: checklist_pill_selector
-            heading: "Bothridial Features"
+            heading: "Bothridial Features (select all that apply)"
             inputs: 
               - "uniloculated": "uniloculated"
               - "2 loculi": "2_loculi"
@@ -270,14 +270,14 @@ filter_content:
               - "stalks": "stalks"
               - "pedicles": "pedicles"
               - "bifid": "bifid"
-              - "central circular_muscle_bands": "central_circular_muscle_bands"
+              - "central circular muscle bands": "central_circular_muscle_bands"
               - "folded": "folded"
               - "pouch": "pouch"
             hint_modal: False
         - filter: 
             feature_name: "apical_bothridial_region"
             filter_type: checklist_pill_selector
-            heading: "Apical Bothridial Region"
+            heading: "Apical Bothridial Region (select all that apply)"
             inputs: 
               - "apical sucker": "apical_sucker"
               - "muscular pad": "muscular_pad"
@@ -286,7 +286,7 @@ filter_content:
         - filter: 
             feature_name: "hook_placement"
             filter_type: checklist_pill_selector
-            heading: "Hook Placement"
+            heading: "Hook Placement (select all that apply)"
             inputs: 
               - "tentacle hooks": "tentacle_hooks"
               - "bothridial hooks": "bothridial_hooks"
@@ -296,9 +296,9 @@ filter_content:
         - filter: 
             feature_name: "hook_features"
             filter_type: checklist_pill_selector
-            heading: "Hook Features"
+            heading: "Hook Features (select all that apply)"
             inputs: 
-              - "accessory_piece": "accessory_piece"
+              - "accessory piece": "accessory_piece"
               - "1 hook pair": "1_hook_pair"
               - "2 hook pairs": "2_hook_pairs"
               - "1 prong per hook": "1_prong_per_hook"
