@@ -73,6 +73,9 @@ filters_template:
       feature_name: "myFeatureName" # have rules for naming
       filter_type: checklist_pill_selector
       heading: "optional" # remove if unwanted
+      abbreviation: # remove abbreviation block if not used
+        abbreviated_phrase: "AP"
+        unabbreviated_phrase: "unabreviated phase"
       inputs: 
         - "label 0": "value_0"
         - "label 1": "value_1"

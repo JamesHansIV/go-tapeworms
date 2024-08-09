@@ -170,6 +170,9 @@ filter_content:
         - filter: # needs abbreviations
             feature_name: "genital_pore_position"
             filter_type: radio_pill_selector
+            abbreviation: 
+              abbreviated_phrase: "GPP"
+              unabbreviated_phrase: "Genital Pore Position"
             inputs: 
               - "GPP lateral sublateral": "lateral_sublateral"
               - "GPP dorsal ventral": "dorsal_ventral"
@@ -191,6 +194,9 @@ filter_content:
         - filter:
             feature_name: "anterior_extent_of_uterus"
             filter_type: radio_pill_selector
+            abbreviation: 
+              abbreviated_phrase: "GP"
+              unabbreviated_phrase: "Genital Pore"
             inputs: 
               - "uterus extends to GP": "to_pore"
               - "uterus extends beyond GP": "beyond"
@@ -198,6 +204,9 @@ filter_content:
         - filter:
             feature_name: "vitelline_follicle_arrangement"
             filter_type: radio_pill_selector
+            abbreviation: 
+              abbreviated_phrase: "VFA"
+              unabbreviated_phrase: "Vitelline Follicle Arrangement"
             inputs: 
               - "circumsegmental VFA": "circumsegmental"
               - "lateral VFA": "lateral"

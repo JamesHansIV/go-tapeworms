@@ -130,6 +130,7 @@ return(
 inputDict={{'scolex present':'present', 'scolex absent':'absent'}}
 value={scolex}
 setValue={setScolex}
+
 />
 <DetailedFeatureSelection
 inputDict={{'scolex present':'present', 'scolex absent':'absent'}}
@@ -145,6 +146,7 @@ browser={props.browser}
 inputDict={{'apical organ present':'present', 'apical organ absent':'absent'}}
 value={apical_organ}
 setValue={setApical_organ}
+
 />
 <DetailedFeatureSelection
 inputDict={{'apical organ present':'present', 'apical organ absent':'absent'}}
@@ -160,6 +162,7 @@ browser={props.browser}
 inputDict={{'tentacles present':'present', 'tentacles absent':'absent'}}
 value={tentacles}
 setValue={setTentacles}
+
 />
 <DetailedFeatureSelection
 inputDict={{'tentacles present':'present', 'tentacles absent':'absent'}}
@@ -175,6 +178,7 @@ browser={props.browser}
 inputDict={{'hooks present':'present', 'hooks absent':'absent'}}
 value={hooks}
 setValue={setHooks}
+
 />
 <DetailedFeatureSelection
 inputDict={{'hooks present':'present', 'hooks absent':'absent'}}
@@ -190,6 +194,7 @@ browser={props.browser}
 inputDict={{'bothria':'bothria', 'bothridia':'bothridia', 'suckers':'suckers', 'other':'other'}}
 value={scolex_attachment_structures}
 setValue={setScolex_attachment_structures}
+
 />
 <DetailedFeatureSelection
 inputDict={{'bothria':'bothria', 'bothridia':'bothridia', 'suckers':'suckers', 'other':'other'}}
@@ -206,6 +211,7 @@ browser={props.browser}
 inputDict={{'craspedote':'craspedote', 'acraspedote':'acraspedote'}}
 value={proglottid_margins}
 setValue={setProglottid_margins}
+
 />
 <DetailedFeatureSelection
 inputDict={{'craspedote':'craspedote', 'acraspedote':'acraspedote'}}
@@ -221,6 +227,7 @@ browser={props.browser}
 inputDict={{'laciniations present':'present', 'laciniations absent':'absent'}}
 value={laciniations}
 setValue={setLaciniations}
+
 />
 <DetailedFeatureSelection
 inputDict={{'laciniations present':'present', 'laciniations absent':'absent'}}
@@ -236,6 +243,8 @@ browser={props.browser}
 inputDict={{'GPP lateral sublateral':'lateral_sublateral', 'GPP dorsal ventral':'dorsal_ventral'}}
 value={genital_pore_position}
 setValue={setGenital_pore_position}
+abbreviation={{'GPP' : 'Genital Pore Position'}}
+
 />
 <DetailedFeatureSelection
 inputDict={{'GPP lateral sublateral':'lateral_sublateral', 'GPP dorsal ventral':'dorsal_ventral'}}
@@ -251,6 +260,7 @@ browser={props.browser}
 inputDict={{'1 column of testes':'present', '>1 column of testes':'absent'}}
 value={single_column_of_testes}
 setValue={setSingle_column_of_testes}
+
 />
 <DetailedFeatureSelection
 inputDict={{'1 column of testes':'present', '>1 column of testes':'absent'}}
@@ -266,6 +276,7 @@ browser={props.browser}
 inputDict={{'post-poral testes':'present', 'no post-poral testes':'absent'}}
 value={post_poral_testes}
 setValue={setPost_poral_testes}
+
 />
 <DetailedFeatureSelection
 inputDict={{'post-poral testes':'present', 'no post-poral testes':'absent'}}
@@ -281,6 +292,8 @@ browser={props.browser}
 inputDict={{'uterus extends to GP':'to_pore', 'uterus extends beyond GP':'beyond'}}
 value={anterior_extent_of_uterus}
 setValue={setAnterior_extent_of_uterus}
+abbreviation={{'GP' : 'Genital Pore'}}
+
 />
 <DetailedFeatureSelection
 inputDict={{'uterus extends to GP':'to_pore', 'uterus extends beyond GP':'beyond'}}
@@ -296,6 +309,8 @@ browser={props.browser}
 inputDict={{'circumsegmental VFA':'circumsegmental', 'lateral VFA':'lateral', 'other VFA':'other'}}
 value={vitelline_follicle_arrangement}
 setValue={setVitelline_follicle_arrangement}
+abbreviation={{'VFA' : 'Vitelline Follicle Arrangement'}}
+
 />
 <DetailedFeatureSelection
 inputDict={{'circumsegmental VFA':'circumsegmental', 'lateral VFA':'lateral', 'other VFA':'other'}}
@@ -312,6 +327,7 @@ browser={props.browser}
 inputDict={{'hyperapolytic':'hyperapolytic', 'euapolytic':'euapolytic', 'apolytic':'apolytic'}}
 value={apolysis}
 setValue={setApolysis}
+
 />
 <DetailedFeatureSelection
 inputDict={{'hyperapolytic':'hyperapolytic', 'euapolytic':'euapolytic', 'apolytic':'apolytic'}}
@@ -327,6 +343,7 @@ browser={props.browser}
 inputDict={{'wide anterior strobila':'present', 'narrow anterior strobila':'absent'}}
 value={wide_anterior_strobia}
 setValue={setWide_anterior_strobia}
+
 />
 <DetailedFeatureSelection
 inputDict={{'wide anterior strobila':'present', 'narrow anterior strobila':'absent'}}
@@ -343,6 +360,7 @@ browser={props.browser}
 inputDict={{'batoids':'batoids', 'sharks':'sharks', 'ratfishes':'ratfishes'}}
 value={host_group}
 setValue={setHost_group}
+
 />
 <DetailedFeatureSelection
 inputDict={{'batoids':'batoids', 'sharks':'sharks', 'ratfishes':'ratfishes'}}

@@ -330,10 +330,21 @@ def build_radio_pill_selector_jsx(filter):
     value = filter['feature_name']
     set_value = "set" + filter['feature_name'][0].upper() + filter['feature_name'][1:]
         
-    jsx += f"<RadioPillSelector\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n/>"
+    jsx += f"<RadioPillSelector\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n"
+    
+    if 'abbreviation' in filter:
+        abbr_block = filter['abbreviation']
+        if 'abbreviated_phrase' not in abbr_block or 'unabbreviated_phrase' not in abbr_block:
+            print("ERROR: Missing 'abbreviated_phrase' or 'unabbreviated_phrase' not in abbreviation block! Terminating script...")
+            exit(1)
+        abbr = abbr_block['abbreviated_phrase']
+        un_abbr = abbr_block['unabbreviated_phrase']
+        
+        jsx += "abbreviation={{" + f"'{abbr}' : '{un_abbr}'" + "}}\n"
+    
     
     if (has_hint_modal):
-        jsx += "\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
+        jsx += "\n/>\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
     
     return heading_jsx + jsx
 
