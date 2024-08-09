@@ -122,7 +122,7 @@ def build_query_key_value_pair(filter):
 def build_clear_query_function_call(filter, isArray):
     # print(filter,"\n")
     feature_name = filter['feature_name']
-    print(feature_name, filter['filter_type'], filter['filter_type'] == 'checklist_pill_selector', isArray)
+    # print(feature_name, filter['filter_type'], filter['filter_type'] == 'checklist_pill_selector', isArray)
     return "set" + feature_name[0].upper() + feature_name[1:] + ("(null)" if not isArray else "([])")
 
 def build_suggestion_box_fetch_data_function(filter):
@@ -399,7 +399,7 @@ def tokenize_jsx_string(jsx_string):
             if jsx_string[r] == ' ':
                 # tokens.append("<" + jsx_string[l+1:r] + ">")
                 tag = jsx_string[l+1:r]
-                print(tag)
+                # print(tag)
                 # print("TOKENS 0: ", tokens)
                 while r < len(jsx_string) and jsx_string[r] != '>':
                     r += 1
@@ -410,7 +410,7 @@ def tokenize_jsx_string(jsx_string):
         if jsx_string[r] == '>':
             if (jsx_string[l+1:r] != ""):
                 tag = jsx_string[l+1:r]
-                print(tag)
+                # print(tag)
                 # tokens.append("<" + jsx_string[l+1:r] + ">")
             # print("TOKENS 1: ", tokens)
             l = r
@@ -421,7 +421,7 @@ def tokenize_jsx_string(jsx_string):
                 break
             if  jsx_string[r] == '<' and jsx_string[l + 1:r] != "":
                 tag = jsx_string[l+1:r]
-                print(tag)
+                # print(tag)
                 # tokens.append(jsx_string[l+1:r])
                 # print("TOKENS 2: ", tokens)
                 l = r
@@ -436,7 +436,7 @@ def tokens_to_tree(tokens):
     
     tags = ['<div>', '</div>', '<span>', '</span>', '<b>', '</b>', '<u>', '</u>']
     while l <= r:
-        print(tokens[l], tokens[r][0] + tokens[r][2:])
+        # print(tokens[l], tokens[r][0] + tokens[r][2:])
         if tokens[l] == tokens[r][0] + tokens[r][2:]:
             if (len(tree) > 0):
                 tree[-1].append([tokens[l]])
@@ -466,7 +466,7 @@ def indent(jsx_string):
     tokens = tokenize_jsx_string(jsx_string)
     # tree = tokens_to_tree(tokens)
     
-    print(tokens)
+    # print(tokens)
     # print(tree)
     
     return res
