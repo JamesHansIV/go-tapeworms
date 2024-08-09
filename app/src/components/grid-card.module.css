@@ -31,11 +31,10 @@
     max-width: 100%;
 }
 
-.nameTag {
+.basicNameTag, .nameTag {
     font-family: "Gill Sans", sans-serif;
     font-size: 12px;
-    font-style: italic;
-    font-weight: 800;
+    
     color: white;
     /* background-color: var(--name-tag); */
     height: 25px;
@@ -48,7 +47,17 @@
     padding-left: 12px;
 }
 
-.portrait, .image, .nameTag {
+.basicNameTag {
+    font-style:normal;
+    font-weight: 700;
+}
+
+.nameTag {
+    font-style: italic;
+    font-weight: 800;
+}
+
+.portrait, .image, .nameTag, .basicNameTag {
     transition: all 0.5s;
     
 }

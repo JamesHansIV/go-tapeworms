@@ -94,8 +94,13 @@ for i, genus in df.iloc[:].iterrows():
             reg_res = re.search(r'\B[IVXLCDM]+',genus[feature])
             if reg_res != None:
                 genus[feature] = genus[feature][0:reg_res.span()[0]] + " " + genus[feature][reg_res.span()[0]:]
-                
-
+            
+        # used for bools (normal_text)    
+        if genus[feature] == True or genus[feature] == False:
+            doc[feature] = genus[feature]
+            # doc[feature] = toBool(doc[feature])
+            continue
+        
         
         if genus[feature].find("/") != -1:
             doc[feature] = genus[feature].split("/")

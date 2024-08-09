@@ -19,6 +19,17 @@ routes.route("/").get(async function (req, res) {
     res.redirect("/worms");
 });
 
+routes.route("/colors").get(async function(req, res) {
+    const connection = dbo.getDb();
+    
+    connection
+    .collection("order_colors")
+    .find({})
+    .toArray(function (err, result) {
+        if (err) throw err;
+        else res.json(result);
+    });
+});
 
 routes.route('/worms/').get(async function (req, res) {
     const connection = dbo.getDb();

@@ -24,6 +24,7 @@ function GridCard(props) {
     const [gridWidth, ] = useState(900);
     const [imageIndex, setImageIndex] = useState(0);
     const [imageLoading, setImageLoading] = useState(true);
+    const [normalNameTagText, ] = useState(props.normalNameTagText)
 
 
     // let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
@@ -185,7 +186,8 @@ function GridCard(props) {
                         
                     </div>
 
-                    <div className={styles.nameTag}
+                    <div 
+                        className={(normalNameTagText !== undefined && normalNameTagText === true) ? styles.basicNameTag : styles.nameTag}
                         style={{backgroundColor:props.color}}>
                         {genus}
                     </div>

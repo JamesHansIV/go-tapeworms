@@ -20,6 +20,7 @@ function MasonryGrid(props) {
     const [loading, setLoading] = useState(false);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [imageSrcMap, setImageSrcMap] = useState(new Map());
+    const [colorMap, setColorMap] = useState({});
 
     // infinite scroll
     async function fetchMoreData() {
@@ -81,31 +82,12 @@ function MasonryGrid(props) {
         setImagesLoaded(true);
     }
 
-    // color map
-    const colorMap = {
-        'Anthobothriidea' : '#5c1a1b',
-        'Balanobothriidea' : '#ef233c',
-        'Calliobothriidea' : '#a4243b',
-        'Cathetocephalidea' : '#d8973c',
-        'Caulobothriidea' : '#F8782E',
-        'Clade III' : '#404e5c',
-        'Clade IV' : '#f0a7a0',
-        'Diphyllidea' : '#dd9ac2',
-        'Gastrolecithiidea' : '#af7595',
-        'Gyrocotylidea' : '#533b4d',
-        'Lecanicephalidea' : '#f3b803',
-        'Litobothriidea' : '#8db580',
-        'Onchoproteocephalidea II' : '#06bcc1',
-        'Phyllobothriidea' : '#404e5c',
-        'Rhinebothriidea' : '#4f6272',
-        'Serendipeidea' : '#7c91b0',
-        'Zyxibothriidea' : '#404e5c'
+    const fetchColorMap = async () => {
+        let response = await fetch("http://localhost:8080/colors");
+        let _data = await response.json();
+        const result = _data.reduce((obj, item) => Object.assign(obj, {[item.order] : [item.color]}),{});
+        setColorMap(result);
     };
-
-    const scolexFeaturesList = [
-        "scolex", "apical_organ", "tentacles", "hooks", "scolex_attachment_structures"
-    ];
-
 
     const calcNumResultsPerOrder = async (_data) => {
         let counts = {};
@@ -165,7 +147,11 @@ function MasonryGrid(props) {
         const sumOfCounts = calcTotalCount(orderCounts);
         console.log("sum of counts" + sumOfCounts);
         setTotalCount(sumOfCounts);
-    },[orderCounts])
+    },[orderCounts]);
+
+    useEffect(()=>{
+        fetchColorMap();
+    },[]);
 
 
 
@@ -207,6 +193,7 @@ function MasonryGrid(props) {
                                 color = {colorMap[x.order]}
                                 cardWidth={cardWidth}
                                 loading={false}
+                                normalNameTagText = {x?.normal_text}
                             />
                             // console.log(imageSrcMap[x.genus])
                         ))
