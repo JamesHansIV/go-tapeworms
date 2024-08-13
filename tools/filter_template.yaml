@@ -62,7 +62,7 @@ filters_template:
       feature_name: "myFeatureName" # have rules for naming
       filter_type: radio_pill_selector
       heading: "optional" # remove if unwanted
-      inputs: 
+      inputs:  # label (text displayed on buttons) : value (value used by api)
         - "label 0": "value_0"
         - "label 1": "value_1"
         - "label 2": "value_n"
@@ -76,7 +76,7 @@ filters_template:
       abbreviation: # remove abbreviation block if not used
         abbreviated_phrase: "AP"
         unabbreviated_phrase: "unabreviated phase"
-      inputs: 
+      inputs: # label (text displayed on buttons) : value (value used by api)
         - "label 0": "value_0"
         - "label 1": "value_1"
         - "label 2": "value_n"
