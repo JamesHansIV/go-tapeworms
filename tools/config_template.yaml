@@ -8,7 +8,11 @@ credentials:
 build_filter:
   filter_yaml_filepath: "your_filter.yaml_relative_path"
   output_directory: "./your/components/directory" #optional
-  build_api: False # true to run api script
+
+# build_filter.py fields
+build_api:
+  filter_yaml_filepath: "your_filter.yaml_relative_path"
+  output_directory: "./your/server/directory" #optional
 
 # csv_to_db.py fields
 csv_to_db:
