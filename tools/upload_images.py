@@ -17,6 +17,7 @@ import boto3
 import pymongo
 import cv2
 from enum import Enum
+import certifi
 
 from config_loader import load_config
 
@@ -87,7 +88,7 @@ print(f"Connected to AWS S3 Bucket:  {datetime.now() - startTime}")
 print(f"Connecting to MongoDB:  {datetime.now() - startTime}")
 try:
     # mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net")
-    mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@cluster1.of1bayg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
+    mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net", tlsCAFile=certifi.where())
     print("user",MONGO_USER)
     print("pass",MONGO_PASSWORD)
 except Exception as e:

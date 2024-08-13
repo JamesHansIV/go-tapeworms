@@ -5,6 +5,7 @@ from multipledispatch import dispatch
 import os
 import dotenv
 from config_loader import load_config
+import certifi
 
 pd.set_option('display.width', 700)
 pd.set_option('display.max_columns', 6)
@@ -72,7 +73,7 @@ pw = credentials["mongo_password"]
 cluster_id = credentials["mongo_cluster_id"]
 
 # Connect to db
-client = pymongo.MongoClient(f"mongodb+srv://{user}:{pw}@{cluster_id}.mongodb.net")
+client = pymongo.MongoClient(f"mongodb+srv://{user}:{pw}@{cluster_id}.mongodb.net", tlsCAFile=certifi.where())
 
 # create database
 db = client[config_vars["database"]]
