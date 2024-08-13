@@ -3,7 +3,8 @@
     --legLength: 10px;
     --legWidth: 2px;
     --backGroundColor: white;
-    --activeColor: #689ca5;
+    /* --activeColor: #689ca5; */
+    --activeColor: var(--iconColor);
 
     width: var(--size);
     height: var(--size);

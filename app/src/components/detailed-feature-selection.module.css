@@ -34,7 +34,10 @@
 .button:hover {    
     /* background-color: #7ebac4; */
     /* color: white; */
+    transition: linear 0.3s;
     cursor: pointer;
+    background-color: var(--iconColor);
+    color:white;
     /* border-color: white; */
 }
 
