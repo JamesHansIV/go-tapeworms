@@ -1,15 +1,20 @@
 import pandas as pd
+import numpy as np
 import pymongo
 import re
 from multipledispatch import dispatch
-import os
-import dotenv
+
+from config_loader import load_config
 
 pd.set_option('display.width', 700)
 pd.set_option('display.max_columns', 6)
 
+config_dict = load_config("config.yaml")
+config_vars = config_dict["csv_to_color_map"]
+credentials = config_dict["credentials"]
+
 # create dataframe from csv
-path = "data/03_02_without_notes_(21Jul24).csv"
+path = config_vars["csv_filepath"]
 df = pd.DataFrame(pd.read_csv(path))
 
 # drop helper rows (used later)
@@ -24,23 +29,26 @@ df = df.rename(columns=lambda x: x.strip())
 # reset index
 df.reset_index(inplace=True,drop=True)
 
-df.to_csv("colorMap.csv", sep='\t', encoding='utf-8', index=False, header=True)
+# df.to_csv("color_map.csv", sep=',', encoding='utf-8', index=False, header=True)
 # exit(0)
 
 # get env vars
-dotenv.load_dotenv('.env')
-user = os.getenv("MONGO_USER_NAME")
-pw = os.getenv("MONGO_PASSWORD")
-cluster_id = os.getenv("MONGO_CLUSTER_ID")
+# dotenv.load_dotenv('.env')
+# user = os.getenv("MONGO_USER_NAME")
+# pw = os.getenv("MONGO_PASSWORD")
+# cluster_id = os.getenv("MONGO_CLUSTER_ID")
+user = credentials["mongo_user_name"]
+pw = credentials["mongo_password"]
+cluster_id = credentials["mongo_cluster_id"]
 
 # Connect to db
 client = pymongo.MongoClient(f"mongodb+srv://{user}:{pw}@{cluster_id}.mongodb.net")
 
 # create database
-db = client["july_30_automation_test"]
+db = client[config_vars["database"]]
 
 # create collection
-collection = db["order_colors"]
+collection = db[config_vars["collection"]]
 
 # clear collection
 print("CLEARING OLD COLLECTION")

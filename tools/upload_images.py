@@ -18,6 +18,8 @@ import pymongo
 import cv2
 from enum import Enum
 
+from config_loader import load_config
+
 from datetime import datetime
 startTime = datetime.now()
 
@@ -28,39 +30,49 @@ class Flags(Enum):
     THUMBNAILS = 1,
     FEATURE_SELECTION_HINTS = 2
 
-if len(sys.argv) != 2 and len(sys.argv) != 3:
-    raise Exception("Invalid number of arguments! Invoke this command with: python3 upload_images.py [image directory relative path] [flag]")
+# if len(sys.argv) != 2 and len(sys.argv) != 3:
+    # raise Exception("Invalid number of arguments! Invoke this command with: python3 upload_images.py [image directory relative path] [flag]")
 
-flag = Flags(Flags.NONE)
-if len(sys.argv) == 3:
-    # print(sys.argv[2])
-    if sys.argv[2] != "--thumbnails" and sys.argv[2] != "--feature_selection_hints":
-        # print(sys.argv[2])
-        raise Exception("Invalid flag. Available flags: --thumbnails, --feature_selection_hints")
-    if sys.argv[2] == "--thumbnails":
-        flag = Flags.THUMBNAILS
-    if sys.argv[2] == "--feature_selection_hints":
-        flag = Flags.FEATURE_SELECTION_HINTS
+# flag = Flags(Flags.NONE)
+# if len(sys.argv) == 3:
+#     # print(sys.argv[2])
+#     if sys.argv[2] != "--thumbnails" and sys.argv[2] != "--feature_selection_hints":
+#         # print(sys.argv[2])
+#         raise Exception("Invalid flag. Available flags: --thumbnails, --feature_selection_hints")
+#     if sys.argv[2] == "--thumbnails":
+#         flag = Flags.THUMBNAILS
+#     if sys.argv[2] == "--feature_selection_hints":
+#         flag = Flags.FEATURE_SELECTION_HINTS
 
 # print(flag)
 # exit(0)
 
 # get folder path
-folder = sys.argv[1]
+# folder = sys.argv[1]
 
 #env vars
-dotenv.load_dotenv('.env')
-ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
-SECRET_KEY = os.getenv("AWS_SECRET_KEY")
-MONGO_USER = os.getenv("MONGO_USER_NAME")
-MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
-MONGO_CLUSTER = os.getenv("MONGO_CLUSTER_ID")
+# dotenv.load_dotenv('.env')
+# ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
+# SECRET_KEY = os.getenv("AWS_SECRET_KEY")
+# MONGO_USER = os.getenv("MONGO_USER_NAME")
+# MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+# MONGO_CLUSTER = os.getenv("MONGO_CLUSTER_ID")
 
-# print(ACCESS_KEY)
-# print(SECRET_KEY)
-# print(MONGO_USER)
-# print(MONGO_PASSWORD)
-# print(MONGO_CLUSTER)
+config_dict = load_config("config.yaml")
+config_vars = config_dict["upload_images"]
+credentials = config_dict["credentials"]
+
+ACCESS_KEY = credentials["aws_access_key"]
+SECRET_KEY = credentials["aws_secret_key"]
+MONGO_USER = credentials["mongo_user_name"]
+MONGO_PASSWORD = credentials["mongo_password"]
+MONGO_CLUSTER = credentials["mongo_cluster_id"]
+
+flag = Flags(Flags.NONE)
+if config_vars["mode"] == "thumbnails":
+    flag = Flags.THUMBNAILS
+if config_vars["mode"] == "feature_selection_hints":
+    flag = Flags.FEATURE_SELECTION_HINTS
 
 print(f"Connecting to AWS S3 Bucket:  {datetime.now() - startTime}")
 # s3
@@ -83,13 +95,12 @@ except Exception as e:
     exit()
 
 # db = mongo["csv_to_db_test"]
-db = mongo["july_30_automation_test"]
-# collection = db["test_2"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
-collection = db["test_0"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
+db = mongo[config_vars["database"]]
+collection = db[config_vars["collection"]]
 print(f"Connected to MongoDB:  {datetime.now() - startTime}")
 
 # get folder from cmd line args
-folder_name = sys.argv[1]
+folder_name = config_vars["images_directory_path"]
 folder_contents = sorted(os.listdir(folder_name), key=str.casefold)
 folder_size = len(os.listdir(folder_name))
 
@@ -167,7 +178,7 @@ for i in progressbar(range(folder_size), redirect_stdout=True):
         images = []
     
     if flag == Flags.FEATURE_SELECTION_HINTS:
-        path = f"{folder}/{curr_file}"
+        path = f"{folder_name}/{curr_file}"
         curr_file_words = curr_file.split("_")
         feature_words = [word for word in curr_file_words if word != "hint.png"]
         feature = " ".join(feature_words)

@@ -5,6 +5,8 @@ import textwrap
 from enum import Enum
 import re
 
+from config_loader import load_config
+
 from datetime import datetime
 startTime = datetime.now()
 
@@ -17,8 +19,8 @@ class COMPONENT_TYPE(Enum):
     # SUGGESTION_BOX = 3
 
 
-def load_filter_content():
-    with open ("filter_july_30.yaml","r") as file:
+def load_filter_content(filepath):
+    with open (filepath,"r") as file:
         filter_template = yaml.safe_load(file)
         
         #filepaths
@@ -483,11 +485,9 @@ def indent(jsx_string):
     return res
 
 
+config_vars = load_config("config.yaml")["build_filter"]
 
-
-
-
-content = load_filter_content()
+content = load_filter_content(config_vars["filter_yaml_filepath"])
 components = get_filter_component_types(content)
 
 functional_component = build_functional_component(components, content)
@@ -503,7 +503,9 @@ out = imports + "\n\n" + functional_component
 # res = indent(build_jsx_return_statement(components, content))
 
 # with open("result.js", "w") as file:
-with open("filter.js", "w") as file:
+output_path = "filter.js" if "output_directory" not in config_vars else f"{config_vars['output_directory']}/filter.js"
+
+with open(output_path, "w") as file:
     file.write(out)
 
 exit(0)
@@ -529,6 +531,18 @@ def api_build_imports_and_headers():
         // redireect /
         routes.route("/").get(async function (req, res) {
             res.redirect("/worms");
+        });
+        
+        routes.route("/colors").get(async function(req, res) {
+            const connection = dbo.getDb();
+            
+            connection
+            .collection("order_colors")
+            .find({})
+            .toArray(function (err, result) {
+                if (err) throw err;
+                else res.json(result);
+            });
         });
     """)
     return string
