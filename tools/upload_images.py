@@ -12,7 +12,7 @@
 import os
 import sys
 import dotenv
-from progressbar import progressbar
+import progressbar
 import boto3
 import pymongo
 import cv2
@@ -111,7 +111,8 @@ fail_count = 0
 s3_fail_count = 0
 mongo_fail_count = 0
 images = []
-for i in progressbar(range(folder_size), redirect_stdout=True):
+for i in progressbar.progressbar(range(folder_size), redirect_stdout=True):
+    # exit(0)
     
     # add edge case (i == folder_size-1)
     next_file = folder_contents[i+1] if i < folder_size-1 else ""

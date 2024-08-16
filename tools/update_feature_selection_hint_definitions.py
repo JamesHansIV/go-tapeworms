@@ -1,7 +1,7 @@
 import os
 import sys
 import dotenv
-from progressbar import progressbar
+import progressbar
 import pymongo
 import csv
 from enum import Enum
@@ -45,7 +45,7 @@ with open(definitions_csv, 'r', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
     rows = list(reader)
     row_count = len(rows)
-    for i in progressbar(range(0, len(rows)), redirect_stdout=True):
+    for i in progressbar.progressbar(range(0, len(rows)), redirect_stdout=True):
         row = rows[i]
         feature, definition = row[0], row[1]
         try:
