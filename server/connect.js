@@ -36,7 +36,7 @@ let success = false;
 
 [success, doc] = tryLoadingConfig('server_config.yaml');
 if (!success)
-    [success, doc] = tryLoadingConfig('../server_config.yaml');
+    [success, doc] = tryLoadingConfig('/etc/secrets/server_config.yaml');
 if (!success) {
     console.log("Exiting");
     process.exit(1);
