@@ -8,15 +8,40 @@ const fs   = require('fs');
 //     process.exit();
 // } 
 
+const tryLoadingConfig = (path) => {
+    let doc = {}
+    let success = false;
+    console.log("\n\nAttempting to load server config...");
+    try {
+        doc = yaml.load(fs.readFileSync(path, 'utf8'));
+        console.log(doc);
+        return [success, doc]
+    } catch (e) {
+        console.log(e);
+        return [success, doc]
+    }
+}
+
 let doc = {}
-try {
-    doc = yaml.load(fs.readFileSync('server_config.yaml', 'utf8'));
-    console.log(doc);
-} catch (e) {
-    console.log(e);
-    console.log("EXITING");
+let success = false;
+// try {
+//     doc = yaml.load(fs.readFileSync('server_config.yaml', 'utf8'));
+//     console.log(doc);
+// } catch (e) {
+//     tryLoadingConfigFromRootDir();
+//     console.log(e);
+//     console.log("EXITING");
+//     process.exit(1);
+// }
+
+[success, doc] = tryLoadingConfig('server_config.yaml');
+if (!success)
+    [success, doc] = tryLoadingConfig('../server_config.yaml');
+if (!success) {
+    console.log("Exiting");
     process.exit(1);
 }
+
 // console.log(doc.mongo)
 // process.exit(0);
 
