@@ -8,3 +8,4 @@ junk
 /tools/config.yaml
 /server/node_modules
 /server/server_config.yaml
+**/MASTER_images

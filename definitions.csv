@@ -1,3 +1,5 @@
+#FORMAT: feature_name: value, "definition"
+
 scolex present,"Worm with anterior, specialized attachment organ"
 scolex absent,"Worm without anterior, specialized attachment organ. May possess single anterior muscular sucker-like organ."
 bothria,"\u2022weakly muscular\u2022oval\u2022usually 2, rarely 4, in number\u2022free margins"
