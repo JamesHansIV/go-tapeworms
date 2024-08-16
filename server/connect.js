@@ -39,7 +39,8 @@ if (!success)
     [success, doc] = tryLoadingConfig('/etc/secrets/server_config.yaml');
 if (!success) {
     console.log("Exiting");
-    process.exit(1);
+    const test = process.env.test;
+    console.log(test);
 }
 
 // console.log(doc.mongo)
