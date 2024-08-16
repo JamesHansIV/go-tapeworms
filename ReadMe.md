@@ -7,9 +7,13 @@ To update anything related to the live Tapeworms Unlocked site, or your implemen
 
 Requirements:
 * Python3
+* All packages found in `/tools/requirements.txt` must be installed
 * Access to the MongoDB cluster used to store your data
 * Access to the AWS S3 bucket used to store your images
 * A modified ```config.yaml``` file found in the ```/tools``` directory (originally named ```config_template.yaml```. Must be renamed to `config.yaml`)
+
+### Installing Pip Packages from requirements.txt
+To install all required packages from `requirements.txt` navigate in your terminal to the `/tools` directory and run `pip3 install -r requirements.txt`.
 
 ### Updating the application's data
 The following process parses data from a .csv file and uploads the data as a collection of documents to a MongDB database.
