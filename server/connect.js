@@ -15,6 +15,7 @@ const tryLoadingConfig = (path) => {
     try {
         doc = yaml.load(fs.readFileSync(path, 'utf8'));
         console.log(doc);
+        success = true;
         return [success, doc]
     } catch (e) {
         console.log(e);
