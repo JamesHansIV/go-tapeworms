@@ -11,7 +11,7 @@ const fs   = require('fs');
 const tryLoadingConfig = (path) => {
     let doc = {}
     let success = false;
-    console.log("\n\nAttempting to load server config...");
+    console.log("\n\nAttempting to load server config at path: ", path);
     try {
         doc = yaml.load(fs.readFileSync(path, 'utf8'));
         console.log(doc);
