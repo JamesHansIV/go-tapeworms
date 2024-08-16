@@ -37,7 +37,7 @@ routes.route('/worms/').get(async function (req, res) {
     let query = {}
     query['$and'] = [];
 
-    let collection = process.env.COLLECTION;
+    let collection = dbo.getCollection();
     console.log(collection)
 
     let {
