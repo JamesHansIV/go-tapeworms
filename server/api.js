@@ -204,6 +204,47 @@ routes.route('/worms/').get(async function (req, res) {
     // }
 });
 
+routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
+    const connection = dbo.getDb();
+
+    // ensure features feild is filled out
+    if (!("features" in req.query)) {
+        connection.collection("modal_hints").find().toArray((err, result)=>{
+            if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
+            else res.json(result);
+        })
+        // res.status(400).send('endpoint requires features[] URL parameter.');
+        return;
+    }
+
+    console.log("Modal request query:", req.query.features[0].split(','))
+
+
+    let query = {"$or" : []};
+
+    // get fatures from params
+    let featuresList = Object.values(req.query.features)[0].split(',');
+    
+    // 
+
+    // build mongo query
+    featuresList.forEach((item) => {
+        console.log("FEATURE LIST item: ", item);
+        let [featureName, value] = item.split('=');
+        console.log("f: ", featureName)
+        console.log("v: ", value)
+        query["$or"].push({$and: [{"feature": featureName}, {"value": value}]});
+    });
+
+    console.log("QUERY: ", query);
+
+    // exexute query
+    connection.collection("modal_hints").find(query).toArray((err, result)=>{
+        if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
+        else res.json(result);
+    });
+})
+
 
 
 module.exports = routes;
