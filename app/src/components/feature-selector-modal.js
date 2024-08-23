@@ -5,8 +5,8 @@ import styles from './feature-selector-modal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
-const API_BASE_URL = "https://api.tapeworms-unlocked.info"
-// const API_BASE_URL = "http://localhost:8080"
+// const API_BASE_URL = "https://api.tapeworms-unlocked.info"
+const API_BASE_URL = "http://localhost:8080"
 
 function FeatureSelectorModal (props) {
     const MOVABLE_WRAPPER_HIT_SLOP = 125; // in px
@@ -62,17 +62,30 @@ function FeatureSelectorModal (props) {
 
 
     const getHintData = async() => {
-        const params = Object.keys(inputs);
+        // const params = Object.keys(inputs);
+        const values = Object.values(inputs);
 
-        if(params.length == 0) return;
+        if(values.length == 0) return;
 
+        // console.log("value", Object.keys({props.value})[0])
+        console.log("feature", props.featureName)
+        console.log("inputs:", inputs)
+        // console.log("params:", params)
+        console.log("values:", values)
+
+        // OLD
         let paramsString = "features[]=" ;
-        params.forEach((value,index)=>{
-            paramsString += value;
-            if (index != params.length - 1) paramsString += ',';
+        values.forEach((value,index)=>{
+            paramsString += props.featureName + "=" + value;
+            if (index != values.length - 1) paramsString += ',';
         })
-        // console.log("PARAMS", paramsString);
-        paramsString = paramsString.replaceAll("/"," ");
+
+        // NEW
+        // let paramsString = "feature_value_pairs[]="
+        
+
+        console.log("PARAMS", paramsString);
+        // paramsString = paramsString.replaceAll("/"," ");
         // console.log("param fixed,", paramsString);
         
         // switch to live server
@@ -285,8 +298,7 @@ function FeatureSelectorModal (props) {
             { loading === true ? (
                 // <p>Loading...</p>
                 Object.entries(inputs).map(([index, val]) => {
-                    // console.log("INPUT DICT: " + index + ", " + val + "   | sel: " + sel);
-                    // console.log(sel + " === " + val + ":   " + (sel === val))
+                    
 
                     let classes = `${styles.panel}`;
                     if (sel === val) { 
@@ -303,7 +315,6 @@ function FeatureSelectorModal (props) {
                                     return;
                                 }
                                 sel === val ? props.setValue(null) : props.setValue(val);
-                                console.log(val);
                                 // if (!locked) close();
                             }}
                         >
@@ -316,13 +327,19 @@ function FeatureSelectorModal (props) {
                 // map panels
                 Object.entries(hintData).map( ([index, curr]) => {
                     // console.log("CURR: " + JSON.stringify(curr));
+                    // console.log("cur feature: |" + curr.feature)
+                    // console.log("cur value:   |" + curr.value)
                     // console.log("sel: " + sel);
+                    // console.log("inputs", inputs)
+                    // console.log('arr', Object.keys(inputs))
                     let classes = `${styles.panel}`;
-                    if (sel === inputs[curr.feature]) classes += ` ${styles.selected}`;
+                    if (sel === curr.value) classes += ` ${styles.selected}`;
 
                     // console.log(curr);
 
                     // setImages(curr);
+
+                    // console.log(sel, curr.value, sel === curr.value)
 
                     return (
                         <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
@@ -337,11 +354,12 @@ function FeatureSelectorModal (props) {
                                 // console.log("curr: " + JSON.stringify(curr));
                                 // console.log("input[curr.feature]" + inputs[curr.feature]);
                                 // console.log(props.setValue);
-                                sel === curr ? props.setValue(null) : props.setValue(inputs[curr.feature]);
+                                // console.log('clicked', curr.value)
+                                sel === curr.value ? props.setValue(null) : props.setValue(curr.value);
                                 // if (!locked) close();
                             }}
                         >
-                            <h4 style={{textTransform:'capitalize'}}>{curr.feature}</h4>
+                            <h4 style={{textTransform:'capitalize'}}>{Object.keys(inputs)[index]}</h4>
                             <div className={ styles.borderline } />
                             {/* NEW FLATTENED METHOD */}
                             {curr.definition != null &&
