@@ -38,15 +38,15 @@ const [hook_features, setHook_features] = useState([]);
 
 const [host_familyData, setHost_familyData] = useState([]);
 
-const getHost_familyData = async() => {
-const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
-const data = await response.json()
-let arr  = []
-for(let d of data){
-arr.push(d.host_family)
-}
-setHost_familyData(arr)
-}
+// const getHost_familyData = async() => {
+// const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
+// const data = await response.json()
+// let arr  = []
+// for(let d of data){
+// arr.push(d.host_family)
+// }
+// setHost_familyData(arr)
+// }
 
 
 const buildQuery = () => {
@@ -108,7 +108,7 @@ setHook_features([]);
 // ON RENDER
 buildQuery();
 useEffect(() => {
-getHost_familyData();
+// getHost_familyData();
 },[]);
 
 
