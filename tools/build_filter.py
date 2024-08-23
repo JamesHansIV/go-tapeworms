@@ -387,7 +387,7 @@ def build_suggestion_box_jsx(filter):
     return heading_jsx + f"<SuggestionTextBox\noptions={{{options}}}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n/>"
 
 def build_detailed_feature_selection_jsx(input_dict, value, set_value):
-    jsx = f"<DetailedFeatureSelection\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n/>"
+    jsx = f"<DetailedFeatureSelection\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\nfeatureName={{'{value}'}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n/>"
     return jsx
 
 class TOKEN(Enum):
