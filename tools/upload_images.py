@@ -182,16 +182,24 @@ for i in progressbar.progressbar(range(folder_size), redirect_stdout=True):
     
     if flag == Flags.FEATURE_SELECTION_HINTS:
         path = f"{folder_name}/{curr_file}"
-        curr_file_words = curr_file.split("_")
-        feature_words = [word for word in curr_file_words if word != "hint.png"]
-        feature = " ".join(feature_words)
+        # curr_file_words = curr_file.split("_")
+        # feature_words = [word for word in curr_file_words if word != "hint.png"]
+        # print(curr_file_words)
+        # print(feature_words)
+        curr_file_words = curr_file.split(".")
+        feature, value = curr_file_words[0], curr_file_words[1]
+        # print(curr_file_words)
+        # exit(0)
+        
+        # feature = " ".join(feature_words)
         # print(feature)
         try:
-            print(collection)
+            # print(collection)
             # collection.update_one({"feature":feature},{"$set":{"image_source":path}},upsert=False)
             # doc = collection.find_one({"feature":feature})
-            # print(doc)
-            collection.update_one({"feature":feature},{"$set":{"image_source":curr_file}}, upsert=True)
+            string = "UPDATING: { " + f'"feature": "{feature}", "value": "{value}", ...' + " }"
+            print(string)
+            collection.update_one({"$and": [{"feature":feature}, {"value":value}]},{"$set":{"image_source":curr_file}}, upsert=True)
         except Exception as e:
             print(f"\u2717 Failed to update MONGO with \"{feature}\" image source \"{path}\"...")
             # print(f"ERROR: {e}")

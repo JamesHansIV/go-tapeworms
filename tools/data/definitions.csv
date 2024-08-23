@@ -1,5 +1,4 @@
 #feature_name,value,"definition" [=text] (label comes from /app/src/components/filter.js as defined in the tools/filter.yaml)
-
 scolex,present,"Worm with anterior, specialized attachment organ"
 scolex,absent,"Worm without anterior, specialized attachment organ. May possess single anterior muscular sucker-like organ."
 apical_organ,present,"Note that an apical organ (AO) may be invaginated or retracted into to the scolex proper."
@@ -30,8 +29,8 @@ vitelline_follicle_arrangement,other,"Vitelline follicles are distributed ventra
 apolysis,apolytic,""
 apolysis,euapolytic,""
 apolysis,hyperapolytic,""
-wide_anterior_strobia,present,"Immature proglottids of the anterior strobila as wide or wider than mature proglottids."
-wide_anterior_strobia,absent,"Immature proglottids of the anterior strobila usually narrower than mature proglottids."
+wide_anterior_strobila,present,"Immature proglottids of the anterior strobila as wide or wider than mature proglottids."
+wide_anterior_strobila,absent,"Immature proglottids of the anterior strobila usually narrower than mature proglottids."
 host_group, batoids,""
 host_group, sharks,""
 host_group, ratfishes,""

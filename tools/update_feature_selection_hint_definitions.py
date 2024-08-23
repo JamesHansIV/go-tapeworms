@@ -51,17 +51,22 @@ print(f"Connected to MongoDB:  {datetime.now() - startTime}")
 definitions_csv = config_vars["definitions_csv_path"]
 
 print("Updating MongoDB...")
+print("CLEARING OLD COLLECTION")
+collection.delete_many({})
 mongo_fail_count = 0
 row_count = 0
+# exit(0)
 with open(definitions_csv, 'r', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',', quotechar='"')
     rows = list(reader)
     row_count = len(rows)
-    for i in progressbar.progressbar(range(0, len(rows)), redirect_stdout=True):
+    for i in progressbar.progressbar(range(1, len(rows)), redirect_stdout=True):
         row = rows[i]
-        feature, definition = row[0], row[1]
+        feature, value, definition = row[0], row[1], row[2]
         try:
-            collection.update_one({"feature":feature},{"$set":{"definition":definition}}, upsert=False)
+            string = "UPDATING: { " + f'"feature": "{feature}", "value": "{value}", ...' + " }"
+            print(string)
+            collection.insert_one({"feature":feature, "value":value, "definition":definition})
         except Exception as e:
             print(f"\u2717 Failed to update MONGO with \"{feature}\" definition...")
             mongo_fail_count += 1
