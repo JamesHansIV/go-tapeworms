@@ -97,7 +97,8 @@ except Exception as e:
 
 # db = mongo["csv_to_db_test"]
 db = mongo[config_vars["database"]]
-collection = db[config_vars["collection"]]
+collection = db[config_vars["collection"]] if flag == Flags.THUMBNAILS else db[config_vars["hint_collection"]]
+print(collection)
 print(f"Connected to MongoDB:  {datetime.now() - startTime}")
 
 # get folder from cmd line args
@@ -186,7 +187,7 @@ for i in progressbar.progressbar(range(folder_size), redirect_stdout=True):
         feature = " ".join(feature_words)
         # print(feature)
         try:
-            # print(collection)
+            print(collection)
             # collection.update_one({"feature":feature},{"$set":{"image_source":path}},upsert=False)
             # doc = collection.find_one({"feature":feature})
             # print(doc)
