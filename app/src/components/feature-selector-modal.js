@@ -359,7 +359,9 @@ function FeatureSelectorModal (props) {
                                 // if (!locked) close();
                             }}
                         >
-                            <h4 style={{textTransform:'capitalize'}}>{Object.keys(inputs)[index]}</h4>
+                            <h4 
+                                // style={{textTransform:'capitalize'}}
+                                >{Object.keys(inputs)[index]}</h4>
                             <div className={ styles.borderline } />
                             {/* NEW FLATTENED METHOD */}
                             {curr.definition != null &&
