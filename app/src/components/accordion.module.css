@@ -3,12 +3,66 @@
     /* transition-duration: 0.3s; */
     /* transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); */
     /* transition: max-height 1s cubic-bezier(.55,.04,.5,1.01); */
-    transition: max-height 0.5s ease-in-out;
-    
+    transition: max-height 0.5s linear;
+    /* padding-bottom:1.25em; */
+}
+
+.initiallyClosedWithoutDivider {
+    overflow:hidden;
+}
+
+.initiallyClosedWithDivider {
+    overflow:hidden;
+    border-bottom: 1px solid var(--filterDivider);
+}
+
+.contentOpen {
+    /* border-bottom: 1px solid var(--filterDivider); */
+    overflow: hidden;
+    transition: 
+    max-height 0.5s linear;
+    /* overflow 0.5s 0.5s; */
+}
+
+.contentClosed {
+    /* border-bottom: 1px solid var(--filterDivider); */
+    transition: max-height 0.5s linear;
+    overflow: hidden;
 }
 
 .buttonWrapper {
     width: fit-content;
     margin-right: 0.5em;
     /* background-color: red; */
+}
+
+.dividerOpen, .dividerClosed {
+    border-bottom: 1px solid var(--filterDivider);
+    /* transition: max-height 0.5s linear; */
+}
+
+.dividerOpen {
+    padding-bottom: 1.25em;
+    overflow: hidden;
+    transition: 
+    max-height 1s linear,
+    padding-bottom 0.5s 0.5s linear;
+    /* overflow 0.5s 0.5s; */
+}
+
+/* .dividerOpen::after {
+    content: "TEST";
+    overflow: visible;
+    background-color: red;
+} */
+
+.dividerClosed {
+    overflow: hidden;
+    transition: 
+    padding-bottom 0.5s 0.5s linear,
+    max-height 0.5s linear;
+}
+
+h5 {
+    margin-top: 1.25em;
 }

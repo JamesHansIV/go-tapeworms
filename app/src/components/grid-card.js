@@ -24,6 +24,7 @@ function GridCard(props) {
     const [gridWidth, ] = useState(900);
     const [imageIndex, setImageIndex] = useState(0);
     const [imageLoading, setImageLoading] = useState(true);
+    const [normalNameTagText, ] = useState(props.normalNameTagText)
 
 
     // let images = [props.img, 'aberrapex_main.jpg', 'corollapex_main.jpg'];
@@ -107,28 +108,15 @@ function GridCard(props) {
         }
     };  
 
-    const buildImageURL = () => {
-        let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
-        let genusLowerCase = genus.charAt(0).toLowerCase() + genus.slice(1);
-        if (images === undefined) {
-            return `${base}/${genusLowerCase}`;
-        }
-
-        let imageURL = `${base}/${genusLowerCase}/${images[imageIndex]}`;
-        // console.log(imageURL);
-        // console.log(imageURL);
-        return imageURL;
-    }
-
     const handleNextImage = () => {
         setImageIndex((imageIndex + 1) % images.length);
-        buildImageURL();
+        // buildImageURL();
         setImageLoading(true);
     }
 
     const handlePrevImage = () => {
         setImageIndex((imageIndex -1 + images.length) % images.length);
-        buildImageURL();
+        // buildImageURL();
         setImageLoading(true);
     }
 
@@ -165,10 +153,11 @@ function GridCard(props) {
                             {/* loading... */}
                         </div>
 
-                        <div className= {styles.carousel} style={{display: imageLoading ? "none" : "block"}}>
+                        <div className= {styles.carousel} >
                             <img 
                                 className={styles.image}
-                                src={buildImageURL()} 
+                                src={buildImageURL(genus, images, imageIndex)} 
+                                // src={props.img}
                                 alt={`cannot find ${genus} source`}
                                 ref={imgRef}
                                 crossOrigin={"anonymous"}
@@ -176,6 +165,10 @@ function GridCard(props) {
                                     setImageLoading(false);
                                     centerIfSmall();
                                     averageBackground();
+                                }}
+                                onError={(e)=> {
+                                    e.target.src = "/error.jpg";
+                                    e.target.alt = "Image failed to load :(";
                                 }}
                                 />
                         </div>
@@ -193,7 +186,8 @@ function GridCard(props) {
                         
                     </div>
 
-                    <div className={styles.nameTag}
+                    <div 
+                        className={(normalNameTagText !== undefined && normalNameTagText === true) ? styles.basicNameTag : styles.nameTag}
                         style={{backgroundColor:props.color}}>
                         {genus}
                     </div>
@@ -205,4 +199,18 @@ function GridCard(props) {
     );
 }
 
+export const buildImageURL = (genusName, imgArray, index) => {
+    let base = "https://s3.us-east-2.amazonaws.com/images.tapeworms-unlocked.info/thumbnails";
+    let genusLowerCase = genusName.charAt(0).toLowerCase() + genusName.slice(1);
+    if (imgArray === undefined) {
+        return `${base}/${genusLowerCase}`;
+    }
+
+    let imageURL = `${base}/${genusLowerCase}/${imgArray[index]}`;
+    // console.log(imageURL);
+    // console.log(imageURL);
+    return imageURL;
+}
+
 export default GridCard;
+// export {buildImageURL};

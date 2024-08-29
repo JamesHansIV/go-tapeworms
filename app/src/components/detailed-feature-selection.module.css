@@ -32,10 +32,13 @@
 }
 
 .button:hover {    
-    background-color: #7ebac4;
-    color: white;
+    /* background-color: #7ebac4; */
+    /* color: white; */
+    transition: linear 0.3s;
     cursor: pointer;
-    border-color: white;
+    background-color: var(--iconColor);
+    color:white;
+    /* border-color: white; */
 }
 
 .panelImage {

@@ -1,4 +1,6 @@
 require('dotenv').config();
+const yaml = require('js-yaml');
+const fs   = require('fs');
 
 // handle passwords
 // if (process.argv.length != 4) {
@@ -6,12 +8,50 @@ require('dotenv').config();
 //     process.exit();
 // } 
 
+const tryLoadingConfig = (path) => {
+    let doc = {}
+    let success = false;
+    console.log("\n\nAttempting to load server config at path: ", path);
+    try {
+        doc = yaml.load(fs.readFileSync(path, 'utf8'));
+        console.log(doc);
+        success = true;
+        return [success, doc]
+    } catch (e) {
+        console.log(e);
+        return [success, doc]
+    }
+}
+
+let doc = {}
+let success = false;
+// try {
+//     doc = yaml.load(fs.readFileSync('server_config.yaml', 'utf8'));
+//     console.log(doc);
+// } catch (e) {
+//     tryLoadingConfigFromRootDir();
+//     console.log(e);
+//     console.log("EXITING");
+//     process.exit(1);
+// }
+
+[success, doc] = tryLoadingConfig('server_config.yaml');
+if (!success)
+    [success, doc] = tryLoadingConfig('/etc/secrets/server_config.yaml');
+if (!success) {
+    console.log("Exiting");
+}
+
+// console.log(doc.mongo)
+// process.exit(0);
+
 let missingEnvVars = [];
 
-const cluster_id = process.env.CLUSTER_ID;
-const user = process.env.CLUSTER_USERNAME;
-const pw = process.env.CLUSTER_PASSWORD;
-const database = process.env.DATABASE;
+const cluster_id = doc.mongo.mongo_cluster_id;
+const user = doc.mongo.mongo_user_name;
+const pw = doc.mongo.mongo_password;
+const database = doc.mongo.database;
+const collection = doc.mongo.collection;
 
 // check for missing env vars
 if (cluster_id === undefined) missingEnvVars.push('CLUSTER_ID');
@@ -45,7 +85,7 @@ module.exports = {
             console.log(`Attempting to connect to ${url}...`);
             await client.connect();
             dbConnection = await client.db(database);
-            console.log(`Connected to Cluster: ${process.env.CLUSTER_ID}`);
+            console.log(`Connected to Cluster: ${cluster_id}`);
             console.log(`Connected to Database: ${database}`);
             return 0;
         } catch (error) {
@@ -63,6 +103,9 @@ module.exports = {
 
     getDb: function() {
         return dbConnection;
-    }
+    },
 
+    getCollection: function() {
+        return collection;
+    }
 };

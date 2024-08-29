@@ -86,12 +86,12 @@
 
 .selected {
     background-color: var(--selected);
-    color: white;
+    /* color: white; */
 }
 
 .selected:hover {
-    background-color: #e1eef1;
-    color: black;
+    background-color: var(--selected);
+    /* color: black; */
 }
 
 .icons {

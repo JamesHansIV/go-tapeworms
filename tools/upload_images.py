@@ -12,11 +12,14 @@
 import os
 import sys
 import dotenv
-from progressbar import progressbar
+import progressbar
 import boto3
 import pymongo
 import cv2
 from enum import Enum
+import certifi
+
+from config_loader import load_config
 
 from datetime import datetime
 startTime = datetime.now()
@@ -28,35 +31,49 @@ class Flags(Enum):
     THUMBNAILS = 1,
     FEATURE_SELECTION_HINTS = 2
 
-if len(sys.argv) != 2 and len(sys.argv) != 3:
-    raise Exception("Invalid number of arguments! Invoke this command with: python3 upload_images.py [image directory relative path] [flag]")
+# if len(sys.argv) != 2 and len(sys.argv) != 3:
+    # raise Exception("Invalid number of arguments! Invoke this command with: python3 upload_images.py [image directory relative path] [flag]")
 
-flag = Flags(Flags.NONE)
-if len(sys.argv) == 3:
-    if sys.argv[2] != "--thumbnails" and sys.argv[2] != "--feature_selection_hints":
-        # print(sys.argv[2])
-        raise Exception("Invalid flag. Available flags: --thumbnails, --feature_selection_hints")
-    if sys.argv[2] == flag:
-        flag = Flags.THUMBNAILS
-    if sys.argv[2] == "--feature_selection_hints":
-        flag = Flags.FEATURE_SELECTION_HINTS
+# flag = Flags(Flags.NONE)
+# if len(sys.argv) == 3:
+#     # print(sys.argv[2])
+#     if sys.argv[2] != "--thumbnails" and sys.argv[2] != "--feature_selection_hints":
+#         # print(sys.argv[2])
+#         raise Exception("Invalid flag. Available flags: --thumbnails, --feature_selection_hints")
+#     if sys.argv[2] == "--thumbnails":
+#         flag = Flags.THUMBNAILS
+#     if sys.argv[2] == "--feature_selection_hints":
+#         flag = Flags.FEATURE_SELECTION_HINTS
+
+# print(flag)
+# exit(0)
 
 # get folder path
-folder = sys.argv[1]
+# folder = sys.argv[1]
 
 #env vars
-dotenv.load_dotenv('tools/.env')
-ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
-SECRET_KEY = os.getenv("AWS_SECRET_KEY")
-MONGO_USER = os.getenv("MONGO_USER_NAME")
-MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
-MONGO_CLUSTER = os.getenv("MONGO_CLUSTER_ID")
+# dotenv.load_dotenv('.env')
+# ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
+# SECRET_KEY = os.getenv("AWS_SECRET_KEY")
+# MONGO_USER = os.getenv("MONGO_USER_NAME")
+# MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+# MONGO_CLUSTER = os.getenv("MONGO_CLUSTER_ID")
 
-# print(ACCESS_KEY)
-# print(SECRET_KEY)
-# print(MONGO_USER)
-# print(MONGO_PASSWORD)
-# print(MONGO_CLUSTER)
+config_dict = load_config("config.yaml")
+config_vars = config_dict["upload_images"]
+credentials = config_dict["credentials"]
+
+ACCESS_KEY = credentials["aws_access_key"]
+SECRET_KEY = credentials["aws_secret_key"]
+MONGO_USER = credentials["mongo_user_name"]
+MONGO_PASSWORD = credentials["mongo_password"]
+MONGO_CLUSTER = credentials["mongo_cluster_id"]
+
+flag = Flags(Flags.NONE)
+if config_vars["mode"] == "thumbnails":
+    flag = Flags.THUMBNAILS
+if config_vars["mode"] == "feature_selection_hints":
+    flag = Flags.FEATURE_SELECTION_HINTS
 
 print(f"Connecting to AWS S3 Bucket:  {datetime.now() - startTime}")
 # s3
@@ -71,19 +88,21 @@ print(f"Connected to AWS S3 Bucket:  {datetime.now() - startTime}")
 print(f"Connecting to MongoDB:  {datetime.now() - startTime}")
 try:
     # mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net")
-    mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@cluster1.of1bayg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
-    print(MONGO_USER)
-    print(MONGO_PASSWORD)
+    mongo = pymongo.MongoClient(f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mongodb.net", tlsCAFile=certifi.where())
+    print("user",MONGO_USER)
+    print("pass",MONGO_PASSWORD)
 except Exception as e:
     print(f"Could not connect to MongoDB!\nError: {e}")
     exit()
 
-db = mongo["csv_to_db_test"]
-collection = db["test_2"] if flag != Flags.FEATURE_SELECTION_HINTS else db["feature_selection_modal_hints_v2"]
+# db = mongo["csv_to_db_test"]
+db = mongo[config_vars["database"]]
+collection = db[config_vars["collection"]] if flag == Flags.THUMBNAILS else db[config_vars["hint_collection"]]
+print(collection)
 print(f"Connected to MongoDB:  {datetime.now() - startTime}")
 
 # get folder from cmd line args
-folder_name = sys.argv[1]
+folder_name = config_vars["images_directory_path"]
 folder_contents = sorted(os.listdir(folder_name), key=str.casefold)
 folder_size = len(os.listdir(folder_name))
 
@@ -93,7 +112,8 @@ fail_count = 0
 s3_fail_count = 0
 mongo_fail_count = 0
 images = []
-for i in progressbar(range(folder_size), redirect_stdout=True):
+for i in progressbar.progressbar(range(folder_size), redirect_stdout=True):
+    # exit(0)
     
     # add edge case (i == folder_size-1)
     next_file = folder_contents[i+1] if i < folder_size-1 else ""
@@ -161,17 +181,25 @@ for i in progressbar(range(folder_size), redirect_stdout=True):
         images = []
     
     if flag == Flags.FEATURE_SELECTION_HINTS:
-        path = f"{folder}/{curr_file}"
-        curr_file_words = curr_file.split("_")
-        feature_words = [word for word in curr_file_words if word != "hint.png"]
-        feature = " ".join(feature_words)
+        path = f"{folder_name}/{curr_file}"
+        # curr_file_words = curr_file.split("_")
+        # feature_words = [word for word in curr_file_words if word != "hint.png"]
+        # print(curr_file_words)
+        # print(feature_words)
+        curr_file_words = curr_file.split(".")
+        feature, value = curr_file_words[0], curr_file_words[1]
+        # print(curr_file_words)
+        # exit(0)
+        
+        # feature = " ".join(feature_words)
         # print(feature)
         try:
             # print(collection)
             # collection.update_one({"feature":feature},{"$set":{"image_source":path}},upsert=False)
             # doc = collection.find_one({"feature":feature})
-            # print(doc)
-            collection.update_one({"feature":feature},{"$set":{"image_source":curr_file}}, upsert=True)
+            string = "UPDATING: { " + f'"feature": "{feature}", "value": "{value}", ...' + " }"
+            print(string)
+            collection.update_one({"$and": [{"feature":feature}, {"value":value}]},{"$set":{"image_source":curr_file}}, upsert=True)
         except Exception as e:
             print(f"\u2717 Failed to update MONGO with \"{feature}\" image source \"{path}\"...")
             # print(f"ERROR: {e}")

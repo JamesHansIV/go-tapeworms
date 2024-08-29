@@ -1,0 +1,6 @@
+mongo:
+  mongo_cluster_id: "your_cluster_id"
+  mongo_user_name: "your_user_name"
+  mongo_password: "your_password"
+  database: "your_database"
+  collection: "your_collection" #main data collection

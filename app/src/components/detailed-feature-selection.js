@@ -49,6 +49,7 @@ function DetailedFeatureSelection (props) {
                                 inputDict={props.inputDict}
                                 value={props.value}
                                 setValue={props.setValue}
+                                featureName={props.featureName}
                                 active={true}
                                 setActive={setModalActive}
                                 topZ = {props.topModalZ}

@@ -1,0 +1,45 @@
+# credentials
+credentials:
+  mongo_cluster_id: "your_cluster_id"
+  mongo_user_name: "your_user_name"
+  mongo_password: "your_password"
+  aws_access_key: "your_access_key"
+  aws_secret_key: "your_secret_key"
+
+# build_filter.py fields
+build_filter:
+  filter_yaml_filepath: "your_filter.yaml_relative_path"
+  output_directory: "./your/components/directory" #optional
+
+# build_filter.py fields
+build_api:
+  filter_yaml_filepath: "your_filter.yaml_relative_path"
+  output_directory: "./your/server/directory" #optional
+
+# csv_to_db.py fields
+csv_to_db:
+  csv_filepath: "./your/relative/filepath.csv"
+  database: "your_database"
+  collection: "your_collection"
+  clear_old_collection: True
+
+# csv_to_color_map.py fields
+csv_to_color_map:
+  csv_filepath: "./your/relative/filepath.csv"
+  database: "your_database"
+  collection: "colors" # collection used for order colors
+
+# upload_images.py fields
+upload_images:
+  mode: "thumbnails" # Uncomment one of the mode fields
+  # mode: "feature_selection_hints"  # Uncomment one of the mode fields
+  images_directory_path: "./your/images/directory/path"
+  database: "your_database"
+  collection: "your_collection" # main data collection
+  s3_bucket: "my_bucket_name"
+
+# update_feature_selection_hint_definitions.py fields
+update_feature_selection_hint_definitions:
+  database: "your_database" 
+  collection: "modal_hints" # modal hints collection
+  definitions_csv_path: "definitions.csv"
