@@ -357,22 +357,26 @@ def build_checklist_pill_selector_jsx(filter):
     
     jsx = ""
     has_hint_modal = filter['hint_modal']
-    if (has_hint_modal):
-        jsx += "<div style={{display:'flex', height:'100%'}}>\n"
-    input_dict = "{{"
-        
+    # if (has_hint_modal):
+    #     jsx += "<div style={{display:'flex', height:'100%'}}>\n"
+    
+    input_dict = "{{"    
     for i, pair in enumerate(filter['inputs']):
         # add checks for value type
         label, value = list(pair.keys())[0], list(pair.values())[0]
         input_dict += f"'{label}':'{value}'" if i == 0 else f", '{label}':'{value}'"
     input_dict += "}}" # closure
+    
     value = filter['feature_name']
     set_value = "set" + filter['feature_name'][0].upper() + filter['feature_name'][1:]
     
-    jsx += f"<ChecklistPillSelector\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n/>"
+    jsx += f"<ChecklistPillSelector\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n"
     
     if (has_hint_modal):
-        jsx += "\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
+        # jsx += "\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
+        jsx += f"hasHints={{true}}\nfeatureName={{'{value}'}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n"
+        
+    jsx += "/>\n"
     
     return heading_jsx + jsx
 
