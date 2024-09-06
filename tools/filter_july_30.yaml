@@ -283,6 +283,8 @@ filter_content:
               - "folded": "folded"
               - "pouch": "pouch"
             hint_modal: True
+            # modal_height: "tall"
+            # modal_is_group: True
         - filter: 
             feature_name: "apical_bothridial_region"
             filter_type: checklist_pill_selector
