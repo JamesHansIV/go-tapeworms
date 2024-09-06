@@ -5,8 +5,8 @@ import styles from './feature-selector-modal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
-// const API_BASE_URL = "https://api.tapeworms-unlocked.info"
-const API_BASE_URL = "http://localhost:8080"
+const API_BASE_URL = "https://api.tapeworms-unlocked.info"
+// const API_BASE_URL = "http://localhost:8080"
 
 function FeatureSelectorModal (props) {
     const MOVABLE_WRAPPER_HIT_SLOP = 125; // in px

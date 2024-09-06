@@ -39,8 +39,8 @@ function Filter(props) {
     const [host_familyData, setHost_familyData] = useState([]);
 
     const getHost_familyData = async () => {
-        // const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
-        const response = await fetch(`http://localhost:8080/host_families`);
+        const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
+        // const response = await fetch(`http://localhost:8080/host_families`);
         const data = await response.json()
         let arr = []
         for (let d of data) {
@@ -408,7 +408,7 @@ function Filter(props) {
                         inputDict={{ 'apical sucker': 'apical_sucker', 'muscular pad': 'muscular_pad', 'apical loculus': 'apical_loculus' }}
                         value={apical_bothridial_region}
                         setValue={setApical_bothridial_region}
-                        hasHints={true}
+                        // hintType={true}
                         featureName={'apical_bothridial_region'}
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
@@ -419,7 +419,7 @@ function Filter(props) {
                         inputDict={{ 'tentacle hooks': 'tentacle_hooks', 'bothridial hooks': 'bothridial_hooks', 'bothrial hooks': 'bothrial_hooks', 'peduncle hooks': 'peduncle_hooks' }}
                         value={hook_placement}
                         setValue={setHook_placement}
-                        hasHints={true}
+                        // hasHints={true}
                         featureName={'hook_placement'}
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
@@ -430,7 +430,7 @@ function Filter(props) {
                         inputDict={{ 'accessory piece': 'accessory_piece', '1 hook pair': '1_hook_pair', '2 hook pairs': '2_hook_pairs', '1 prong per hook': '1_prong_per_hook', '2 prongs per hook': '2_prongs_per_hook', '3 prongs per hook': '3_prongs_per_hook', 'prongs directed anteriorly': 'prongs_directed_anteriorly', 'yellow hooks': 'yellow_hooks' }}
                         value={hook_features}
                         setValue={setHook_features}
-                        hasHints={true}
+                        // hasHints={true}
                         featureName={'hook_features'}
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
