@@ -59,7 +59,7 @@ function DetailedFeatureSelection (props) {
                                 initPos={{x: initX, y: initY}}
 
                                 // panelsize
-                                panelSize={(props.isCheckList === true ? {height: 340, width: 300} : {height: 540, width: 300})}
+                                panelSize={(props.isCheckList === true ? {height: 300, width: 300} : {height: 540, width: 300})}
                                 // panelSize={{height: 300, width: 150}}
 
                                 // hint components positioning
