@@ -38,7 +38,7 @@ function NavBar() {
                         >Key to Genera
                     </NavLink>
                 </li>
-                <li className={styles.list}>
+                {/* <li className={styles.list}>
                     <NavLink 
                         to='/elasmobranch-tapeworm-orders' 
                         reloadDocument
@@ -48,7 +48,7 @@ function NavBar() {
                         // >Elasmobranch Tapeworm Orders
                         >About the Orders
                     </NavLink>
-                </li>
+                </li> */}
             </ul>
         </div>
     ) 
