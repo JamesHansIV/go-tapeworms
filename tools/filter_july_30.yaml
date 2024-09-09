@@ -226,7 +226,7 @@ filter_content:
               - "apolytic": "apolytic"
             hint_modal: True
         - filter:
-            feature_name: "wide_anterior_strobia"
+            feature_name: "wide_anterior_strobila"
             filter_type: radio_pill_selector
             inputs: 
               - "wide anterior strobila": "present"
