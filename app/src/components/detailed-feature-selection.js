@@ -25,24 +25,26 @@ function DetailedFeatureSelection (props) {
 
 
     return (
-        <div className={styles.container}>
+        <div className={props.isCheckList === true ? styles.checklistContainer : styles.container}>
                 <button className={styles.button} onClick={toggleModal} ref={infoButtonRef}>
                     ?
                 </button>
             
             
                 <div>
-                    { selectionExpanded && 
+                    {/* { selectionExpanded && 
                         <RadioPillSelector 
                             inputDict={props.inputDict}
                             value={props.value}
                             setValue={props.setValue}
                             orientation={'vertical'}
                         />
-                    }
+                    } */}
                     { modalActive &&
                         createPortal(
                             <FeatureSelectorModal
+                                isCheckList={props.isCheckList}
+                                test={props.test}
                                 browser={props.browser}
                                 src={['test','test','test']}
                                 title={props.title}
@@ -57,7 +59,7 @@ function DetailedFeatureSelection (props) {
                                 initPos={{x: initX, y: initY}}
 
                                 // panelsize
-                                panelSize={{height: 540, width: 300}}
+                                panelSize={(props.isCheckList === true ? {height: 300, width: 300} : {height: 540, width: 300})}
                                 // panelSize={{height: 300, width: 150}}
 
                                 // hint components positioning

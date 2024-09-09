@@ -211,7 +211,7 @@ routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
     if (!("features" in req.query)) {
         connection.collection("modal_hints").find().toArray((err, result)=>{
             if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
-            else res.json(result);
+            else res.status(200).json(result);
         })
         // res.status(400).send('endpoint requires features[] URL parameter.');
         return;
@@ -241,8 +241,17 @@ routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
     // exexute query
     connection.collection("modal_hints").find(query).toArray((err, result)=>{
         if (err) res.status(400).send("Error fetching from feature_selector_modal_hints table")
-        else res.json(result);
+        else res.status(200).json(result);
     });
+})
+
+routes.route("/host_families").get(async function(req, res) {
+    const connection = dbo.getDb();
+    connection.collection("host_families").find({}, {projection: {host_family: 1, _id: 0}}).toArray(function (err, result) {
+        if (err) res.status(400).send("Error fetching from host families table")
+        else res.status(200).json(result);
+    });
+
 })
 
 

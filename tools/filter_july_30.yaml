@@ -226,7 +226,7 @@ filter_content:
               - "apolytic": "apolytic"
             hint_modal: True
         - filter:
-            feature_name: "wide_anterior_strobia"
+            feature_name: "wide_anterior_strobila"
             filter_type: radio_pill_selector
             inputs: 
               - "wide anterior strobila": "present"
@@ -282,7 +282,9 @@ filter_content:
               - "central circular muscle bands": "central_circular_muscle_bands"
               - "folded": "folded"
               - "pouch": "pouch"
-            hint_modal: False
+            hint_modal: True
+            # modal_height: "tall"
+            # modal_is_group: True
         - filter: 
             feature_name: "apical_bothridial_region"
             filter_type: checklist_pill_selector
@@ -291,7 +293,7 @@ filter_content:
               - "apical sucker": "apical_sucker"
               - "muscular pad": "muscular_pad"
               - "apical loculus": "apical_loculus"
-            hint_modal: False
+            hint_modal: True
         - filter: 
             feature_name: "hook_placement"
             filter_type: checklist_pill_selector
@@ -301,7 +303,7 @@ filter_content:
               - "bothridial hooks": "bothridial_hooks"
               - "bothrial hooks": "bothrial_hooks"
               - "peduncle hooks": "peduncle_hooks"
-            hint_modal: False
+            hint_modal: True
         - filter: 
             feature_name: "hook_features"
             filter_type: checklist_pill_selector
@@ -315,4 +317,4 @@ filter_content:
               - "3 prongs per hook": "3_prongs_per_hook"
               - "prongs directed anteriorly": "prongs_directed_anteriorly"
               - "yellow hooks": "yellow_hooks"
-            hint_modal: False
+            hint_modal: True
