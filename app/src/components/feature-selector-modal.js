@@ -269,7 +269,7 @@ function FeatureSelectorModal (props) {
 
     // if (active)
     return (
-        
+                // delay visibility until "loading" the panels
         <div 
             className={`${styles.movableWrapper} ${(props.isCheckList === true ? styles.shortWrapper : styles.tallWrapper)}`}
             ref={box}
@@ -280,11 +280,11 @@ function FeatureSelectorModal (props) {
             <span className={styles.container}
                 ref={container}
             >
-            {/* <h4 className={styles.windowTitle}>{props.title}</h4> */}
-                <span className={styles.icons}>
-                    {/* <LockButton onClick={toggleLock} locked={locked}/> */}
-                    <RoundButton onClick={close}/>    
-                </span>
+                
+            <span className={styles.icons}>
+                <RoundButton onClick={close}/>    
+            </span>
+               
             
             { loading === true ? (
                 // <p>Loading...</p>

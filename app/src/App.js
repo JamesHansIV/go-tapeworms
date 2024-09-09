@@ -73,7 +73,7 @@ function App() {
               <>
                 <div style = {{backgroundColor: "white", height: 25}}/>
                 <div class = "home">
-                  <Filter setFilters={setParams}/>
+                  <Filter setFilters={setParams} browser={browser}/>
                   <MasonryGrid query={params}/>
                 </div>
                 <div style={{ backgroundColor: "white", height: 100}}/>
