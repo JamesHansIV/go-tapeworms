@@ -24,7 +24,7 @@ function Accordion (props) {
         if (open === false)
             contentRef.current.style.maxHeight = "0px";
         else
-            contentRef.current.style.maxHeight = "1000px";
+            contentRef.current.style.maxHeight = "500px";
             // contentRef.current.style.maxHeight = Math.ceil(childrenHeight) + 20 + "px";
     }
 
@@ -101,7 +101,6 @@ function Accordion (props) {
                         : (props.divider === true) 
                             ? (open === true) ? styles.dividerOpen : styles.dividerClosed
                             : (open === true) ? styles.contentOpen : styles.contentClosed
-                        // : styles
                     }
                 `}
                 onTransitionEnd={ e=>transitionEndHandler(e)}
