@@ -6,6 +6,12 @@
     margin-left: 0.25em;
 }
 
+.checklistContainer {
+    padding: 0;
+    flex: 1;
+    vertical-align: bottom;
+}
+
 .titleContainer{
     /* background-color: antiquewhite; */
     display: flex;

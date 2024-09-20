@@ -83,7 +83,7 @@ function MasonryGrid(props) {
     }
 
     const fetchColorMap = async () => {
-        let response = await fetch("http://localhost:8080/colors");
+        let response = await fetch("https://api.tapeworms-unlocked.info/colors");
         let _data = await response.json();
         const result = _data.reduce((obj, item) => Object.assign(obj, {[item.order] : [item.color]}),{});
         setColorMap(result);

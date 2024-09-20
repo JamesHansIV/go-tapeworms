@@ -1,6 +1,7 @@
 *.env
 *.DS_Store
 *.xlsx
+*.pyc
 /images
 /thumbnails
 junk

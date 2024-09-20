@@ -5,8 +5,8 @@ import styles from './feature-selector-modal.module.css';
 import RoundButton from './round-button-close';
 import LockButton from './lock-button';
 
-// const API_BASE_URL = "https://api.tapeworms-unlocked.info"
-const API_BASE_URL = "http://localhost:8080"
+const API_BASE_URL = "https://api.tapeworms-unlocked.info"
+// const API_BASE_URL = "http://localhost:8080"
 
 function FeatureSelectorModal (props) {
     const MOVABLE_WRAPPER_HIT_SLOP = 125; // in px
@@ -14,6 +14,7 @@ function FeatureSelectorModal (props) {
     // filter states
     const [inputs, setInputs] = useState([]);
     const [sel, setSel] = useState();
+    const [selections, setSelections] = useState([]);
 
     const [hintData, setHintData] = useState([]);
 
@@ -67,12 +68,6 @@ function FeatureSelectorModal (props) {
 
         if(values.length == 0) return;
 
-        // console.log("value", Object.keys({props.value})[0])
-        console.log("feature", props.featureName)
-        console.log("inputs:", inputs)
-        // console.log("params:", params)
-        console.log("values:", values)
-
         // OLD
         let paramsString = "features[]=" ;
         values.forEach((value,index)=>{
@@ -80,13 +75,6 @@ function FeatureSelectorModal (props) {
             if (index != values.length - 1) paramsString += ',';
         })
 
-        // NEW
-        // let paramsString = "feature_value_pairs[]="
-        
-
-        console.log("PARAMS", paramsString);
-        // paramsString = paramsString.replaceAll("/"," ");
-        // console.log("param fixed,", paramsString);
         
         // switch to live server
         const response = await fetch(`${API_BASE_URL}/feature_selection_modal_hints?${paramsString}`);
@@ -104,6 +92,7 @@ function FeatureSelectorModal (props) {
         // setActive(props.active);
         setInputs(props.inputDict);
         setSel(props.value);
+        setSelections(props.value);
         setTopZ(props.topZ);
 
         setEventListeners();
@@ -231,8 +220,8 @@ function FeatureSelectorModal (props) {
         // }
 
         dragEnd();
-        console.log("POS", pos.left, pos.top);
-        console.log("Mouse", e.pageX - offset.current.left, e.pageY - offset.current.top);
+        // console.log("POS", pos.left, pos.top);
+        // console.log("Mouse", e.pageX - offset.current.left, e.pageY - offset.current.top);
 
         // if (mouseDown.current !== true && isDragging !== true)
         //     dragEnd();
@@ -280,7 +269,9 @@ function FeatureSelectorModal (props) {
 
     // if (active)
     return (
-        <div className={styles.movableWrapper}
+                // delay visibility until "loading" the panels
+        <div 
+            className={`${styles.movableWrapper} ${(props.isCheckList === true ? styles.shortWrapper : styles.tallWrapper)}`}
             ref={box}
             style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
             // style={{left: position.current.left, top: position.current.top, position:'absolute', zIndex: topZ}}
@@ -289,22 +280,21 @@ function FeatureSelectorModal (props) {
             <span className={styles.container}
                 ref={container}
             >
-            {/* <h4 className={styles.windowTitle}>{props.title}</h4> */}
-                <span className={styles.icons}>
-                    {/* <LockButton onClick={toggleLock} locked={locked}/> */}
-                    <RoundButton onClick={close}/>    
-                </span>
+                
+            <span className={styles.icons}>
+                <RoundButton onClick={close}/>    
+            </span>
+               
             
             { loading === true ? (
                 // <p>Loading...</p>
-                Object.entries(inputs).map(([index, val]) => {
+                Object.entries(inputs).map(([index, curr]) => {
                     
-
                     let classes = `${styles.panel}`;
-                    if (sel === val) { 
+                    if (sel === curr.value || selections !== null && selections.includes(curr.value)) {
                         classes += ` ${styles.selected}`;
-                        // console.log("applied style")
-                    } 
+                    }
+
                     return (
                         <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
                             onMouseEnter={ disableDrag }
@@ -314,7 +304,15 @@ function FeatureSelectorModal (props) {
                                     isDragging.current = false; 
                                     return;
                                 }
-                                sel === val ? props.setValue(null) : props.setValue(val);
+                                if (props.isCheckList === true) {
+                                    if (selections.includes(curr.value)) {
+                                        props.setValue(selections.filter(e=>e !== curr.value));
+                                    }   else {
+                                        props.setValue([...selections, curr.value]);
+                                    }
+                                } else {
+                                    sel === curr.value ? props.setValue(null) : props.setValue(curr.value);
+                                }
                                 // if (!locked) close();
                             }}
                         >
@@ -326,23 +324,17 @@ function FeatureSelectorModal (props) {
                 // <p>Loaded...</p>
                 // map panels
                 Object.entries(hintData).map( ([index, curr]) => {
-                    // console.log("CURR: " + JSON.stringify(curr));
-                    // console.log("cur feature: |" + curr.feature)
-                    // console.log("cur value:   |" + curr.value)
-                    // console.log("sel: " + sel);
-                    // console.log("inputs", inputs)
-                    // console.log('arr', Object.keys(inputs))
+
                     let classes = `${styles.panel}`;
-                    if (sel === curr.value) classes += ` ${styles.selected}`;
-
-                    // console.log(curr);
-
-                    // setImages(curr);
-
-                    // console.log(sel, curr.value, sel === curr.value)
+                    if (sel === curr.value || selections !== null && selections.includes(curr.value)) {
+                        classes += ` ${styles.selected}`;
+                    }
 
                     return (
-                        <div className={ classes } style={{height: panelSize.height, width: panelSize.width}}key={index}
+                        <div 
+                            className={ classes } 
+                            style={{height: panelSize.height, width: panelSize.width}}
+                            key={index}
                             onMouseEnter={ disableDrag }
                             onMouseLeave={ enableDrag }
                             onClick={()=> {
@@ -350,16 +342,22 @@ function FeatureSelectorModal (props) {
                                     isDragging.current = false; 
                                     return;
                                 }
-                                // console.log("curr.feature " + curr.feature);
-                                // console.log("curr: " + JSON.stringify(curr));
-                                // console.log("input[curr.feature]" + inputs[curr.feature]);
-                                // console.log(props.setValue);
-                                // console.log('clicked', curr.value)
-                                sel === curr.value ? props.setValue(null) : props.setValue(curr.value);
+
+                                if (props.isCheckList === true) {
+                                    if (selections.includes(curr.value)) {
+                                        props.setValue(selections.filter(e=>e !== curr.value));
+                                    }   else {
+                                        props.setValue([...selections, curr.value]);
+                                    }
+                                } else {
+                                    sel === curr.value ? props.setValue(null) : props.setValue(curr.value);
+                                }
                                 // if (!locked) close();
                             }}
                         >
-                            <h4 style={{textTransform:'capitalize'}}>{Object.keys(inputs)[index]}</h4>
+                            <h4 
+                                // style={{textTransform:'capitalize'}}
+                                >{Object.keys(inputs)[index]}</h4>
                             <div className={ styles.borderline } />
                             {/* NEW FLATTENED METHOD */}
                             {curr.definition != null &&
@@ -387,85 +385,12 @@ function FeatureSelectorModal (props) {
                                 className={ curr.definition != null && curr.definition.length > 0 ? styles.hintImage : styles.hintImageNoDefinition} 
                                 src={image_source_base + curr.image_source}
                             />                            
-                            
-                            {/* IMAGES */}
-                            {/* {
-                                Object.entries(curr.images).map(([_index, _image]) => {
-                                    return (
-                                        <img src={_image.src} 
-                                            className={styles.hintImage}
-                                            style={{left: _image.x,
-                                                    top: _image.y,
-                                                    height: _image.height,
-                                                    width: _image.width,
-
-                                                }}
-                                            alt={'Image Comming Soon'}
-                                        />
-                                    );
-                                })
-                            } */}
-                            {/* <div className={ styles.hintDefinition }
-                                style={{left: curr.definition.x, top: curr.definition.y, width: curr.definition.width }}> */}
-                                {/* <p>{curr.definition.text}</p> */}
-                                {/* {curr.definition.text.slice(0,6) == "\\u2022" && 
-                                    
-                                    <ul>
-                                        {curr.definition.text.split("\\u2022").map((word) => {
-                                            // <li>{word}</li>
-                                            console.log(curr.hints.length);
-                                            if (word !== "")
-                                                return <li>{word}</li>
-                                            // return <p>test</p>
-
-                                            // return (<>word</>)
-                                        })}
-                                    </ul>   
-                                }
-                            </div> */}
-                            {/* HINT CIRCLES, ARROWS, & LABELS */}
-                            {/* {
-                                Object.entries(curr?.hints).map(([_index, _hint]) => {
-                                    return ( 
-                                        <>
-                                            {getHintLabel(_hint)}
-                                            <div className={ styles.helperCircle } 
-                                                style={{left: _hint.x, 
-                                                    top: _hint.y, 
-                                                    height: _hint.height,
-                                                    width: _hint.width, 
-                                                    transform: `rotate(${_hint.rotate}deg)` 
-                                                }}
-                                            />
-                                        </>
-                                    )
-                                })
-                            }
-                            {curr.hints.length != 0 &&
-                                <div className={styles.helperText}
-                                    style={{left: curr.hints[0]?.label.x, 
-                                    top: curr.hints[0]?.label.y, 
-                                    width: curr.hints[0]?.label.width}}>
-                                    {curr.hints.length != 0 &&
-                                        <p>{curr.hints[0]?.label.text}</p>
-                                    }
-                                </div>
-                            }
-                            {curr.hints.length != 0 &&
-                                <div className={ styles.helperCircle } 
-                                    style={{left: curr.hints[0]?.x, 
-                                        top: curr.hints[0]?.y, 
-                                        height: curr.hints[0]?.height,
-                                        width: curr.hints[0]?.width, 
-                                        transform: `rotate(${curr.hints[0]?.rotate}deg)` 
-                                    }}
-                                />
-                            } */}
                         </div>
                 )})
             )}
             </span>
         </div>
+        
     )
 }
 

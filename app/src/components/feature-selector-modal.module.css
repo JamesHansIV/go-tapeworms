@@ -1,8 +1,16 @@
 .movableWrapper {
     /* background-color: blue; */
     pointer-events: none;
-    height: 800px;
+    /* height: 800px; */
     /* width */
+}
+
+.tallWrapper {
+    height: 800px;
+}
+
+.shortWrapper {
+    height: 400px;
 }
 
 .movableWrapper:active {

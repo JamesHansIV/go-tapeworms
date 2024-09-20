@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
+import DetailedFeatureSelection from './detailed-feature-selection';
 import styles from './checklist-pill-selector.module.css';
 
 function ChecklistPillSelector(props) {
@@ -11,6 +11,8 @@ function ChecklistPillSelector(props) {
         setSelections(props.value);
     }, [props.value]);
 
+
+    // rebuild detailed feature selection to handle checklist
     function handleClick(selected_value) {
         if (selections.includes(selected_value)) {
             props.setValue(selections.filter(e=>e !== selected_value));
@@ -27,12 +29,39 @@ function ChecklistPillSelector(props) {
 
                         let classes = `${styles.pillButton}`;
                         if (selections.includes(input_val)) classes += ` ${styles.selected}`;
+                        // 
+                        // console.log("input key:", input_key,':', input_val)
+                        
+                        let inputPair = {};
+                        inputPair[input_key] = input_val;
+                        // console.log("input pair", inputPair)
 
-                        return (
-                            <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`selector_${input_val}`}> 
-                                {input_key}
-                            </span>
-                        );
+                        if (props.hasHints === true) {
+                            return (
+                                <div style={{ display: 'flex', height: '100%', alignItems:'center', paddingRight:'0.3em' }}>
+                                    <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`selector_${input_val}`}>
+                                        {input_key}
+                                    </span>
+                                    <DetailedFeatureSelection
+                                        inputDict={inputPair}
+                                        value={props.value}
+                                        setValue={props.setValue}
+                                        featureName={props.featureName}
+                                        topModalZ={props.topModalZ}
+                                        setTopModalZ={props.setTopModalZ}
+                                        browser={props.browser}
+                                        isCheckList={true}
+                                    />
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`selector_${input_val}`}>
+                                    {input_key}
+                                </span>
+                            );
+                        }
+                        
                     })
                 }
             </span>

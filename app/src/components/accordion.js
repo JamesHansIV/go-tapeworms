@@ -101,7 +101,6 @@ function Accordion (props) {
                         : (props.divider === true) 
                             ? (open === true) ? styles.dividerOpen : styles.dividerClosed
                             : (open === true) ? styles.contentOpen : styles.contentClosed
-                        // : styles
                     }
                 `}
                 onTransitionEnd={ e=>transitionEndHandler(e)}

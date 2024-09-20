@@ -28,7 +28,7 @@ const [post_poral_testes, setPost_poral_testes] = useState(null);
 const [anterior_extent_of_uterus, setAnterior_extent_of_uterus] = useState(null);
 const [vitelline_follicle_arrangement, setVitelline_follicle_arrangement] = useState(null);
 const [apolysis, setApolysis] = useState(null);
-const [wide_anterior_strobia, setWide_anterior_strobia] = useState(null);
+const [wide_anterior_strobila, setWide_anterior_strobila] = useState(null);
 const [host_group, setHost_group] = useState(null);
 const [host_family, setHost_family] = useState(null);
 const [bothridial_features, setBothridial_features] = useState([]);
@@ -38,15 +38,15 @@ const [hook_features, setHook_features] = useState([]);
 
 const [host_familyData, setHost_familyData] = useState([]);
 
-// const getHost_familyData = async() => {
-// const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
-// const data = await response.json()
-// let arr  = []
-// for(let d of data){
-// arr.push(d.host_family)
-// }
-// setHost_familyData(arr)
-// }
+const getHost_familyData = async() => {
+const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
+const data = await response.json()
+let arr  = []
+for(let d of data){
+arr.push(d.host_family)
+}
+setHost_familyData(arr)
+}
 
 
 const buildQuery = () => {
@@ -64,7 +64,7 @@ let query = {
 'anterior_extent_of_uterus' : anterior_extent_of_uterus,
 'vitelline_follicle_arrangement' : vitelline_follicle_arrangement,
 'apolysis' : apolysis,
-'wide_anterior_strobia' : wide_anterior_strobia,
+'wide_anterior_strobila' : wide_anterior_strobila,
 'host_group' : host_group,
 'host_family' : host_family,
 'bothridial_features' : bothridial_features,
@@ -72,9 +72,9 @@ let query = {
 'hook_placement' : hook_placement,
 'hook_features' : hook_features,
 };
-console.log(query)
+
 for (let p in query) {
-if (query[p] === undefined || query[p] === null || query[p].length === 0)
+if (query[p] === null || query[p].length === 0)
 delete query[p];
 }
 let params = new URLSearchParams(query);
@@ -96,7 +96,7 @@ setPost_poral_testes(null);
 setAnterior_extent_of_uterus(null);
 setVitelline_follicle_arrangement(null);
 setApolysis(null);
-setWide_anterior_strobia(null);
+setWide_anterior_strobila(null);
 setHost_group(null);
 setHost_family(null);
 setBothridial_features([]);
@@ -108,7 +108,7 @@ setHook_features([]);
 // ON RENDER
 buildQuery();
 useEffect(() => {
-// getHost_familyData();
+getHost_familyData();
 },[]);
 
 
@@ -354,15 +354,15 @@ browser={props.browser}
 <div style={{display:'flex', height:'100%'}}>
 <RadioPillSelector
 inputDict={{'wide anterior strobila':'present', 'narrow anterior strobila':'absent'}}
-value={wide_anterior_strobia}
-setValue={setWide_anterior_strobia}
+value={wide_anterior_strobila}
+setValue={setWide_anterior_strobila}
 
 />
 <DetailedFeatureSelection
 inputDict={{'wide anterior strobila':'present', 'narrow anterior strobila':'absent'}}
-value={wide_anterior_strobia}
-setValue={setWide_anterior_strobia}
-featureName={'wide_anterior_strobia'}
+value={wide_anterior_strobila}
+setValue={setWide_anterior_strobila}
+featureName={'wide_anterior_strobila'}
 topModalZ={topModalZ}
 setTopModalZ={setTopModalZ}
 browser={props.browser}
@@ -401,22 +401,46 @@ setValue={setHost_family}
 inputDict={{'uniloculated':'uniloculated', '2 loculi':'2_loculi', '3 loculi':'3_loculi', '4 loculi':'4_loculi', '5 loculi':'5_loculi', '6 loculi':'6_loculi', 'numerous loculi':'numerous_loculi', 'marginal loculi':'marginal_loculi', 'subloculi':'subloculi', 'stalks':'stalks', 'pedicles':'pedicles', 'bifid':'bifid', 'central circular muscle bands':'central_circular_muscle_bands', 'folded':'folded', 'pouch':'pouch'}}
 value={bothridial_features}
 setValue={setBothridial_features}
-/><h5 className={styles.moreFeaturesHeader}>Apical Bothridial Region (select all that apply)</h5>
+// hasHints={true}
+featureName={'bothridial_features'}
+topModalZ={topModalZ}
+setTopModalZ={setTopModalZ}
+browser={props.browser}
+/>
+<h5 className={styles.moreFeaturesHeader}>Apical Bothridial Region (select all that apply)</h5>
 <ChecklistPillSelector
 inputDict={{'apical sucker':'apical_sucker', 'muscular pad':'muscular_pad', 'apical loculus':'apical_loculus'}}
 value={apical_bothridial_region}
 setValue={setApical_bothridial_region}
-/><h5 className={styles.moreFeaturesHeader}>Hook Placement (select all that apply)</h5>
+// hasHints={true}
+featureName={'apical_bothridial_region'}
+topModalZ={topModalZ}
+setTopModalZ={setTopModalZ}
+browser={props.browser}
+/>
+<h5 className={styles.moreFeaturesHeader}>Hook Placement (select all that apply)</h5>
 <ChecklistPillSelector
 inputDict={{'tentacle hooks':'tentacle_hooks', 'bothridial hooks':'bothridial_hooks', 'bothrial hooks':'bothrial_hooks', 'peduncle hooks':'peduncle_hooks'}}
 value={hook_placement}
 setValue={setHook_placement}
-/><h5 className={styles.moreFeaturesHeader}>Hook Features (select all that apply)</h5>
+// hasHints={true}
+featureName={'hook_placement'}
+topModalZ={topModalZ}
+setTopModalZ={setTopModalZ}
+browser={props.browser}
+/>
+<h5 className={styles.moreFeaturesHeader}>Hook Features (select all that apply)</h5>
 <ChecklistPillSelector
 inputDict={{'accessory piece':'accessory_piece', '1 hook pair':'1_hook_pair', '2 hook pairs':'2_hook_pairs', '1 prong per hook':'1_prong_per_hook', '2 prongs per hook':'2_prongs_per_hook', '3 prongs per hook':'3_prongs_per_hook', 'prongs directed anteriorly':'prongs_directed_anteriorly', 'yellow hooks':'yellow_hooks'}}
 value={hook_features}
 setValue={setHook_features}
-/></Accordion>
+// hasHints={true}
+featureName={'hook_features'}
+topModalZ={topModalZ}
+setTopModalZ={setTopModalZ}
+browser={props.browser}
+/>
+</Accordion>
 </div>
 </div>
 );

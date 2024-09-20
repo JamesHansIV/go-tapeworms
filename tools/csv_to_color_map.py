@@ -17,9 +17,6 @@ credentials = config_dict["credentials"]
 path = config_vars["csv_filepath"]
 df = pd.DataFrame(pd.read_csv(path))
 
-# drop helper rows (used later)
-df.drop([0,1], inplace=True)
-
 # strip bracketed (and parenthesis) phrases from feature titles
 df = df.rename(columns=lambda x: re.sub(r"\[.*?\]|\(.*?\)", "", x))
 

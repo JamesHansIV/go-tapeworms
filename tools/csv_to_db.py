@@ -47,9 +47,17 @@ df.dropna(how="all", inplace=True)
 df = df.loc[:, ~df.columns.str.contains('Unnamed')]
 # df.drop("Feature", axis=1, inplace=True)
 
+# create collections from drop down selectors
+drop_down_collections = {}
+for i, val in enumerate(df.iloc[0]):
+    if type(val) == str and val.startswith("!collection:"):
+        drop_down_collections[i] = val[len("!collection:"):]
 
 # drop helper rows (used later)
 df.drop([0,1], inplace=True)
+# print(df.head())
+# print(df.iloc[:,19])
+# exit(0)
 
 # strip bracketed (and parenthesis) phrases from feature titles
 df = df.rename(columns=lambda x: re.sub(r"\[.*?\]|\(.*?\)", "", x))
@@ -82,7 +90,7 @@ db = client[config_vars["database"]]
 collection = db[config_vars["collection"]]
 
 # clear collection
-print("CLEARING OLD COLLECTION")
+print(f"CLEARING OLD COLLECTION: {config_vars['collection']}")
 collection.delete_many({})
 
 # create doc
@@ -126,7 +134,40 @@ for i, genus in df.iloc[:].iterrows():
     print(f"INSERTING: {doc['order']} {doc['genus']}")
     collection.insert_one(doc)
 
+print("\n")
+
+for col_index, collection_name in drop_down_collections.items():
+    
+    collection = db[collection_name]
+    
+    print(f"CLEARING OLD COLLECTION: {collection_name}")
+    collection.delete_many({})
+    
+    col_values = df.iloc[:, col_index]
+    seen_values = set()
+    for value in col_values:
+        if value == "":
+            continue
+        
+        if value.find("/") != -1:
+            for x in value.split("/"):
+                if x == "":
+                    continue
+                seen_values.add(x)
+        else:
+            seen_values.add(value)
+            
+    for value in seen_values:
+        doc = {df.columns[col_index] : value}    
+        print(f"INSERTING: {value}")
+        collection.insert_one(doc)
+    
+    print("\n")        
+
+    
 
 print("DONE")
+
+
 
 client.close()

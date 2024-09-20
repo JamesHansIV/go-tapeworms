@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css'
 
 // router
-import { BrowserRouter as Router, Routes, Route, redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, redirect, Navigate } from 'react-router-dom';
 
 // components
 import Header from './components/header.js';
@@ -36,17 +36,17 @@ function App() {
       <Header/>
       
       {/* Uncomment me when disabling routing */}
-      <>
+      {/* <>
         <div style = {{backgroundColor: "white", height: 25}}/>
         <div class = "home">
           <Filter setFilters={setParams} browser={browser}/>
           <MasonryGrid query={params}/>
         </div>
         <div style={{ backgroundColor: "white", height: 100}}/>
-      </>
+      </> */}
 
       {/* Comment me out when disabling routing */}
-      {/* <Router>
+      <Router>
         <Routes>
           <Route 
             path="*"
@@ -62,20 +62,18 @@ function App() {
             element={<><img src={"Scolex banner.png"}/></>}
           />
           <Route 
-            path="/home" 
-            element={
-              <>
-                <img src={"Scolex banner.png"}/>
-              </>
-            }
-          />
+            path="/home"
+            element={<Navigate to="/"/>}
+            >
+            
+          </Route> 
           <Route 
             path="/key"
             element={
               <>
                 <div style = {{backgroundColor: "white", height: 25}}/>
                 <div class = "home">
-                  <Filter setFilters={setParams}/>
+                  <Filter setFilters={setParams} browser={browser}/>
                   <MasonryGrid query={params}/>
                 </div>
                 <div style={{ backgroundColor: "white", height: 100}}/>
@@ -99,7 +97,7 @@ function App() {
             element={ <UnderConstructionPage/> }
           />
         </Routes>
-      </Router> */}
+      </Router>
       {/* </BrowserRouter> */}
       <Footer/>
     </div>
