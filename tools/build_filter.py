@@ -215,7 +215,7 @@ def build_helper_functions(components):
             continue
     string += "}\n"
     
-    string += "\n// ON RENDER\nbuildQuery();\n"
+    string += "\n// ON EVERY RENDER\nuseEffect(() => {\nbuildQuery();\n});\n"
     
     
     string += build_use_effect_function(components)
@@ -224,7 +224,7 @@ def build_helper_functions(components):
 
 def build_use_effect_function(components):
     
-    string = "useEffect(() => {\n"
+    string = "//ON INITIAL RENDER\nuseEffect(() => {\n"
     for i in range(1, len(components)):
         if components[i] == COMPONENT_TYPE.ACCORDION:
             for filter in content[i]['accordion']['filters']:
