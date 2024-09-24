@@ -48,7 +48,7 @@
 }
 
 .abbreviationSelected {
-    border-bottom: 2px dotted white;
+    border-bottom: 2px dotted black;
     transition: border-bottom 0.4s linear
 
 }
