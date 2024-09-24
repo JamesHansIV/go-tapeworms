@@ -38,8 +38,8 @@ function ChecklistPillSelector(props) {
 
                         if (props.hasHints === true) {
                             return (
-                                <div style={{ display: 'flex', height: '100%', alignItems:'center', paddingRight:'0.3em' }}>
-                                    <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`selector_${input_val}`}>
+                                <div style={{ display: 'flex', height: '100%', alignItems:'center', paddingRight:'0.3em' }} key={`checklist_selector_${input_val}`}>
+                                    <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`checklist_selector_pill_${input_val}`}>
                                         {input_key}
                                     </span>
                                     <DetailedFeatureSelection
@@ -52,12 +52,13 @@ function ChecklistPillSelector(props) {
                                         browser={props.browser}
                                         isCheckList={true}
                                         hintPanelType={props.hintPanelType}
+                                        key={`checklist_selector_modal_${input_val}`}
                                     />
                                 </div>
                             );
                         } else {
                             return (
-                                <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`selector_${input_val}`}>
+                                <span className={ classes } onClick={()=>{handleClick(input_val)}} key={`checklist_selector_pill_${input_val}`}>
                                     {input_key}
                                 </span>
                             );
