@@ -212,6 +212,9 @@ function MasonryGrid(props) {
                             let value = paramPair.split("=")[1];
 
                             let paramWords = param.replace(/_/g, ' ');
+                            // console
+                            value = value.replace('%2C', ', ');
+                            value = value.replace(/_/g, ' ');
                             // paramWords = paramWords.split(" ");
                             
 
