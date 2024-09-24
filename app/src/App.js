@@ -72,7 +72,7 @@ function App() {
             element={
               <>
                 <div style = {{backgroundColor: "white", height: 25}}/>
-                <div class = "home">
+                <div className = "home">
                   <Filter setFilters={setParams} browser={browser}/>
                   <MasonryGrid query={params}/>
                 </div>
