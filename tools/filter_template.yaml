@@ -67,6 +67,7 @@ filters_template:
         - "label 1": "value_1"
         - "label 2": "value_n"
       hint_modal: True # true: adds hint modal button, false: does not add hint modal button
+      modal_height: "tall" # optional field with options: "tall" and "short", if this field is absent it defaults to tall
   
   # checklist_pill_selector template
   - filter: 
@@ -81,6 +82,7 @@ filters_template:
         - "label 1": "value_1"
         - "label 2": "value_n"
       hint_modal: True # true: adds hint modal button, false: does not add hint modal button
+      modal_height: "tall" # optional field with options: "tall" and "short", if this field is absent it defaults to tall
 
   # suggestion_box template
   - filter: 
