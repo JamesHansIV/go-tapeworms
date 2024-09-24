@@ -23,7 +23,7 @@ export const SuggestionTextBox = (props) => {
         <div className={styles.wrapper}>
         {/* <h5>{heading}</h5> */}
         <DropdownList
-            data ={options}
+            data ={options.sort()}
             value={selected}
             onChange={handleDropdownChange}
         />
