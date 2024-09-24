@@ -23,6 +23,7 @@ function Filter(props) {
     const [proglottid_margins, setProglottid_margins] = useState(null);
     const [laciniations, setLaciniations] = useState(null);
     const [genital_pore_position, setGenital_pore_position] = useState(null);
+    const [vagina_opening, setVagina_opening] = useState(null);
     const [single_column_of_testes, setSingle_column_of_testes] = useState(null);
     const [post_poral_testes, setPost_poral_testes] = useState(null);
     const [anterior_extent_of_uterus, setAnterior_extent_of_uterus] = useState(null);
@@ -59,6 +60,7 @@ function Filter(props) {
             'proglottid_margins': proglottid_margins,
             'laciniations': laciniations,
             'genital_pore_position': genital_pore_position,
+            'vagina_opening': vagina_opening,
             'single_column_of_testes': single_column_of_testes,
             'post_poral_testes': post_poral_testes,
             'anterior_extent_of_uterus': anterior_extent_of_uterus,
@@ -91,6 +93,7 @@ function Filter(props) {
         setProglottid_margins(null);
         setLaciniations(null);
         setGenital_pore_position(null);
+        setVagina_opening(null);
         setSingle_column_of_testes(null);
         setPost_poral_testes(null);
         setAnterior_extent_of_uterus(null);
@@ -106,10 +109,10 @@ function Filter(props) {
     }
 
     // ON EVERY RENDER
-    useEffect(()=> {
+    useEffect(() => {
         buildQuery();
     });
-    // ON INIT RENDER
+    //ON INITIAL RENDER
     useEffect(() => {
         getHost_familyData();
     }, []);
@@ -218,8 +221,7 @@ function Filter(props) {
                             browser={props.browser}
                         />
                     </div>
-                </Accordion>
-                <Accordion header={'Proglottid Features'} openInitially={true}>
+                </Accordion><Accordion header={'Proglottid Features'} openInitially={true}>
                     <div style={{ display: 'flex', height: '100%' }}>
                         <RadioPillSelector
                             inputDict={{ 'craspedote': 'craspedote', 'acraspedote': 'acraspedote' }}
@@ -269,6 +271,25 @@ function Filter(props) {
                             value={genital_pore_position}
                             setValue={setGenital_pore_position}
                             featureName={'genital_pore_position'}
+                            hintPanelType={'tall'}
+                            topModalZ={topModalZ}
+                            setTopModalZ={setTopModalZ}
+                            browser={props.browser}
+                        />
+                    </div>
+                    <div style={{ display: 'flex', height: '100%' }}>
+                        <RadioPillSelector
+                            inputDict={{ 'vagina opening anterior to CS': 'anterior_to_cs', 'vagina opening posterior to CS': 'posterior_to_cs' }}
+                            value={vagina_opening}
+                            setValue={setVagina_opening}
+                            abbreviation={{ 'CS': 'Cirrus Sac' }}
+
+                        />
+                        <DetailedFeatureSelection
+                            inputDict={{ 'vagina opening anterior to CS': 'anterior_to_cs', 'vagina opening posterior to CS': 'posterior_to_cs' }}
+                            value={vagina_opening}
+                            setValue={setVagina_opening}
+                            featureName={'vagina_opening'}
                             hintPanelType={'tall'}
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
@@ -349,8 +370,7 @@ function Filter(props) {
                             browser={props.browser}
                         />
                     </div>
-                </Accordion>
-                <Accordion header={'Strobilar Features'} openInitially={true}>
+                </Accordion><Accordion header={'Strobilar Features'} openInitially={true}>
                     <div style={{ display: 'flex', height: '100%' }}>
                         <RadioPillSelector
                             inputDict={{ 'hyperapolytic': 'hyperapolytic', 'euapolytic': 'euapolytic', 'apolytic': 'apolytic' }}
@@ -387,8 +407,7 @@ function Filter(props) {
                             browser={props.browser}
                         />
                     </div>
-                </Accordion>
-                <Accordion header={'Host Information'} openInitially={true}>
+                </Accordion><Accordion header={'Host Information'} openInitially={true}>
                     <div style={{ display: 'flex', height: '100%' }}>
                         <RadioPillSelector
                             inputDict={{ 'batoids': 'batoids', 'sharks': 'sharks', 'ratfishes': 'ratfishes' }}
@@ -408,20 +427,16 @@ function Filter(props) {
                         />
                     </div>
                 </Accordion>
-                <br/>
-                <h2 className={styles.subtitle}>More Features</h2>
+
+                <br /><h2 className={styles.subtitle}>More Features</h2>
                 <Accordion header={'More Host Information'} openInitially={true} divider>
                     <h5 className={styles.moreFeaturesHeader}>Host Family</h5>
                     <SuggestionTextBox
                         options={host_familyData}
                         value={host_family}
                         setValue={setHost_family}
-                    />
-                </Accordion>
-                <Accordion header={'More Scolex Features'} openInitially={true}>
-                    <h5 className={styles.moreFeaturesHeader}>
-                        Bothridial Features (select all that apply)
-                    </h5>
+                    /></Accordion><Accordion header={'More Scolex Features'} openInitially={true}>
+                    <h5 className={styles.moreFeaturesHeader}>Bothridial Features (select all that apply)</h5>
                     <ChecklistPillSelector
                         inputDict={{ 'uniloculated': 'uniloculated', '2 loculi': '2_loculi', '3 loculi': '3_loculi', '4 loculi': '4_loculi', '5 loculi': '5_loculi', '6 loculi': '6_loculi', 'numerous loculi': 'numerous_loculi', 'marginal loculi': 'marginal_loculi', 'subloculi': 'subloculi', 'stalks': 'stalks', 'pedicles': 'pedicles', 'bifid': 'bifid', 'central circular muscle bands': 'central_circular_muscle_bands', 'folded': 'folded', 'pouch': 'pouch' }}
                         value={bothridial_features}
@@ -433,9 +448,7 @@ function Filter(props) {
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
                     />
-                    <h5 className={styles.moreFeaturesHeader}>
-                        Apical Bothridial Region (select all that apply)
-                    </h5>
+                    <h5 className={styles.moreFeaturesHeader}>Apical Bothridial Region (select all that apply)</h5>
                     <ChecklistPillSelector
                         inputDict={{ 'apical sucker': 'apical_sucker', 'muscular pad': 'muscular_pad', 'apical loculus': 'apical_loculus' }}
                         value={apical_bothridial_region}
@@ -447,9 +460,7 @@ function Filter(props) {
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
                     />
-                    <h5 className={styles.moreFeaturesHeader}>
-                        Hook Placement (select all that apply)
-                    </h5>
+                    <h5 className={styles.moreFeaturesHeader}>Hook Placement (select all that apply)</h5>
                     <ChecklistPillSelector
                         inputDict={{ 'tentacle hooks': 'tentacle_hooks', 'bothridial hooks': 'bothridial_hooks', 'bothrial hooks': 'bothrial_hooks', 'peduncle hooks': 'peduncle_hooks' }}
                         value={hook_placement}
@@ -461,9 +472,7 @@ function Filter(props) {
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
                     />
-                    <h5 className={styles.moreFeaturesHeader}>
-                        Hook Features (select all that apply)
-                    </h5>
+                    <h5 className={styles.moreFeaturesHeader}>Hook Features (select all that apply)</h5>
                     <ChecklistPillSelector
                         inputDict={{ 'accessory piece': 'accessory_piece', '1 hook pair': '1_hook_pair', '2 hook pairs': '2_hook_pairs', '1 prong per hook': '1_prong_per_hook', '2 prongs per hook': '2_prongs_per_hook', '3 prongs per hook': '3_prongs_per_hook', 'prongs directed anteriorly': 'prongs_directed_anteriorly', 'yellow hooks': 'yellow_hooks' }}
                         value={hook_features}

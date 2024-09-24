@@ -48,6 +48,7 @@ routes.route('/worms/').get(async function (req, res) {
         scolex_attachment_structures,
         proglottid_margins,
         laciniations,
+        vagina_opening,
         genital_pore_position,
         single_column_of_testes,
         post_poral_testes,
@@ -149,6 +150,11 @@ routes.route('/worms/').get(async function (req, res) {
             query["$and"].push({ "bothridial_features": featureArray[i] });
         }
     }
+
+    if (vagina_opening != null){
+        sanitize(vagina_opening);
+        query["$and"].push({"vagina_opening": vagina_opening});
+        }
 
     if (apical_bothridial_region != null) {
         sanitize(apical_bothridial_region);
