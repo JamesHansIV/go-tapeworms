@@ -24,7 +24,7 @@ function App() {
   const [browser, ] = useState(getBrowserType());
 
   useEffect(()=>{
-    console.log("BROWSER", browser);
+    // console.log("BROWSER", browser);
     if (browser !== "Chrome" && browser !== "Firefox") {
       alert(`WARNING!\n\nIt looks like you are using an unsupported browser!\n\nTapeworms Unlocked works best on Firefox or Chrome. Use of other browsers may result in UI bugs. \n\nHappy learning!`);
     }

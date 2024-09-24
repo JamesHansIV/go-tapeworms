@@ -73,7 +73,7 @@ function MasonryGrid(props) {
             const url = buildImageURL(x.genus, x.thumbnails, 0);
             const img = new Image();
             img.src = url;
-            console.log(typeof(url))
+            // console.log(typeof(url))
             imgArr.push(url);
             newMap[x.genus] = img.src;
         });
@@ -109,7 +109,7 @@ function MasonryGrid(props) {
         for (let order in counts) {
             sum += counts[order];
         }
-        console.log("SUM " + sum);
+        // console.log("SUM " + sum);
         // setTotalCount(sum);
         return sum;
     }
@@ -133,7 +133,7 @@ function MasonryGrid(props) {
 
     useEffect(()=>{
         // console.log("page change")
-        console.log(page);
+        // console.log(page);
         if (page === 1) {
             // console.log("skip");
             return;
@@ -145,7 +145,7 @@ function MasonryGrid(props) {
 
     useEffect(()=>{
         const sumOfCounts = calcTotalCount(orderCounts);
-        console.log("sum of counts" + sumOfCounts);
+        // console.log("sum of counts" + sumOfCounts);
         setTotalCount(sumOfCounts);
     },[orderCounts]);
 
