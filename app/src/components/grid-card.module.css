@@ -99,7 +99,8 @@
     font-size: 1.25rem;
     background-color: transparent;
     border: none;
-    color: white;
+    /* color: white; */
+    /* color: darkgray */
     cursor: pointer;
     opacity: 60%;
 }

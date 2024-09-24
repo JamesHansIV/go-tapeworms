@@ -9,6 +9,8 @@ function GridCard(props) {
     const portraitRef = useRef();
     const imgRef = useRef();
     const selectedRef = useRef(false);
+    const nextArrow = useRef();
+    const prevArrow = useRef();
 
     // card size constants
     // const [defaultCardWidth, ] = useState(props.cardWidth);
@@ -50,6 +52,23 @@ function GridCard(props) {
             portraitRef.current.style.alignItems = '';
         }
     };
+
+    const setArrowColor = () => {
+        const fac = new FastAverageColor();
+        try {
+            const color = fac.getColor(imgRef.current);
+            if (color.isDark) {
+                prevArrow.current.style.color = 'white';
+                nextArrow.current.style.color = 'white';
+            } else {
+                prevArrow.current.style.color = '#453f3f';
+                nextArrow.current.style.color = '#453f3f';
+            }
+        } catch (e) {
+            // console.log("setArrowColor ERROR: ", e);
+        }
+        
+    }
 
     const averageBackground = async () => {
         const fac = new FastAverageColor();
@@ -164,7 +183,8 @@ function GridCard(props) {
                                 onLoad={() => {
                                     setImageLoading(false);
                                     centerIfSmall();
-                                    averageBackground();
+                                    setArrowColor();
+                                    // averageBackground();
                                 }}
                                 onError={(e)=> {
                                     e.target.src = "/error.jpg";
@@ -174,10 +194,10 @@ function GridCard(props) {
                         </div>
                         { images?.length > 1 &&
                             <div className={styles.buttons}>
-                                <button className={styles.carouselButton} onClick={handlePrevImage}>
+                                <button ref={prevArrow} className={styles.carouselButton} onClick={handlePrevImage}>
                                     &#9664;
                                 </button>
-                                <button className={styles.carouselButton} onClick={handleNextImage}>
+                                <button ref={nextArrow} className={styles.carouselButton} onClick={handleNextImage}>
                                     &#9654;
                                 </button>
                             </div>
