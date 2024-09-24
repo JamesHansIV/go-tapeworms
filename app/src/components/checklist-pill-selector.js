@@ -51,6 +51,7 @@ function ChecklistPillSelector(props) {
                                         setTopModalZ={props.setTopModalZ}
                                         browser={props.browser}
                                         isCheckList={true}
+                                        hintPanelType={props.hintPanelType}
                                     />
                                 </div>
                             );

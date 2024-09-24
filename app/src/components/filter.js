@@ -401,7 +401,8 @@ setValue={setHost_family}
 inputDict={{'uniloculated':'uniloculated', '2 loculi':'2_loculi', '3 loculi':'3_loculi', '4 loculi':'4_loculi', '5 loculi':'5_loculi', '6 loculi':'6_loculi', 'numerous loculi':'numerous_loculi', 'marginal loculi':'marginal_loculi', 'subloculi':'subloculi', 'stalks':'stalks', 'pedicles':'pedicles', 'bifid':'bifid', 'central circular muscle bands':'central_circular_muscle_bands', 'folded':'folded', 'pouch':'pouch'}}
 value={bothridial_features}
 setValue={setBothridial_features}
-// hasHints={true}
+hasHints={true}
+hintPanelType={'short'}
 featureName={'bothridial_features'}
 topModalZ={topModalZ}
 setTopModalZ={setTopModalZ}
@@ -412,7 +413,8 @@ browser={props.browser}
 inputDict={{'apical sucker':'apical_sucker', 'muscular pad':'muscular_pad', 'apical loculus':'apical_loculus'}}
 value={apical_bothridial_region}
 setValue={setApical_bothridial_region}
-// hasHints={true}
+hasHints={true}
+hintPanelType={'tall'}
 featureName={'apical_bothridial_region'}
 topModalZ={topModalZ}
 setTopModalZ={setTopModalZ}
@@ -423,7 +425,8 @@ browser={props.browser}
 inputDict={{'tentacle hooks':'tentacle_hooks', 'bothridial hooks':'bothridial_hooks', 'bothrial hooks':'bothrial_hooks', 'peduncle hooks':'peduncle_hooks'}}
 value={hook_placement}
 setValue={setHook_placement}
-// hasHints={true}
+hasHints={true}
+hintPanelType={'tall'}
 featureName={'hook_placement'}
 topModalZ={topModalZ}
 setTopModalZ={setTopModalZ}
@@ -434,13 +437,15 @@ browser={props.browser}
 inputDict={{'accessory piece':'accessory_piece', '1 hook pair':'1_hook_pair', '2 hook pairs':'2_hook_pairs', '1 prong per hook':'1_prong_per_hook', '2 prongs per hook':'2_prongs_per_hook', '3 prongs per hook':'3_prongs_per_hook', 'prongs directed anteriorly':'prongs_directed_anteriorly', 'yellow hooks':'yellow_hooks'}}
 value={hook_features}
 setValue={setHook_features}
-// hasHints={true}
+hasHints={true}
+hintPanelType={'short'}
 featureName={'hook_features'}
 topModalZ={topModalZ}
 setTopModalZ={setTopModalZ}
 browser={props.browser}
 />
 </Accordion>
+<div style={{height:'200px'}}/>
 </div>
 </div>
 );
