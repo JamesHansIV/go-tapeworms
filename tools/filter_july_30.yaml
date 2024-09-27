@@ -180,6 +180,16 @@ filter_content:
               - "GPP dorsal ventral": "dorsal_ventral"
             hint_modal: True
         - filter:
+            feature_name: "vagina_opening"
+            filter_type: radio_pill_selector
+            abbreviation: 
+              abbreviated_phrase: "CS"
+              unabbreviated_phrase: "Cirrus sac"
+            inputs: 
+              - "vagina anterior to CS": "anterior_to_cs"
+              - "vagina posterior to CS": "posterior_to_cs"
+            hint_modal: True
+        - filter:
             feature_name: "single_column_of_testes"
             filter_type: radio_pill_selector
             inputs: 
