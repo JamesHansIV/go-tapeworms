@@ -250,8 +250,8 @@ filter_content:
   - heading: "More Features"
   - accordion:
       header: "More Host Information"
-      open_initally: True # true/false
-      divider: True # true adds a dividing line beneath the accordion
+      open_initally: False # true/false
+      divider: False # true adds a dividing line beneath the accordion
       filters:
         - filter: 
             feature_name: "host_family"
@@ -261,7 +261,7 @@ filter_content:
             target_data_key: "host_family"
   - accordion:
       header: "More Scolex Features"
-      open_initally: True # true/false
+      open_initally: False # true/false
       divider: False # true adds a dividing line beneath the accordion
       filters:
         - filter: 
