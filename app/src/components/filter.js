@@ -283,6 +283,7 @@ function Filter(props) {
                             value={vagina_opening}
                             setValue={setVagina_opening}
                             abbreviation={{ 'CS': 'Cirrus Sac' }}
+                            orientation={"vertical"}
 
                         />
                         <DetailedFeatureSelection
