@@ -12,7 +12,7 @@
     white-space: nowrap;
     padding: 0.3em 0.1em;
     /* display: inline-block; */
-    display: inline-flex;
+    /* display: inline-flex; */
     justify-content: center;
     align-items: center;
     /* vertical-align: middle; */
@@ -48,7 +48,7 @@
 }
 
 .abbreviationSelected {
-    border-bottom: 2px dotted white;
+    border-bottom: 2px dotted black;
     transition: border-bottom 0.4s linear
 
 }
@@ -62,7 +62,13 @@
 .vertical {
     width: max-width;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 0.5em;
+}
+
+.vertical:last-child {
+    width: max-width;
+    display: block;
+    margin-bottom: 0;
 }
 
 .abbreviation {

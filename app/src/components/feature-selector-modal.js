@@ -92,7 +92,9 @@ function FeatureSelectorModal (props) {
         // setActive(props.active);
         setInputs(props.inputDict);
         setSel(props.value);
-        setSelections(props.value);
+        if (props.isCheckList) {
+            setSelections(props.value);
+        }
         setTopZ(props.topZ);
 
         setEventListeners();
@@ -271,7 +273,7 @@ function FeatureSelectorModal (props) {
     return (
                 // delay visibility until "loading" the panels
         <div 
-            className={`${styles.movableWrapper} ${(props.isCheckList === true ? styles.shortWrapper : styles.tallWrapper)}`}
+            className={`${styles.movableWrapper} ${(props.hintPanelType === 'short' ? styles.shortWrapper : styles.tallWrapper)}`}
             ref={box}
             style={{left: pos.left, top: pos.top, position:'absolute', zIndex: topZ}}
             // style={{left: position.current.left, top: position.current.top, position:'absolute', zIndex: topZ}}
@@ -292,6 +294,7 @@ function FeatureSelectorModal (props) {
                     
                     let classes = `${styles.panel}`;
                     if (sel === curr.value || selections !== null && selections.includes(curr.value)) {
+                        console.log("SELECTED: ", sel, curr.value)
                         classes += ` ${styles.selected}`;
                     }
 
@@ -326,7 +329,7 @@ function FeatureSelectorModal (props) {
                 Object.entries(hintData).map( ([index, curr]) => {
 
                     let classes = `${styles.panel}`;
-                    if (sel === curr.value || selections !== null && selections.includes(curr.value)) {
+                    if (sel === curr.value || (selections !== null && selections.includes(curr.value))) {
                         classes += ` ${styles.selected}`;
                     }
 

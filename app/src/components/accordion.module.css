@@ -43,7 +43,7 @@
 
 .dividerOpen {
     padding-bottom: 1.25em;
-    overflow: hidden;
+    /* overflow: hidden;  */
     transition: 
     max-height 1s linear,
     padding-bottom 0.5s 0.5s linear;

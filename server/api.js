@@ -48,6 +48,7 @@ routes.route('/worms/').get(async function (req, res) {
         scolex_attachment_structures,
         proglottid_margins,
         laciniations,
+        vagina_opening,
         genital_pore_position,
         single_column_of_testes,
         post_poral_testes,
@@ -150,6 +151,11 @@ routes.route('/worms/').get(async function (req, res) {
         }
     }
 
+    if (vagina_opening != null){
+        sanitize(vagina_opening);
+        query["$and"].push({"vagina_opening": vagina_opening});
+        }
+
     if (apical_bothridial_region != null) {
         sanitize(apical_bothridial_region);
         featureArray = apical_bothridial_region.split(",");
@@ -178,7 +184,7 @@ routes.route('/worms/').get(async function (req, res) {
 
     const startIndex = (page - 1) * limit;
 
-    // if (count_by_order === true) {
+    if (count_by_order === true) {
         console.log(collection)
         console.log(connection.collection)
         let num = await connection.collection(collection).find({}).count()
@@ -190,18 +196,17 @@ routes.route('/worms/').get(async function (req, res) {
                 if (err) throw err;
                 else res.json(result);
             });
-    // }/
-    // } else {
-    //     connection
-    //         .collection(collection)
-    //         .find(query.$and.length == 0 ? {} : query)
-    //         .skip(startIndex)
-    //         .limit(limit)
-    //         .toArray(function (err, result) {
-    //             if (err) throw err;
-    //             else res.json(result);
-    //         });
-    // }
+    } else {
+        connection
+            .collection(collection)
+            .find(query.$and.length == 0 ? {} : query)
+            .skip(startIndex)
+            .limit(limit)
+            .toArray(function (err, result) {
+                if (err) throw err;
+                else res.json(result);
+            });
+    }
 });
 
 routes.route("/feature_selection_modal_hints/").get(async function(req, res) {

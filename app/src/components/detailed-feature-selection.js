@@ -20,7 +20,7 @@ function DetailedFeatureSelection (props) {
         setModalActive(!modalActive);
 
         setInitX(e.pageX - (e.clientX - infoButtonRef.current.getBoundingClientRect().left) - 200);
-        setInitY(e.pageY - (e.clientY - infoButtonRef.current.getBoundingClientRect().top) + 30);
+        setInitY(e.pageY - (e.clientY - infoButtonRef.current.getBoundingClientRect().top) - 100);
     };
 
 
@@ -59,20 +59,21 @@ function DetailedFeatureSelection (props) {
                                 initPos={{x: initX, y: initY}}
 
                                 // panelsize
-                                panelSize={(props.isCheckList === true ? {height: 300, width: 300} : {height: 540, width: 300})}
+                                hintPanelType={props.hintPanelType}
+                                panelSize={(props.hintPanelType === 'short' ? {height: 330, width: 300} : {height: 540, width: 300})}
                                 // panelSize={{height: 300, width: 150}}
 
                                 // hint components positioning
-                                imgSrc={process.env.PUBLIC_URL+"/apolytic_Acan_nano_Zschocheetal(2011).png"}
-                                imgPos={{x:124, y:62}}
-                                imgSize={{height: 453, width: 99}}
+                                // imgSrc={process.env.PUBLIC_URL+"/apolytic_Acan_nano_Zschocheetal(2011).png"}
+                                // imgPos={{x:124, y:62}}
+                                // imgSize={{height: 453, width: 99}}
 
-                                // hintCircle
-                                circle={{x:124, y:361, width:109, height:163, rotate:0}}
-                                // hintCircleLabel
-                                helperText={{x:45, y:388, width:75, text: "proglottid with eggs"}}
-                                // hintDescription
-                                definition={{x:20, y:181, width: 137, text: "= proglottids detach from the posterior of the strobila when they are gravid"}}
+                                // // hintCircle
+                                // circle={{x:124, y:361, width:109, height:163, rotate:0}}
+                                // // hintCircleLabel
+                                // helperText={{x:45, y:388, width:75, text: "proglottid with eggs"}}
+                                // // hintDescription
+                                // definition={{x:20, y:181, width: 137, text: "= proglottids detach from the posterior of the strobila when they are gravid"}}
                                 // citationText
                             />,
                             document.body                    

@@ -215,7 +215,7 @@ def build_helper_functions(components):
             continue
     string += "}\n"
     
-    string += "\n// ON RENDER\nbuildQuery();\n"
+    string += "\n// ON EVERY RENDER\nuseEffect(() => {\nbuildQuery();\n});\n"
     
     
     string += build_use_effect_function(components)
@@ -224,7 +224,7 @@ def build_helper_functions(components):
 
 def build_use_effect_function(components):
     
-    string = "useEffect(() => {\n"
+    string = "//ON INITIAL RENDER\nuseEffect(() => {\n"
     for i in range(1, len(components)):
         if components[i] == COMPONENT_TYPE.ACCORDION:
             for filter in content[i]['accordion']['filters']:
@@ -256,7 +256,7 @@ def build_jsx_return_statement(components, filter_content):
         </span>
         </span>
         """)
-    string += build_jsx_content(components, filter_content) + "\n</div>\n</div>\n);\n"
+    string += build_jsx_content(components, filter_content) + "\n<div style={{height:'225px'}}/>\n</div>\n</div>\n);\n"
     # string += "\n\n\n\n</div>\n</div>\n"
     # print("test")
     # string += "asjdkfl;ajsdklfjas;djf"
@@ -344,9 +344,10 @@ def build_radio_pill_selector_jsx(filter):
         
         jsx += "abbreviation={{" + f"'{abbr}' : '{un_abbr}'" + "}}\n"
     
+    modal_height = filter['modal_height'] if 'modal_height' in filter else 'tall'
     
     if (has_hint_modal):
-        jsx += "\n/>\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
+        jsx += "\n/>\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value, modal_height) + "\n</div>\n"
     
     return heading_jsx + jsx
 
@@ -373,8 +374,9 @@ def build_checklist_pill_selector_jsx(filter):
     jsx += f"<ChecklistPillSelector\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n"
     
     if (has_hint_modal):
+        modal_height = filter['modal_height'] if 'modal_height' in filter else 'tall'
         # jsx += "\n" + build_detailed_feature_selection_jsx(input_dict, value, set_value) + "\n</div>\n"
-        jsx += f"hasHints={{true}}\nfeatureName={{'{value}'}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n"
+        jsx += f"hasHints={{true}}\nhintPanelType={{'{modal_height}'}}\nfeatureName={{'{value}'}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n"
         
     jsx += "/>\n"
     
@@ -390,8 +392,8 @@ def build_suggestion_box_jsx(filter):
     
     return heading_jsx + f"<SuggestionTextBox\noptions={{{options}}}\nvalue={{{value}}}\nsetValue={{{set_value}}}\n/>"
 
-def build_detailed_feature_selection_jsx(input_dict, value, set_value):
-    jsx = f"<DetailedFeatureSelection\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\nfeatureName={{'{value}'}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n/>"
+def build_detailed_feature_selection_jsx(input_dict, value, set_value, modal_height):
+    jsx = f"<DetailedFeatureSelection\ninputDict={input_dict}\nvalue={{{value}}}\nsetValue={{{set_value}}}\nfeatureName={{'{value}'}}\nhintPanelType={{'{modal_height}'}}\ntopModalZ={{topModalZ}}\nsetTopModalZ={{setTopModalZ}}\nbrowser={{props.browser}}\n/>"
     return jsx
 
 class TOKEN(Enum):

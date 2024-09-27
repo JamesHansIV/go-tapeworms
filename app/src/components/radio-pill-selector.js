@@ -31,7 +31,7 @@ function RadioPillSelector(props) {
 
     return (
         <div className={styles.wrapper}>
-            <span className={styles.selectionContainer}>
+            <span className={styles.selectionContainer} style={{display: props.orientation === 'vertical' ? 'inline-block' : 'inline-flex'}}>
                 {
                     Object.entries(inputs).map( ([input_key, input_val]) => {
 
