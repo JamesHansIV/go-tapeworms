@@ -184,7 +184,7 @@ routes.route('/worms/').get(async function (req, res) {
 
     const startIndex = (page - 1) * limit;
 
-    // if (count_by_order === true) {
+    if (count_by_order === true) {
         console.log(collection)
         console.log(connection.collection)
         let num = await connection.collection(collection).find({}).count()
@@ -196,18 +196,17 @@ routes.route('/worms/').get(async function (req, res) {
                 if (err) throw err;
                 else res.json(result);
             });
-    // }/
-    // } else {
-    //     connection
-    //         .collection(collection)
-    //         .find(query.$and.length == 0 ? {} : query)
-    //         .skip(startIndex)
-    //         .limit(limit)
-    //         .toArray(function (err, result) {
-    //             if (err) throw err;
-    //             else res.json(result);
-    //         });
-    // }
+    } else {
+        connection
+            .collection(collection)
+            .find(query.$and.length == 0 ? {} : query)
+            .skip(startIndex)
+            .limit(limit)
+            .toArray(function (err, result) {
+                if (err) throw err;
+                else res.json(result);
+            });
+    }
 });
 
 routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
