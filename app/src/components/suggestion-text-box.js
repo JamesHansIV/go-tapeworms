@@ -19,6 +19,10 @@ export const SuggestionTextBox = (props) => {
         }
     }
 
+    useEffect(()=>{
+        handleDropdownChange(props.value);
+    });
+
     return (
         <div className={styles.wrapper}>
         {/* <h5>{heading}</h5> */}
