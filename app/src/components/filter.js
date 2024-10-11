@@ -279,15 +279,14 @@ function Filter(props) {
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
                         <RadioPillSelector
-                            inputDict={{ 'vagina opening anterior to CS': 'anterior_to_cs', 'vagina opening posterior to CS': 'posterior_to_cs' }}
+                            inputDict={{ 'vagina anterior to CS': 'anterior_to_cs', 'vagina posterior to CS': 'posterior_to_cs' }}
                             value={vagina_opening}
                             setValue={setVagina_opening}
-                            abbreviation={{ 'CS': 'Cirrus Sac' }}
-                            orientation={"vertical"}
+                            abbreviation={{ 'CS': 'Cirrus sac' }}
 
                         />
                         <DetailedFeatureSelection
-                            inputDict={{ 'vagina opening anterior to CS': 'anterior_to_cs', 'vagina opening posterior to CS': 'posterior_to_cs' }}
+                            inputDict={{ 'vagina anterior to CS': 'anterior_to_cs', 'vagina posterior to CS': 'posterior_to_cs' }}
                             value={vagina_opening}
                             setValue={setVagina_opening}
                             featureName={'vagina_opening'}
@@ -430,13 +429,13 @@ function Filter(props) {
                 </Accordion>
 
                 <br /><h2 className={styles.subtitle}>More Features</h2>
-                <Accordion header={'More Host Information'} openInitially={true} divider>
+                <Accordion header={'More Host Information'} openInitially={false}>
                     <h5 className={styles.moreFeaturesHeader}>Host Family</h5>
                     <SuggestionTextBox
                         options={host_familyData}
                         value={host_family}
                         setValue={setHost_family}
-                    /></Accordion><Accordion header={'More Scolex Features'} openInitially={true}>
+                    /></Accordion><Accordion header={'More Scolex Features'} openInitially={false}>
                     <h5 className={styles.moreFeaturesHeader}>Bothridial Features (select all that apply)</h5>
                     <ChecklistPillSelector
                         inputDict={{ 'uniloculated': 'uniloculated', '2 loculi': '2_loculi', '3 loculi': '3_loculi', '4 loculi': '4_loculi', '5 loculi': '5_loculi', '6 loculi': '6_loculi', 'numerous loculi': 'numerous_loculi', 'marginal loculi': 'marginal_loculi', 'subloculi': 'subloculi', 'stalks': 'stalks', 'pedicles': 'pedicles', 'bifid': 'bifid', 'central circular muscle bands': 'central_circular_muscle_bands', 'folded': 'folded', 'pouch': 'pouch' }}
