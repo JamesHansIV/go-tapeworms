@@ -15,6 +15,8 @@ function Filter(props) {
     const [getMeCloseVisible, setGetMeCloseVisible] = useState(true);
     const [topModalZ, setTopModalZ] = useState(99999);
 
+    const [closeModals, doCloseModals] = useState(0);
+
     const [scolex, setScolex] = useState(null);
     const [apical_organ, setApical_organ] = useState(null);
     const [tentacles, setTentacles] = useState(null);
@@ -123,6 +125,8 @@ function Filter(props) {
         setApical_bothridial_region([]);
         setHook_placement([]);
         setHook_features([]);
+
+        doCloseModals(closeModals + 1);
     }
 
     // ON EVERY RENDER
@@ -165,6 +169,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -183,6 +188,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -201,6 +207,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -219,6 +226,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -237,6 +245,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                 </Accordion><Accordion header={'Proglottid Features'} openInitially={true}>
@@ -256,6 +265,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -274,6 +284,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -293,6 +304,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -312,6 +324,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -330,6 +343,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -348,6 +362,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -367,6 +382,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -386,6 +402,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                 </Accordion><Accordion header={'Strobilar Features'} openInitially={true}>
@@ -405,6 +422,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                     <div style={{ display: 'flex', height: '100%' }}>
@@ -423,6 +441,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                 </Accordion><Accordion header={'Host Information'} openInitially={true}>
@@ -442,6 +461,7 @@ function Filter(props) {
                             topModalZ={topModalZ}
                             setTopModalZ={setTopModalZ}
                             browser={props.browser}
+                            closeModal={closeModals}
                         />
                     </div>
                 </Accordion>
@@ -471,6 +491,7 @@ function Filter(props) {
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
+                        closeModal={closeModals}
                     />
                     <h5 className={styles.moreFeaturesHeader}>Apical Bothridial Region (select all that apply)</h5>
                     <ChecklistPillSelector
@@ -483,6 +504,7 @@ function Filter(props) {
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
+                        closeModal={closeModals}
                     />
                     <h5 className={styles.moreFeaturesHeader}>Hook Placement (select all that apply)</h5>
                     <ChecklistPillSelector
@@ -495,6 +517,7 @@ function Filter(props) {
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
+                        closeModal={closeModals}
                     />
                     <h5 className={styles.moreFeaturesHeader}>Hook Features (select all that apply)</h5>
                     <ChecklistPillSelector
@@ -507,6 +530,7 @@ function Filter(props) {
                         topModalZ={topModalZ}
                         setTopModalZ={setTopModalZ}
                         browser={props.browser}
+                        closeModal={closeModals}
                     />
                 </Accordion>
                 <div style={{ height: '225px' }} />

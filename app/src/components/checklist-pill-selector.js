@@ -53,6 +53,7 @@ function ChecklistPillSelector(props) {
                                         isCheckList={true}
                                         hintPanelType={props.hintPanelType}
                                         key={`checklist_selector_modal_${input_val}`}
+                                        closeModal={props.closeModal}
                                     />
                                 </div>
                             );
