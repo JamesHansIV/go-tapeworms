@@ -259,6 +259,17 @@ filter_content:
             hint_modal: True
   - heading: "More Features"
   - accordion:
+      header: "Specimen Order"
+      open_initally: False # true/false
+      divider: False # true adds a dividing line beneath the accordion
+      filters:
+        - filter: 
+            feature_name: "order"
+            filter_type: suggestion_box
+            heading: "Order"
+            api_endpoint: "https://api.tapeworms-unlocked.info/orders"
+            target_data_key: "order"
+  - accordion:
       header: "More Host Information"
       open_initally: False # true/false
       divider: False # true adds a dividing line beneath the accordion
