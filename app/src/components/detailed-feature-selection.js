@@ -19,7 +19,8 @@ function DetailedFeatureSelection (props) {
     const toggleModal = (e) => { 
         setModalActive(!modalActive);
 
-        setInitX(e.pageX - (e.clientX - infoButtonRef.current.getBoundingClientRect().left) - 200);
+        // setInitX(e.pageX - (e.clientX - infoButtonRef.current.getBoundingClientRect().left));
+        setInitX(document.body.clientWidth / 3 - 150);
         setInitY(e.pageY - (e.clientY - infoButtonRef.current.getBoundingClientRect().top) - 100);
     };
 

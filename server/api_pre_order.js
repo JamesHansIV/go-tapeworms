@@ -19,26 +19,26 @@ routes.route("/").get(async function (req, res) {
     res.redirect("/worms");
 });
 
-routes.route("/colors").get(async function (req, res) {
+routes.route("/colors").get(async function(req, res) {
     const connection = dbo.getDb();
-
+    
     connection
-        .collection("order_colors")
-        .find({})
-        .toArray(function (err, result) {
-            if (err) throw err;
-            else res.json(result);
-        });
+    .collection("order_colors")
+    .find({})
+    .toArray(function (err, result) {
+        if (err) throw err;
+        else res.json(result);
+    });
 });
-
 
 routes.route('/worms/').get(async function (req, res) {
     const connection = dbo.getDb();
-
+    
     let query = {}
     query['$and'] = [];
 
     let collection = dbo.getCollection();
+    console.log(collection)
 
     let {
         scolex,
@@ -48,16 +48,14 @@ routes.route('/worms/').get(async function (req, res) {
         scolex_attachment_structures,
         proglottid_margins,
         laciniations,
-        genital_pore_position,
         vagina_opening,
+        genital_pore_position,
         single_column_of_testes,
         post_poral_testes,
         anterior_extent_of_uterus,
         vitelline_follicle_arrangement,
         apolysis,
-        wide_anterior_strobila,
         host_group,
-        order,
         host_family,
         bothridial_features,
         apical_bothridial_region,
@@ -110,11 +108,6 @@ routes.route('/worms/').get(async function (req, res) {
         query["$and"].push({ "genital_pore_position": genital_pore_position });
     }
 
-    if (vagina_opening != null) {
-        sanitize(vagina_opening);
-        query["$and"].push({ "vagina_opening": vagina_opening });
-    }
-
     if (single_column_of_testes != null) {
         sanitize(single_column_of_testes);
         query["$and"].push({ "single_column_of_testes": single_column_of_testes });
@@ -140,19 +133,9 @@ routes.route('/worms/').get(async function (req, res) {
         query["$and"].push({ "apolysis": apolysis });
     }
 
-    if (wide_anterior_strobila != null) {
-        sanitize(wide_anterior_strobila);
-        query["$and"].push({ "wide_anterior_strobila": wide_anterior_strobila });
-    }
-
     if (host_group != null) {
         sanitize(host_group);
         query["$and"].push({ "host_group": host_group });
-    }
-
-    if (order != null) {
-        sanitize(order);
-        query["$and"].push({ "order": order });
     }
 
     if (host_family != null) {
@@ -167,6 +150,11 @@ routes.route('/worms/').get(async function (req, res) {
             query["$and"].push({ "bothridial_features": featureArray[i] });
         }
     }
+
+    if (vagina_opening != null){
+        sanitize(vagina_opening);
+        query["$and"].push({"vagina_opening": vagina_opening});
+        }
 
     if (apical_bothridial_region != null) {
         sanitize(apical_bothridial_region);
@@ -192,11 +180,15 @@ routes.route('/worms/').get(async function (req, res) {
         }
     }
 
+    console.log("QUERY: ", query);
+
     const startIndex = (page - 1) * limit;
 
-    console.log("QUERY:",query)
-
     if (count_by_order === true) {
+        console.log(collection)
+        console.log(connection.collection)
+        let num = await connection.collection(collection).find({}).count()
+        console.log("NUM", num);
         connection
             .collection(collection)
             .find(query.$and.length == 0 ? {} : query)
@@ -258,22 +250,15 @@ routes.route("/feature_selection_modal_hints/").get(async function(req, res) {
     });
 })
 
-routes.route("/host_families").get(async function (req, res) {
+routes.route("/host_families").get(async function(req, res) {
     const connection = dbo.getDb();
-    connection.collection("host_families").find({}, { projection: { host_family: 1, _id: 0 } }).toArray(function (err, result) {
+    connection.collection("host_families").find({}, {projection: {host_family: 1, _id: 0}}).toArray(function (err, result) {
         if (err) res.status(400).send("Error fetching from host families table")
         else res.status(200).json(result);
     });
 
 })
-routes.route("/orders").get(async function (req, res) {
-    console.log("ORDERS");
-    const connection = dbo.getDb();
-    connection.collection("orders").find({}, { projection: { order: 1, _id: 0 } }).toArray(function (err, result) {
-        if (err) res.status(400).send("Error fetching from orders table")
-        else res.status(200).json(result);
-    });
 
-})
+
 
 module.exports = routes;

@@ -31,29 +31,15 @@ function Filter(props) {
     const [apolysis, setApolysis] = useState(null);
     const [wide_anterior_strobila, setWide_anterior_strobila] = useState(null);
     const [host_group, setHost_group] = useState(null);
-    const [order, setOrder] = useState(null);
     const [host_family, setHost_family] = useState(null);
     const [bothridial_features, setBothridial_features] = useState([]);
     const [apical_bothridial_region, setApical_bothridial_region] = useState([]);
     const [hook_placement, setHook_placement] = useState([]);
     const [hook_features, setHook_features] = useState([]);
 
-    const [orderData, setOrderData] = useState([]);
     const [host_familyData, setHost_familyData] = useState([]);
 
-    const getOrderData = async () => {
-        // const response = await fetch(`http://localhost:8080/orders`);
-        const response = await fetch(`https://api.tapeworms-unlocked.info/orders`);
-        const data = await response.json()
-        let arr = []
-        for (let d of data) {
-            arr.push(d.order)
-        }
-        setOrderData(arr)
-    }
-
     const getHost_familyData = async () => {
-        // const response = await fetch(`http://localhost:8080/host_families`);
         const response = await fetch(`https://api.tapeworms-unlocked.info/host_families`);
         const data = await response.json()
         let arr = []
@@ -82,7 +68,6 @@ function Filter(props) {
             'apolysis': apolysis,
             'wide_anterior_strobila': wide_anterior_strobila,
             'host_group': host_group,
-            'order': order,
             'host_family': host_family,
             'bothridial_features': bothridial_features,
             'apical_bothridial_region': apical_bothridial_region,
@@ -96,7 +81,6 @@ function Filter(props) {
         }
         let params = new URLSearchParams(query);
         props.setFilters(params.toString());
-        console.log(params.toString())
     }
 
     const scrollToTop = () => scrollTargetRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -117,7 +101,6 @@ function Filter(props) {
         setApolysis(null);
         setWide_anterior_strobila(null);
         setHost_group(null);
-        setOrder(null);
         setHost_family(null);
         setBothridial_features([]);
         setApical_bothridial_region([]);
@@ -131,7 +114,6 @@ function Filter(props) {
     });
     //ON INITIAL RENDER
     useEffect(() => {
-        getOrderData();
         getHost_familyData();
     }, []);
 
@@ -447,13 +429,7 @@ function Filter(props) {
                 </Accordion>
 
                 <br /><h2 className={styles.subtitle}>More Features</h2>
-                <Accordion header={'Specimen Order'} openInitially={false}>
-                    <h5 className={styles.moreFeaturesHeader}>Order</h5>
-                    <SuggestionTextBox
-                        options={orderData}
-                        value={order}
-                        setValue={setOrder}
-                    /></Accordion><Accordion header={'More Host Information'} openInitially={false}>
+                <Accordion header={'More Host Information'} openInitially={false}>
                     <h5 className={styles.moreFeaturesHeader}>Host Family</h5>
                     <SuggestionTextBox
                         options={host_familyData}
