@@ -1,0 +1,13 @@
+.page {
+    /* border: red solid 2px; */
+    /* background-color: rgb(255, 0, 0, 0.5); */
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+}
+
+.flipUp {
+    object-fit: contain;
+    border: 1px solid blue;
+    color: red;
+}
