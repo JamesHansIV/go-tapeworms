@@ -1,5 +1,8 @@
 import React from "react";
 
+import Lines from "./lines";
+import {lineColors} from "../lineColors.js";
+
 import styles from "./footer.module.css";
 
 function Footer () {
@@ -24,6 +27,9 @@ function Footer () {
                     <a className={styles.text} href="https://api.tapeworms-unlocked.info">API</a>
                     {/* <a className={styles.text} href="/docs">Docs</a> */}
                 </div>
+            </div>
+            <div className={styles.linesContainer}>
+                <Lines colors={lineColors} angle={124}/>
             </div>
             <div className={styles.universitiesContainer}>
                 <img className={styles.universityLogo} src={"KU_logo.png"}/>

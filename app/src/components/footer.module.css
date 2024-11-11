@@ -4,6 +4,10 @@
     justify-content: space-between;
     padding: 2em;
     padding-bottom: 1em;
+    overflow: hidden;
+    position: relative;
+    max-height: 240px;
+    /* min-width: 860px; NEEDS TO BE GLOBAL */
 }
 
 .text, .copyright {
@@ -21,6 +25,9 @@
 
 .universityLogo {
     float: right;
+    background-color: rgb(226, 240, 243, 0.8);
+    padding: 1em;
+    border-radius: 1em;
 }
 
 .universityLogo:first-child {
@@ -40,5 +47,11 @@
 }
 
 .universitiesContainer {
+    z-index: 10;
+}
 
+.linesContainer {
+    position: absolute;
+    left: 60%;
+    z-index: 1;
 }
