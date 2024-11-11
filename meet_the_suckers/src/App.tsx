@@ -1,6 +1,6 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import styles from './App.module.css';
+// import styles from './App.module.css';
 import Page from './Page.tsx';
 
 import { FlipUpData } from './FlipUp.tsx';
@@ -17,11 +17,11 @@ import page_8 from './assets/suckers_8.jpg';
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
-  const clickHandler = () => {
-    setCount(count+1);
-  }
+  // const clickHandler = () => {
+  //   setCount(count+1);
+  // }
 
   const handleStateChange = (e: Event) => {
     console.log(e);
@@ -35,28 +35,28 @@ function App() {
         width={612} height={792}
         showCover={true}
         onChangeState={e => handleStateChange(e)}
-        disableFlipByClick={true} 
+        disableFlipByClick={true}
         // children={undefined} 
-        // className={''} 
-        // style={undefined} 
-        // startPage={0} 
-        // size={'fixed'} 
-        // minWidth={0} 
-        // maxWidth={0} 
-        // minHeight={0} 
-        // maxHeight={0} 
-        // drawShadow={false} 
-        // flippingTime={0} 
-        // usePortrait={false} 
-        // startZIndex={0} 
-        // utoSize={false} 
-        // maxShadowOpacity={0} 
-        // mobileScrollSupport={false} 
-        // clickEventForward={false} 
-        // useMouseEvents={false} 
-        // swipeDistance={0} 
-        // showPageCorners={false}      
-        >
+        className={''} 
+        style={{}} 
+        startPage={0}
+        size={'fixed'}
+        minWidth={0}
+        maxWidth={700}
+        minHeight={0}
+        maxHeight={1000}
+        drawShadow={true}
+        flippingTime={1000}
+        usePortrait={true}
+        startZIndex={0}
+        autoSize={true}
+        maxShadowOpacity={1}
+        mobileScrollSupport={false}
+        clickEventForward={false}
+        useMouseEvents={true}
+        swipeDistance={30}
+        showPageCorners={true}
+      >
         {/* cover */}
         <Page imgSrc={cover}/>
 

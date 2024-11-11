@@ -1,4 +1,4 @@
-import {forwardRef, useState, useEffect, MouseEvent} from "react";
+import {forwardRef, useState, useEffect} from "react";
 import FlipUp, { IFlipUp } from "./FlipUp.tsx";
 import styles from './Page.module.css';
 
