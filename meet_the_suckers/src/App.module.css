@@ -10,9 +10,46 @@
     margin: 0;
 }
 
-img {
-    object-fit: contain;
+/* img { */
+    /* object-fit: contain; */
     /* border: blue solid 2px; */
-    padding: 0;
-    margin: 0;
+    /* padding: 0; */
+    /* margin: 0; */
+/* } */
+
+.controlContainer {
+    margin-top: 3em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.button, ul, li {
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: white;
+    font-weight: bold;
+}
+
+.button {
+    box-shadow: 0;
+    font-size: 18px;
+    background-color: purple;
+    text-align: center;
+    cursor: pointer;
+    padding: 1em;
+    border: 0;
+    border-radius: 5px;
+
+}
+
+ul {
+    width: 50%;
+    /* max-width: 60%; */
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+li {
+    font-size: 16px;
+    cursor: pointer;
 }
