@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, ReactElement } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import Page from './Page.tsx';
 import { FlipUpData } from './FlipUp.tsx';
@@ -20,17 +20,17 @@ const WIDTH = 612;
 
 function App() {
   const [currentPageNum, setCurrentPageNum] = useState<number>(0);
-  const [pageCount, setPageCount] = useState<number>(0);
+  const [, setPageCount] = useState<number>(0);
   const [pageArray, setPageArray] = useState<number[]>([]);
   const book = useRef<any>();
   
-  const init = useCallback((e: Event) => {
+  const init = useCallback(() => {
     if (book && book.current) {
       const count = book.current.pageFlip().getPageCount()
       setPageCount(count);
       setPageArray([...Array(count).keys()]);
-      console.log(count, [...Array(count).keys()]);
-      console.log(pageArray);
+      // console.log(count, [...Array(count).keys()]);
+      // console.log(pageArray);
     }
   },[]);
 
