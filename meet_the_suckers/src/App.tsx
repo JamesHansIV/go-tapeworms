@@ -17,14 +17,44 @@ import page_8 from './assets/suckers_8.jpg';
 
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [currentPageNum, setCurrentPageNum] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(0);
+  const [pageArray, setPageArray] = useState<number[]>([]);
+  const book = useRef<any>();
+  
+  const init = useCallback((e: Event) => {
+    if (book && book.current) {
+      const count = book.current.pageFlip().getPageCount()
+      setPageCount(count);
+      setPageArray([...Array(count).keys()]);
+      console.log(count, [...Array(count).keys()]);
+      console.log(pageArray);
+    }
+  },[]);
 
-  // const clickHandler = () => {
-  //   setCount(count+1);
-  // }
+  const pageTurn = (e: any) => {
+    console.log("e type", typeof(e))
+    setCurrentPageNum(e.data);
+  }
 
   const handleStateChange = (e: Event) => {
     console.log(e);
+  }
+
+  const turnPage = (increment: number) => {
+    if (book && book.current) {
+      if (increment > 0) {
+        book.current.pageFlip().flipNext();
+      } else {
+        book.current.pageFlip().flipPrev();
+      }
+    }
+  }
+
+  const turnToPage = (pageNumber: number) => {
+    if (book && book.current) {
+      book.current.pageFlip().flip(pageNumber);
+    }
   }
 
   // divs should be their own components
@@ -56,6 +86,9 @@ function App() {
         useMouseEvents={true}
         swipeDistance={30}
         showPageCorners={true}
+          ref={book}
+          onInit={init}
+          onFlip={pageTurn}
       >
         {/* cover */}
         <Page imgSrc={cover}/>
