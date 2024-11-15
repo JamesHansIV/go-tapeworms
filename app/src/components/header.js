@@ -23,11 +23,11 @@ function Header() {
             </div>
     
             <div className={styles.headerContent}>
-                <div className={styles.siteDescriptionContainer}>
+                {/* <div className={styles.siteDescriptionContainer}>
                     <span className={styles.siteDescription}>
                         An interactive identification key to elasmobranch tapeworms
                     </span>
-                </div>
+                </div> */}
                 <div className={styles.navbar}>
                     <BrowserRouter>
                         <NavBar/>

@@ -38,6 +38,13 @@ function NavBar() {
                         >Key to Genera
                     </NavLink>
                 </li>
+                <li className={styles.list}>
+                    <a 
+                        className={ styles.link }
+                        style={{width: 200}}
+                        href={"https://book.tapeworms-unlocked.info"}
+                        >Meet the Suckers</a>
+                </li>
                 {/* <li className={styles.list}>
                     <NavLink 
                         to='/elasmobranch-tapeworm-orders' 
