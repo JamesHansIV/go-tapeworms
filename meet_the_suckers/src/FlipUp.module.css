@@ -1,0 +1,57 @@
+.innerAOpen, .innerAClosed, .innerBOpen, .innerBClosed {
+    position: absolute;
+    width: 100%;
+}
+
+.innerAClosed, .innerAOpen {
+    border: red 2px solid;
+    transform-origin: top;
+    transition: all 2s;
+    
+}
+
+.innerBClosed, .innerBOpen {
+}
+
+.innerAClosed {
+    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
+
+    /* border: blue 2px solid; */
+    display: none;
+}
+
+
+.innerAOpen {
+    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
+    /* clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); */
+    /* transform: scale(1,-1); */
+    /* clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); */
+}
+
+.innerBClosed {
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
+    transform: scaleY(-1);
+    /* transform-origin: top; */
+    /* transform: scaleY(-1) 2s; */
+    /* transform: all 2s; */
+    border: red 2px solid;
+    /* display: none; */
+    opacity: 0%;
+
+}
+
+.innerBOpen {
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
+    /* transform-origin: top; */
+    /* transform: scale(1,-1); */
+    transform: scaleY(1);
+    transform-origin: center;
+    transition: transform 3s,
+        opacity 0s;
+    border: blue 2px solid;
+
+}
