@@ -70,7 +70,7 @@ const Page = forwardRef<Ref, PageProps>((props, ref) => {
             {/* add alt text props */}
             <img src={props.imgSrc}/>
             {flipUps.map((f: IFlipUp, i: number) => {
-                const f_props = {flipUp: f, state: flipUps, setState: setFlipUps, index: i};
+                const f_props = {flipUp: f, state: flipUps, setState: setFlipUps, pageImgSrc: props.imgSrc, index: i};
                 return(FlipUp(f_props));
             })}
         </div>

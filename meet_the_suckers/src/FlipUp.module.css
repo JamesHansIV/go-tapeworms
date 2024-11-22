@@ -38,7 +38,7 @@
     /* transform-origin: top; */
     /* transform: scaleY(-1) 2s; */
     /* transform: all 2s; */
-    border: red 2px solid;
+    /* border: red 2px solid; */
     /* display: none; */
     opacity: 0%;
 
@@ -52,6 +52,23 @@
     transform-origin: center;
     transition: transform 3s,
         opacity 0s;
-    border: blue 2px solid;
+    /* border: blue 2px solid; */
 
+}
+
+.outerClosed {
+
+}
+
+.outerOpen {
+    transform: scaleY(-1);
+    /* transform: rotateX(-180deg); */
+    display: block;
+    transition: transform 3s;
+    border: red 3px solid;
+    background-color: red;
+}
+
+.outerOpen::after {
+    opacity: 0;
 }
