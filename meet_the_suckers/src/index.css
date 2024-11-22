@@ -13,6 +13,12 @@ body {
     background: radial-gradient(circle, rgb(40, 44, 44) 2%, rgba(0,0,0,1) 50%, rgb(27, 29, 29) 90%);
     /* background: radial-gradient(circle, rgba(22,25,25,1) 22%, rgba(0,0,0,1) 78%, rgba(74,74,77,1) 98%); */
 
+    /* grey inner black outside */
+    background: rgb(74,74,77,1);
+    background: radial-gradient(circle, rgba(74,74,77,1) 34%, rgb(60, 67, 67) 60%, rgba(0,0,0,1) 97%);
+
     display: flex;
     justify-content: center;
 }
+
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("./fonts/Inter-Regular.woff2") format("woff2"); }
