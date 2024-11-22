@@ -24,21 +24,31 @@
 }
 
 .button, ul, li {
-    font-family: "Lucida Console", "Courier New", monospace;
+    /* font-family: "Lucida Console", "Courier New", monospace; */
+    font-family: "Inter";
     color: white;
     font-weight: bold;
+}
+
+.buttonText {
+    padding: 0em 1em;
+    /* line-height: 20px; */
 }
 
 .button {
     box-shadow: 0;
     font-size: 18px;
-    background-color: purple;
+    background-color: #8d74a3;
+    background-color: #0093af;
     text-align: center;
     cursor: pointer;
-    padding: 1em;
+    /* padding: 0em; */
     border: 0;
-    border-radius: 5px;
-
+    /* border-radius: 5px; */
+    /* line-height: 18px; */
+    /* padding: .1em 1em; */
+    padding: 0;
+    border-radius: 2em;
 }
 
 ul {

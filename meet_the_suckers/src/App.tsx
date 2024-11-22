@@ -17,6 +17,7 @@ import page_8 from './assets/suckers_8.jpg';
 
 // con
 const WIDTH = 612;
+const HEIGHT = 792;
 
 function App() {
   const [currentPageNum, setCurrentPageNum] = useState<number>(0);
@@ -65,7 +66,7 @@ function App() {
     <div style={{ width: `${2 * WIDTH}px`, height: '100vh', marginTop: '3em' }}>
       <div className={styles.bookContainer}>
         <HTMLFlipBook
-          width={WIDTH} height={792}
+          width={WIDTH} height={HEIGHT}
           showCover={true}
           onChangeState={e => handleStateChange(e)}
           disableFlipByClick={true}
@@ -110,14 +111,17 @@ function App() {
           <Page imgSrc={page_6} />
           <Page
             imgSrc={page_7}
-            flipUps={FlipUpData.slice(0, 2)}
+            flipUps={FlipUpData.slice(0, 1)}
+            // flipUps={FlipUpData.slice(0, 2)}
           />
           <Page imgSrc={page_8} />
 
         </HTMLFlipBook>
       </div>
       <div className={styles.controlContainer} style={{color:"white"}}>
-        <button className={styles.button} onClick={()=>turnPage(-1)}>Prev</button>
+        <button className={styles.button} onClick={()=>turnPage(-1)}>
+          <span className={styles.buttonText}>Prev</span>
+        </button>
         <ul>
           {
             pageArray.map((i) => { 
@@ -133,7 +137,9 @@ function App() {
             })
           }
         </ul>
-        <button className={styles.button} onClick={()=>turnPage(1)}>Next</button>
+        <button className={styles.button} onClick={()=>turnPage(1)}>
+          <span className={styles.buttonText}>Next</span>
+        </button>
         {/* {pageCount} | {currentPageNum} */}
       </div>
       {/* <h5 style={{color:"white"}}>User State: </h5> */}
