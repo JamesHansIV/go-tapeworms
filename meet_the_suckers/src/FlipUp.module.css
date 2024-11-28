@@ -1,74 +1,54 @@
+:root {
+    --page-flip-time: 2s;
+}
+
+.innerAOpen, .innerAClosed, .innerBOpen, .innerBClosed, .outerClosed, .outerOpen {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 .innerAOpen, .innerAClosed, .innerBOpen, .innerBClosed {
     position: absolute;
     width: 100%;
 }
 
-.innerAClosed, .innerAOpen {
-    border: red 2px solid;
-    transform-origin: top;
-    transition: all 2s;
-    
-}
-
-.innerBClosed, .innerBOpen {
-}
-
 .innerAClosed {
-    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
     clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
-
-    /* border: blue 2px solid; */
-    display: none;
+    opacity: 0;
+    transition: opacity 0s ease-in-out var(--page-flip-time);
 }
 
 
 .innerAOpen {
-    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
     clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-    /* clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%); */
-    /* clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); */
-    /* transform: scale(1,-1); */
-    /* clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); */
 }
 
 .innerBClosed {
     clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
     transform: scaleY(-1);
-    /* transform-origin: top; */
-    /* transform: scaleY(-1) 2s; */
-    /* transform: all 2s; */
-    /* border: red 2px solid; */
-    /* display: none; */
-    opacity: 0%;
-
+    transition: transform var(--page-flip-time) ease-in-out;
 }
 
 .innerBOpen {
     clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
-    /* transform-origin: top; */
-    /* transform: scale(1,-1); */
     transform: scaleY(1);
     transform-origin: center;
-    transition: transform 3s,
-        opacity 0s;
-    /* border: blue 2px solid; */
-
+    transition: transform var(--page-flip-time) ease-in-out;
 }
 
 .outerClosed {
-
+    transform: scaleY(1);
+    display: block;
+    transition: transform var(--page-flip-time) ease-in-out, 
+                opacity 0s ease-in-out calc(var(--page-flip-time)/2);
+    opacity: 1;
 }
 
 .outerOpen {
     transform: scaleY(-1);
-    /* transform: rotateX(-180deg); */
     display: block;
-    transition: transform 3s;
-    border: red 3px solid;
-    background-color: red;
-}
-
-.outerOpen::after {
+    transition: transform var(--page-flip-time) ease-in-out, 
+                opacity 0s ease-in-out calc(var(--page-flip-time)/2);
     opacity: 0;
 }

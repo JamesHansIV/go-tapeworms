@@ -40,14 +40,24 @@ const FlipUp = (props: FlipUpProps) => {
                 top:`${props.flipUp.y}px`, 
                 width:`${props.flipUp.width}px`, 
                 height:`${props.flipUp.height}px`, 
-                border:'2px green solid',
+                // border:'2px green solid',
                 // background:"green",
             }}
             onClick={handleClick}
         >
             
+            {/* inside images */}
+            <img 
+                src={props.flipUp.imgSrc}
+                className={props.flipUp.open === true ? styles.innerAOpen : styles.innerAClosed}
+            /> 
+ 
+            <img 
+                src={props.flipUp.imgSrc}
+                className={props.flipUp.open === true ? styles.innerBOpen : styles.innerBClosed}
+            />
 
-            {/* back image */}
+            {/* outside image */}
             <img
                 src={props.pageImgSrc}
                 style={{
@@ -64,15 +74,6 @@ const FlipUp = (props: FlipUpProps) => {
                     clipPath: `rect(${props.flipUp.y}px ${props.flipUp.x + props.flipUp.width}px ${props.flipUp.y + props.flipUp.height}px ${props.flipUp.x}px)`
                 }}
                 className={props.flipUp.open === true ? styles.outerOpen : styles.outerClosed}
-            />
-
-            <img 
-                src={props.flipUp.imgSrc}
-                className={props.flipUp.open === true ? styles.innerAOpen : styles.innerAClosed}
-            /> 
-            <img 
-                src={props.flipUp.imgSrc}
-                className={props.flipUp.open === true ? styles.innerBOpen : styles.innerBClosed}
             />
         </div>
     );
@@ -99,7 +100,7 @@ export const FlipUpData: IFlipUp[] = [
         // y: 305,
         y: 210,
         width: 130,
-        height: 95,
+        height: 99,
         imgSrc: flip_up_7a
     }, {
         x: 280,
