@@ -3,7 +3,7 @@
 import { CSSProperties } from 'react';
 import styles from './FlipUp.module.css';
 
-import cursor from './assets/cursor.png';
+// import cursor from './assets/cursor.png';
 import flip_up_7a from './assets/suckers_7a.jpg';
 import flip_up_7b from './assets/suckers_7b.jpg';
 import flip_up_8a from './assets/suckers_8a.jpg';
