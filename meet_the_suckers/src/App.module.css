@@ -52,7 +52,7 @@
 }
 
 ul {
-    width: 50%;
+    width: 80%;
     /* max-width: 60%; */
     list-style-type: none;
     display: flex;
@@ -62,4 +62,5 @@ ul {
 li {
     font-size: 16px;
     cursor: pointer;
+    /* padding: 0em 0.5em; */
 }
