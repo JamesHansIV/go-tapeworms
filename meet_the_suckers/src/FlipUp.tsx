@@ -35,6 +35,11 @@ const FlipUp = (props: FlipUpProps) => {
         }
     }
 
+    const borderStyle: any = {
+        thickness: 2,
+        color: 'red',
+    }
+
     const outerImgTransformOriginUP: string = `0px ${props.flipUp.y}px`;
     const outerImgTransformOriginDOWN: string = `0px ${props.flipUp.y + props.flipUp.height}px`;
     const outerImgDynamicStyle: CSSProperties = {
@@ -57,12 +62,12 @@ const FlipUp = (props: FlipUpProps) => {
         <div 
             style={{
                 position:'absolute', 
-                left:`${props.flipUp.x}px`, 
-                top:`${props.flipUp.y}px`, 
+                left:`${props.flipUp.x - borderStyle.thickness}px`, 
+                top:`${props.flipUp.y - borderStyle.thickness}px`, 
                 width:`${props.flipUp.width}px`, 
                 height:`${props.flipUp.height}px`, 
-                // border:'2px green solid',
-                // background:"green",
+                border:`${borderStyle.thickness}px ${borderStyle.color} solid`,
+                cursor: 'pointer'
             }}
             onClick={handleClick}
         >
