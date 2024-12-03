@@ -1,5 +1,6 @@
 // import {useState} from "react";
 
+import { CSSProperties } from 'react';
 import styles from './FlipUp.module.css';
 
 import flip_up_7a from './assets/suckers_7a.jpg';
@@ -32,6 +33,24 @@ const FlipUp = (props: FlipUpProps) => {
         }
     }
 
+    const outerImgTransformOriginUP: string = `0px ${props.flipUp.y}px`;
+    const outerImgTransformOriginDOWN: string = `0px ${props.flipUp.y + props.flipUp.height}px`;
+    const outerImgDynamicStyle: CSSProperties = {
+        position: 'absolute',
+        left:`${-props.flipUp.x}px`, 
+        top:`${-props.flipUp.y}px`, 
+        clipPath: `rect(${props.flipUp.y}px ${props.flipUp.x + props.flipUp.width}px ${props.flipUp.y + props.flipUp.height}px ${props.flipUp.x}px)`,
+        transformOrigin: (props.flipUp.direction === EDirection.UP ? outerImgTransformOriginUP : outerImgTransformOriginDOWN),
+    }
+
+    const innerBImgStyle: CSSProperties = {
+        bottom: (props.flipUp.direction === EDirection.UP ? 0 : 'auto')
+    }
+
+    const innerAImgStyle: CSSProperties = {
+        bottom: (props.flipUp.direction === EDirection.UP ? 0 : 'auto')
+    }
+
     return (
         <div 
             style={{
@@ -49,31 +68,30 @@ const FlipUp = (props: FlipUpProps) => {
             {/* inside images */}
             <img 
                 src={props.flipUp.imgSrc}
-                className={props.flipUp.open === true ? styles.innerAOpen : styles.innerAClosed}
+                style={innerAImgStyle}
+                className={ props.flipUp.direction === EDirection.UP ?
+                    (props.flipUp.open === true ? styles.innerAOpenUp : styles.innerAClosedUp) :
+                    (props.flipUp.open === true ? styles.innerAOpen : styles.innerAClosed)
+                }
             /> 
  
             <img 
                 src={props.flipUp.imgSrc}
-                className={props.flipUp.open === true ? styles.innerBOpen : styles.innerBClosed}
+                style={innerBImgStyle}
+                className={ props.flipUp.direction === EDirection.UP ?
+                    (props.flipUp.open === true ? styles.innerBOpenUp : styles.innerBClosedUp) :
+                    (props.flipUp.open === true ? styles.innerBOpen : styles.innerBClosed)
+                }
             />
 
             {/* outside image */}
             <img
                 src={props.pageImgSrc}
-                style={{
-                    // clipPath: `inset(${50}px ${25}px)`,
-                    // clipPath: `rect(40px 40px)`
-                    position:'absolute', 
-                    left:`${-props.flipUp.x}px`, 
-                    top:`${-props.flipUp.y}px`, 
-                    transformOrigin: `0px ${props.flipUp.y + props.flipUp.height}px`,
-
-                    // flip up transform origin
-                    // transformOrigin: `0px ${props.flipUp.y}px`,
-                    
-                    clipPath: `rect(${props.flipUp.y}px ${props.flipUp.x + props.flipUp.width}px ${props.flipUp.y + props.flipUp.height}px ${props.flipUp.x}px)`
-                }}
-                className={props.flipUp.open === true ? styles.outerOpen : styles.outerClosed}
+                style={outerImgDynamicStyle}
+                className={ props.flipUp.direction === EDirection.UP ? 
+                    (props.flipUp.open === true ? styles.outerOpenUp : styles.outerClosedUp) :
+                    (props.flipUp.open === true ? styles.outerOpen : styles.outerClosed)
+                }
             />
         </div>
     );
@@ -101,7 +119,9 @@ export const FlipUpData: IFlipUp[] = [
         y: 210,
         width: 130,
         height: 99,
-        imgSrc: flip_up_7a
+        imgSrc: flip_up_7a,
+        // direction: EDirection.UP
+        direction: EDirection.UP
     }, {
         x: 280,
         y: 335, //needs bottom adjustment
