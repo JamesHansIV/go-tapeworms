@@ -14,6 +14,24 @@ import page_5 from './assets/suckers_5.jpg';
 import page_6 from './assets/suckers_6.jpg';
 import page_7 from './assets/suckers_7.jpg';
 import page_8 from './assets/suckers_8.jpg';
+import page_9 from './assets/suckers_9.jpg';
+import page_10 from './assets/suckers_10.jpg';
+import page_11 from './assets/suckers_11.jpg';
+import page_12 from './assets/suckers_12.jpg';
+import page_13 from './assets/suckers_13.jpg';
+import page_14 from './assets/suckers_14.jpg';
+import page_15 from './assets/suckers_15.jpg';
+import page_16 from './assets/suckers_16.jpg';
+import page_17 from './assets/suckers_17.jpg';
+import page_18 from './assets/suckers_18.jpg';
+import page_19 from './assets/suckers_19.jpg';
+import page_20 from './assets/suckers_20.jpg';
+import page_21 from './assets/suckers_21.jpg';
+import page_22 from './assets/suckers_22.jpg';
+import page_23 from './assets/suckers_23.jpg';
+import page_24 from './assets/suckers_24.jpg';
+
+
 
 // con
 const WIDTH = 612;
@@ -111,10 +129,46 @@ function App() {
           <Page imgSrc={page_6} />
           <Page
             imgSrc={page_7}
-            flipUps={FlipUpData.slice(0, 1)}
-            // flipUps={FlipUpData.slice(0, 2)}
+            flipUps={FlipUpData.slice(0, 2)}
           />
-          <Page imgSrc={page_8} />
+          <Page 
+            imgSrc={page_8} 
+            flipUps={FlipUpData.slice(2, 4)}
+          />
+          <Page 
+            imgSrc={page_9} 
+            flipUps={FlipUpData.slice(4, 6)}
+          />
+          <Page 
+            imgSrc={page_10} 
+            flipUps={FlipUpData.slice(6, 9)}
+          />
+          <Page 
+            imgSrc={page_11} 
+            flipUps={FlipUpData.slice(9, 11)}
+          />
+          <Page 
+            imgSrc={page_12} 
+            flipUps={FlipUpData.slice(11, 13)}
+          />
+          <Page 
+            imgSrc={page_13} 
+            flipUps={FlipUpData.slice(13, 16)}
+          />
+          <Page 
+            imgSrc={page_14} 
+            flipUps={FlipUpData.slice(16, 18)}
+          />
+          <Page imgSrc={page_15} />
+          <Page imgSrc={page_16} />
+          <Page imgSrc={page_17} />
+          <Page imgSrc={page_18} />
+          <Page imgSrc={page_19} />
+          <Page imgSrc={page_20} />
+          <Page imgSrc={page_21} />
+          <Page imgSrc={page_22} />
+          <Page imgSrc={page_23} />
+          <Page imgSrc={page_24} />
 
         </HTMLFlipBook>
       </div>
