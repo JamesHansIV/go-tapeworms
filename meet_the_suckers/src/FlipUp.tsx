@@ -3,6 +3,7 @@
 import { CSSProperties } from 'react';
 import styles from './FlipUp.module.css';
 
+import cursor from './assets/cursor.png';
 import flip_up_7a from './assets/suckers_7a.jpg';
 import flip_up_7b from './assets/suckers_7b.jpg';
 
@@ -15,8 +16,7 @@ type FlipUpProps =  {
 }
 
 const FlipUp = (props: FlipUpProps) => {
-    // const [open, setOpen] = useState(false);
-    // console.log("PROPS",props)
+
     const handleClick = () => {
         console.log("CLICKED");
         console.log(props.flipUp)
@@ -93,6 +93,13 @@ const FlipUp = (props: FlipUpProps) => {
                     (props.flipUp.open === true ? styles.outerOpen : styles.outerClosed)
                 }
             />
+
+            {/* CURSOR ICON CREDIT: https://www.flaticon.com/free-icons/hand-curso */}
+            {/* Display if mobile or tablet */}
+            {/* <img 
+                style={{position: 'absolute', bottom: 5, right: 5, width: 20}}
+                src={cursor}
+            /> */}
         </div>
     );
 }
