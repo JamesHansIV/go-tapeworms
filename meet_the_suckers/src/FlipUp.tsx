@@ -122,20 +122,131 @@ export interface IFlipUp {
 export const FlipUpData: IFlipUp[] = [
     {
         x: 265,
-        // y: 305,
         y: 210,
         width: 130,
         height: 99,
         imgSrc: flip_up_7a,
-        // direction: EDirection.UP
         direction: EDirection.UP
     }, {
         x: 280,
-        y: 335, //needs bottom adjustment
+        y: 335,
         width: 130,
-        height: 95,
-        imgSrc: flip_up_7b
-    }
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 215,
+        y: 175,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_8a,
+        direction: EDirection.UP
+    }, {
+        x: 230,
+        y: 410,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_8b,
+        direction: EDirection.UP
+    }, {
+        x: 275,
+        y: 250,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 338,
+        y: 576,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 110,
+        y: 105,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 230,
+        y: 342,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 158,
+        y: 592,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 124,
+        y: 156,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 165,
+        y: 343,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 85,
+        y: 75,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 405,
+        y: 475,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 165,
+        y: 322,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 103,
+        y: 580,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 408,
+        y: 592,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 430,
+        y: 172,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, {
+        x: 240,
+        y: 543,
+        width: 120,
+        height: 100,
+        imgSrc: flip_up_7b,
+        direction: EDirection.UP
+    }, 
 ];
 
 export default FlipUp;
