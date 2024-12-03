@@ -140,9 +140,7 @@ function App() {
         <button className={styles.button} onClick={()=>turnPage(1)}>
           <span className={styles.buttonText}>Next</span>
         </button>
-        {/* {pageCount} | {currentPageNum} */}
       </div>
-      {/* <h5 style={{color:"white"}}>User State: </h5> */}
     </div>
   )
 }
