@@ -3,11 +3,25 @@
 import { CSSProperties } from 'react';
 import styles from './FlipUp.module.css';
 
-import cursor from './assets/cursor.png';
+// import cursor from './assets/cursor.png';
 import flip_up_7a from './assets/suckers_7a.jpg';
 import flip_up_7b from './assets/suckers_7b.jpg';
 import flip_up_8a from './assets/suckers_8a.jpg';
 import flip_up_8b from './assets/suckers_8b.jpg';
+import flip_up_9a from './assets/suckers_9a.jpg';
+import flip_up_9b from './assets/suckers_9b.jpg';
+import flip_up_10a from './assets/suckers_10a.jpg';
+import flip_up_10b from './assets/suckers_10b.jpg';
+import flip_up_10c from './assets/suckers_10c.jpg';
+import flip_up_11a from './assets/suckers_11a.jpg';
+import flip_up_11b from './assets/suckers_11b.jpg';
+import flip_up_12a from './assets/suckers_12a.jpg';
+import flip_up_12b from './assets/suckers_12b.jpg';
+import flip_up_13a from './assets/suckers_13a.jpg';
+import flip_up_13b from './assets/suckers_13b.jpg';
+import flip_up_13c from './assets/suckers_13c.jpg';
+import flip_up_14a from './assets/suckers_14a.jpg';
+import flip_up_14b from './assets/suckers_14b.jpg';
 
 type FlipUpProps =  { 
     flipUp: IFlipUp, 
@@ -129,9 +143,10 @@ export interface IFlipUp {
 };
 
 export const FlipUpData: IFlipUp[] = [
+    // page  7
     {
         x: 265,
-        y: 210,
+        y: 200,
         width: 130,
         height: 98,
         imgSrc: flip_up_7a,
@@ -143,117 +158,131 @@ export const FlipUpData: IFlipUp[] = [
         height: 98,
         imgSrc: flip_up_7b,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 8
+    {
         x: 215,
         y: 175,
-        width: 120,
-        height: 100,
+        width: 130,
+        height: 98,
         imgSrc: flip_up_8a,
         direction: EDirection.UP
     }, {
         x: 230,
-        y: 410,
-        width: 120,
-        height: 100,
+        y: 390,
+        width: 130,
+        height: 98,
         imgSrc: flip_up_8b,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 9
+    {
         x: 275,
-        y: 250,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        y: 240,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_9a,
         direction: EDirection.UP
     }, {
         x: 338,
-        y: 576,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        y: 556,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_9b,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 10
+    {
         x: 110,
-        y: 105,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        y: 125,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_10a,
         direction: EDirection.UP
     }, {
         x: 230,
-        y: 342,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        y: 332,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_10b,
         direction: EDirection.UP
     }, {
         x: 158,
-        y: 592,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        y: 575,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_10c,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 11
+    {
         x: 124,
         y: 156,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_11a,
         direction: EDirection.UP
     }, {
         x: 165,
         y: 343,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_11b,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 12
+    {
         x: 85,
-        y: 105,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        y: 125,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_12a,
         direction: EDirection.UP
     }, {
-        x: 405,
-        y: 475,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        x: 395,
+        y: 465,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_12b,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 13
+    {
         x: 165,
         y: 322,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_13a,
         direction: EDirection.UP
     }, {
         x: 103,
         y: 580,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_13b,
         direction: EDirection.UP
     }, {
         x: 408,
         y: 592,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_13c,
         direction: EDirection.UP
-    }, {
+    }, 
+    // page 14
+    {
         x: 430,
         y: 172,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_14a,
         direction: EDirection.UP
     }, {
         x: 240,
         y: 543,
-        width: 120,
-        height: 100,
-        imgSrc: flip_up_7b,
+        width: 130,
+        height: 98,
+        imgSrc: flip_up_14b,
         direction: EDirection.UP
     }, 
 ];

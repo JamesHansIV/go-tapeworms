@@ -35,7 +35,7 @@ import page_24 from './assets/suckers_24.jpg';
 
 // constants
 const WIDTH = 612; // TODO: dynamic sizing
-const HEIGHT = 792;
+const HEIGHT = 798;
 
 function App() {
   const [currentPageNum, setCurrentPageNum] = useState<number>(0);
