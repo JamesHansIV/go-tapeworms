@@ -33,8 +33,8 @@ import page_24 from './assets/suckers_24.jpg';
 
 
 
-// con
-const WIDTH = 612;
+// constants
+const WIDTH = 612; // TODO: dynamic sizing
 const HEIGHT = 792;
 
 function App() {
@@ -80,7 +80,6 @@ function App() {
 
   // divs should be their own components
   return (
-    // <>Hello world</>
     <div style={{ width: `${2 * WIDTH}px`, height: '100vh', marginTop: '3em' }}>
       <div className={styles.bookContainer}>
         <HTMLFlipBook
