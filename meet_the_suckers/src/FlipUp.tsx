@@ -3,7 +3,7 @@
 import { CSSProperties } from 'react';
 import styles from './FlipUp.module.css';
 
-// import cursor from './assets/cursor.png';
+import cursor from './assets/cursor.png';
 import flip_up_7a from './assets/suckers_7a.jpg';
 import flip_up_7b from './assets/suckers_7b.jpg';
 import flip_up_8a from './assets/suckers_8a.jpg';
@@ -20,19 +20,21 @@ type FlipUpProps =  {
 const FlipUp = (props: FlipUpProps) => {
 
     const handleClick = () => {
-        console.log("CLICKED");
-        console.log(props.flipUp)
-        // setOpen(!open)
         if (props.flipUp.open !== true) {
             const newArray = [...props.state];
             newArray[props.index] = {...props.flipUp, open: true};
             props.setState(newArray);
         } else {
-            console.log("is closed");
             const newArray = [...props.state];
             newArray[props.index] = {...props.flipUp, open: false};
             props.setState(newArray);
         }
+    }
+
+    const sizeScale: number = 1.25;
+    const weightedSize: any = {
+        width: props.flipUp.width * sizeScale,
+        height: props.flipUp.height * sizeScale,
     }
 
     const borderStyle: any = {
@@ -46,7 +48,7 @@ const FlipUp = (props: FlipUpProps) => {
         position: 'absolute',
         left:`${-props.flipUp.x}px`, 
         top:`${-props.flipUp.y}px`, 
-        clipPath: `rect(${props.flipUp.y}px ${props.flipUp.x + props.flipUp.width}px ${props.flipUp.y + props.flipUp.height}px ${props.flipUp.x}px)`,
+        clipPath: `rect(${props.flipUp.y}px ${props.flipUp.x + weightedSize.width}px ${props.flipUp.y + weightedSize.height}px ${props.flipUp.x}px)`,
         transformOrigin: (props.flipUp.direction === EDirection.UP ? outerImgTransformOriginUP : outerImgTransformOriginDOWN),
     }
 
@@ -64,8 +66,8 @@ const FlipUp = (props: FlipUpProps) => {
                 position:'absolute', 
                 left:`${props.flipUp.x - borderStyle.thickness}px`, 
                 top:`${props.flipUp.y - borderStyle.thickness}px`, 
-                width:`${props.flipUp.width}px`, 
-                height:`${props.flipUp.height}px`, 
+                width:`${weightedSize.width}px`, 
+                height:`${weightedSize.height}px`, 
                 border:`${borderStyle.thickness}px ${borderStyle.color} solid`,
                 cursor: 'pointer'
             }}
@@ -131,14 +133,14 @@ export const FlipUpData: IFlipUp[] = [
         x: 265,
         y: 210,
         width: 130,
-        height: 99,
+        height: 98,
         imgSrc: flip_up_7a,
         direction: EDirection.UP
     }, {
         x: 280,
         y: 335,
         width: 130,
-        height: 100,
+        height: 98,
         imgSrc: flip_up_7b,
         direction: EDirection.UP
     }, {
@@ -206,7 +208,7 @@ export const FlipUpData: IFlipUp[] = [
         direction: EDirection.UP
     }, {
         x: 85,
-        y: 75,
+        y: 105,
         width: 120,
         height: 100,
         imgSrc: flip_up_7b,
