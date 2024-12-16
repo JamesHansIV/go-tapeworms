@@ -81,7 +81,7 @@ function App() {
   // divs should be their own components
   return (
     <div style={{ width: `${2 * WIDTH}px`, height: '100vh', marginTop: '3em' }}>
-      <div className={styles.bookContainer}>
+      <div className={styles.bookContainer} style={{position:'relative'}}>
         <HTMLFlipBook
           width={WIDTH} height={HEIGHT}
           showCover={true}
@@ -112,62 +112,70 @@ function App() {
           onFlip={pageTurn}
         >
           {/* cover */}
-          <Page imgSrc={cover} />
+          <Page imgSrc={cover} pageNum={0}/>
 
 
           {/* background 2 page spread */}
-          <Page imgSrc={page_1} />
-          <Page imgSrc={page_2} />
+          <Page imgSrc={page_1} pageNum={1}/>
+          <Page imgSrc={page_2} pageNum={2}/>
 
           {/* authors and title page */}
-          <Page imgSrc={page_3} />
-          <Page imgSrc={page_4} />
+          <Page imgSrc={page_3} pageNum={3}/>
+          <Page imgSrc={page_4} pageNum={4}/>
 
           {/* content pages  */}
-          <Page imgSrc={page_5} />
-          <Page imgSrc={page_6} />
+          <Page imgSrc={page_5} pageNum={5}/>
+          <Page imgSrc={page_6} pageNum={6}/>
           <Page
             imgSrc={page_7}
             flipUps={FlipUpData.slice(0, 2)}
+            pageNum={7}
           />
           <Page 
             imgSrc={page_8} 
             flipUps={FlipUpData.slice(2, 4)}
+            pageNum={8}
           />
           <Page 
             imgSrc={page_9} 
             flipUps={FlipUpData.slice(4, 6)}
+            pageNum={9}
           />
           <Page 
             imgSrc={page_10} 
             flipUps={FlipUpData.slice(6, 9)}
+            pageNum={10}
           />
           <Page 
             imgSrc={page_11} 
             flipUps={FlipUpData.slice(9, 11)}
+            pageNum={11}
           />
           <Page 
             imgSrc={page_12} 
             flipUps={FlipUpData.slice(11, 13)}
+            pageNum={12}
           />
           <Page 
             imgSrc={page_13} 
             flipUps={FlipUpData.slice(13, 16)}
+            pageNum={13}
           />
           <Page 
             imgSrc={page_14} 
             flipUps={FlipUpData.slice(16, 18)}
+            pageNum={14}
           />
-          <Page imgSrc={page_15} />
-          <Page imgSrc={page_16} />
-          <Page imgSrc={page_17} />
-          <Page imgSrc={page_18} />
-          <Page imgSrc={page_19} />
-          <Page imgSrc={page_20} />
-          <Page imgSrc={page_21} />
-          <Page imgSrc={page_22} />
-          <Page imgSrc={page_23} />
-          <Page imgSrc={page_24} />
+          <Page imgSrc={page_15} pageNum={15}/>
+          <Page imgSrc={page_16} pageNum={16}/>
+          <Page imgSrc={page_17} pageNum={17}/>
+          <Page imgSrc={page_18} pageNum={18}/>
+          <Page imgSrc={page_19} pageNum={19}/>
+          <Page imgSrc={page_20} pageNum={20}/>
+          <Page imgSrc={page_21} pageNum={21}/>
+          <Page imgSrc={page_22} pageNum={22}/>
+          <Page imgSrc={page_23} pageNum={23}/>
+          <Page imgSrc={page_24} pageNum={24}/>
 
         </HTMLFlipBook>
       </div>

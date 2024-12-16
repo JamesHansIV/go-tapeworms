@@ -7,7 +7,8 @@ import styles from './Page.module.css';
 type Ref = HTMLDivElement;
 type PageProps = { 
     imgSrc: string, 
-    flipUps?: IFlipUp[] 
+    flipUps?: IFlipUp[],
+    pageNum: number,
 };
 
 // const HandleFlipUpClick = (flipUp: IFlipUp) => (e: MouseEvent): void => {
@@ -73,6 +74,11 @@ const Page = forwardRef<Ref, PageProps>((props, ref) => {
                 const f_props = {flipUp: f, state: flipUps, setState: setFlipUps, pageImgSrc: props.imgSrc, index: i};
                 return(FlipUp(f_props));
             })}
+
+            {/* shadow decoration */}
+            {props.pageNum !== 0 &&
+                <div className={props.pageNum % 2 !== 0 ? styles.leftShadow : styles.rightShadow}/>
+            }
         </div>
      );
 });

@@ -64,3 +64,7 @@ li {
     cursor: pointer;
     /* padding: 0em 0.5em; */
 }
+
+.centerShadow {
+    position:absolute;
+}

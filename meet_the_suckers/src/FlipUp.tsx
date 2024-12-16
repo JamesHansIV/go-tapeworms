@@ -97,7 +97,7 @@ const FlipUp = (props: FlipUpProps) => {
                     (props.flipUp.open === true ? styles.innerAOpen : styles.innerAClosed)
                 }
             /> 
- 
+   
             <img 
                 src={props.flipUp.imgSrc}
                 style={innerBImgStyle}
@@ -106,6 +106,10 @@ const FlipUp = (props: FlipUpProps) => {
                     (props.flipUp.open === true ? styles.innerBOpen : styles.innerBClosed)
                 }
             />
+
+            {/* shadow div */}
+            <div className={props.flipUp.open !== true ? styles.shadowClosed : styles.shadowOpen}/>
+
 
             {/* outside image */}
             <img

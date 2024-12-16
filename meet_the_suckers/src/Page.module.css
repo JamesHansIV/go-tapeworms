@@ -6,8 +6,19 @@
     margin: 0;
 }
 
-.flipUp {
-    object-fit: contain;
-    border: 1px solid blue;
-    color: red;
+.rightShadow, .leftShadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.rightShadow {
+    box-shadow: inset 7px 0 30px -7px rgba(0, 0, 0, 0.4);
+}
+
+.leftShadow {
+    box-shadow: inset -7px 0 30px -7px rgba(0, 0, 0, 0.4);
 }
