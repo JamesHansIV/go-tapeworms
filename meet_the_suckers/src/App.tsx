@@ -81,7 +81,9 @@ function App() {
   // divs should be their own components
   return (
     <div style={{ width: `${2 * WIDTH}px`, height: '100vh', marginTop: '3em' }}>
-      <div className={styles.bookContainer} style={{position:'relative'}}>
+      <div 
+        // style={{boxShadow: `${currentPageNum === 0 ? `${WIDTH}px 0 5px 2px rgba(0, 0, 0, 0.4)` : '0 0 20px 0 rgba(0, 0, 0, 0.5)'}`}}
+        >
         <HTMLFlipBook
           width={WIDTH} height={HEIGHT}
           showCover={true}

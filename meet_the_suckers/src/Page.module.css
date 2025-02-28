@@ -17,8 +17,10 @@
 
 .rightShadow {
     box-shadow: inset 7px 0 30px -7px rgba(0, 0, 0, 0.4);
+    /* inset -70px 0 50px -7px rgba(0, 0, 0, 0.35); */
 }
 
 .leftShadow {
     box-shadow: inset -7px 0 30px -7px rgba(0, 0, 0, 0.4);
+     /* inset 70px 0 50px -7px rgba(0, 0, 0, 0.35); */
 }

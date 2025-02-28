@@ -2,6 +2,10 @@
     background-color: rgb(157, 157, 184);
 }
 
+.bookContainer {
+    /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5); */
+}
+
 .page {
     /* border: red solid 2px; */
     /* background-color: rgb(255, 0, 0, 0.5); */
