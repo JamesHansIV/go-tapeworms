@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {createPortal} from 'react-dom';
 
 import styles from './detailed-feature-selection.module.css';
@@ -23,6 +23,10 @@ function DetailedFeatureSelection (props) {
         setInitX(document.body.clientWidth / 3 - 150);
         setInitY(e.pageY - (e.clientY - infoButtonRef.current.getBoundingClientRect().top) - 100);
     };
+
+    useEffect(()=> {
+        setModalActive(false);
+    }, [props.closeModal])
 
 
     return (
