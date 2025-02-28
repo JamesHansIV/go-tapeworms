@@ -254,8 +254,8 @@ filter_content:
             filter_type: radio_pill_selector
             inputs: 
               - "batoids": "batoids"
-              - "sharks": "sharks"
               - "ratfishes": "ratfishes"
+              - "sharks": "sharks"
             hint_modal: True
   - heading: "More Features"
   - accordion:
