@@ -15,13 +15,15 @@ function DetailedFeatureSelection (props) {
     const [initX, setInitX] = useState();
     const [initY, setInitY] = useState();
 
+    const short = {height: 330, width: 300};
+    const tall = {height: 540, width: 300};
+
     const toggleExpansion = () => setSelectionExpanded(!selectionExpanded);
     const toggleModal = (e) => { 
         setModalActive(!modalActive);
-
-        // setInitX(e.pageX - (e.clientX - infoButtonRef.current.getBoundingClientRect().left));
-        setInitX(document.body.clientWidth / 3 - 150);
-        setInitY(e.pageY - (e.clientY - infoButtonRef.current.getBoundingClientRect().top) - 100);
+        let height = props.hintPanelType === 'short' ? short.height : tall.height;
+        setInitY(e.pageY - e.clientY + window.innerHeight / 2 - height/2 - 100)
+        setInitX(document.body.clientWidth / 2 - short.width * Object.keys(props.inputDict).length / 2);
     };
 
     useEffect(()=> {
@@ -65,7 +67,7 @@ function DetailedFeatureSelection (props) {
 
                                 // panelsize
                                 hintPanelType={props.hintPanelType}
-                                panelSize={(props.hintPanelType === 'short' ? {height: 330, width: 300} : {height: 540, width: 300})}
+                                panelSize={(props.hintPanelType === 'short' ?  {height: short.height, width: short.width}: {height: tall.height, width: tall.width})}
                                 // panelSize={{height: 300, width: 150}}
 
                                 // hint components positioning
