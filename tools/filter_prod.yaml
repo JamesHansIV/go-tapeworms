@@ -259,7 +259,7 @@ filter_content:
             hint_modal: True
   - heading: "More Features"
   - accordion:
-      header: "Specimen Order"
+      header: "Elasmobranch Tapeworm Order"
       open_initally: False # true/false
       divider: False # true adds a dividing line beneath the accordion
       filters:
