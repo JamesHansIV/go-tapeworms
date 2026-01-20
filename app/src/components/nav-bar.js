@@ -33,7 +33,7 @@ function NavBar() {
                         to='/key'
                         reloadDocument
                         className={ ({isActive}) => isActive ? styles.activeLink : styles.link }
-                        style={{width: 150}}
+                        // style={{width: 150}}
 
                         >Key to Genera
                     </NavLink>
@@ -41,9 +41,27 @@ function NavBar() {
                 <li className={styles.list}>
                     <a 
                         className={ styles.link }
-                        style={{width: 200}}
+                        // style={{width: 200}}
                         href={"https://book.tapeworms-unlocked.info"}
                         >Meet the Suckers</a>
+                </li>
+                <li className={styles.list}>
+                    <a
+                        className={styles.link}
+                        // style={{width: 100}}
+                        href={"https://specificity.tapeworms-unlocked.info/"}
+                    >
+                        Specificity
+                    </a>
+                </li>
+                 <li className={styles.list}>
+                    <a
+                        className={styles.link}
+                        // style={{width: 200}}
+                        href={"https://draft.tapewormscynder.eeb.uconn.edu/"}
+                    >
+                        Global Cestode Database
+                    </a>
                 </li>
                 {/* <li className={styles.list}>
                     <NavLink 

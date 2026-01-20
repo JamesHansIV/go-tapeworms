@@ -16,7 +16,7 @@ function Footer () {
             <div className={styles.infoContainer}>
                 <img className={styles.siteLogo} src={"logo.png"}/>
                 <p className={styles.copyright}>Copyright © 2024 Tapeworms Unlocked</p>
-                <p className={styles.text}>Created by J. Hanselman, J. N. Caira & K. Jensen &nbsp;
+                <p className={styles.text}>Created by J. Hanselman, K. Jensen & J. N. Caira &nbsp;
                     {/* <a className={styles.text} href="/">CONTACT US</a>     */}
                     {/* replace href with /contact */}
                 </p>

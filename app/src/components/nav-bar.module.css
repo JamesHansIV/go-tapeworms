@@ -15,7 +15,7 @@
 .list {
     font-family: "Gill Sans", san-serif;
     font-style: normal;
-    font-weight: 400;
+    /* font-weight: 400; */
     font-size: 22px;
     text-align: center;    
     display: inline-block;
@@ -24,16 +24,19 @@
 }
 
 .link {
-    font-weight: 400;
+    font-weight: 600;
     list-style: none;
     text-decoration: none;
     color: #E2F0F3;
-    display: inline-block;
+    /* display: inline-block; */
+    opacity: 0.85;
+
 }
 
 .link:hover {
     font-weight: 600;
     padding:10;
+    opacity: 1;
 }
 
 .activeLink {
@@ -42,4 +45,5 @@
     text-decoration: none;
     color: white;
     display: inline-block;
+    opacity: 1;
 }
